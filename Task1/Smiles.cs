@@ -9,23 +9,26 @@ namespace Task1
     class Smiles :Qustions 
     {
         public static Boolean[] f = new Boolean[10];
-        public Smiles(int Id,string Qustion,string TypeOfQuestion, int order,int NumberOfSmiles) {
+        public Smiles(int Id,int idForType, string Qustion,string TypeOfQuestion, int order,int NumberOfSmiles) {
             this.Qustion = Qustion;
             this.NumberOfSmiles = NumberOfSmiles;
             this.Order = order;
             this.TypeOfQuestion = TypeOfQuestion;
-            this.Id = Id; 
+            this.Id = Id;
+            this.idForType = idForType; 
         }
-        public Smiles(string Qustion, string TypeOfQuestion, int order, int NumberOfSmiles)
+        public Smiles(int idForType, string Qustion, string TypeOfQuestion, int order, int NumberOfSmiles)
         {
             this.Qustion = Qustion;
             this.NumberOfSmiles = NumberOfSmiles;
             this.Order = order;
             this.TypeOfQuestion = TypeOfQuestion;
-            
+            this.idForType = idForType; 
+
+
         }
-        private int numberOfSmiles; 
         public int NumberOfSmiles { get; set; }
+        public int idForType { get; set; }
 
     }
 }

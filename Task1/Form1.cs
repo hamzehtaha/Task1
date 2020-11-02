@@ -87,7 +87,9 @@ namespace Task1
                         SqlDataReader rd2 = cmd1.ExecuteReader();
                         while (rd2.Read())
                         {
-                            Qustions obj = new Smiles(li1.ElementAt(i), liQus.ElementAt(i), li.ElementAt(i), liOrder.ElementAt(i), Convert.ToInt32(rd2["Number_of_smily"]));
+                            Qustions obj = new Smiles(li1.ElementAt(i),Convert.ToInt32(rd2["ID"]), liQus.ElementAt(i), li.ElementAt(i), liOrder.ElementAt(i), Convert.ToInt32(rd2["Number_of_smily"]));
+                            Smiles obj1 = (Smiles)obj;
+                            obj1.idForType = Convert.ToInt32(rd2["ID"]);
                             Qustions.lissSlid.Add(obj);
                         }
                         rd2.Close(); 
@@ -100,7 +102,7 @@ namespace Task1
                         while (rd2.Read())
                         {
                              
-                            Qustions obj = new Stars(li1.ElementAt(i), liQus.ElementAt(i), li.ElementAt(i), liOrder.ElementAt(i), Convert.ToInt32(rd2["Number_Of_Stars"]));
+                            Qustions obj = new Stars(li1.ElementAt(i), Convert.ToInt32(rd2["ID"]), liQus.ElementAt(i), li.ElementAt(i), liOrder.ElementAt(i), Convert.ToInt32(rd2["Number_Of_Stars"]));
                             Qustions.lissSlid.Add(obj);
                         }
                         rd2.Close(); 

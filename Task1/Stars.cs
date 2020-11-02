@@ -8,22 +8,23 @@ namespace Task1
 {
     class Stars : Qustions
     {
-        private int numberOfStars;
         public int NumberOfStars { get; set; }
-
-        public Stars(int Id,string Qustion,string TypeOfQuestion, int order , int NumberOfStars) {
+        public int idForType { get; set;  }
+        public Stars(int Id,int idForType, string Qustion,string TypeOfQuestion, int order , int NumberOfStars) {
             this.Qustion = Qustion;
             this.NumberOfStars = NumberOfStars;
             this.Order = order;
             this.TypeOfQuestion = TypeOfQuestion;
-            this.Id = Id; 
+            this.Id = Id;
+            this.idForType = idForType; 
         }
-        public Stars(string Qustion, string TypeOfQuestion, int order, int NumberOfStars)
+        public Stars(int idForType, string Qustion, string TypeOfQuestion, int order, int NumberOfStars)
         {
             this.Qustion = Qustion;
             this.NumberOfStars = NumberOfStars;
             this.Order = order;
             this.TypeOfQuestion = TypeOfQuestion;
+            this.idForType = idForType; 
 
         }
     }
