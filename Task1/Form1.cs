@@ -26,13 +26,12 @@ namespace Task1
             Smiles.ShowQuestion();
             Stars.ShowQuestion();
             getData(); 
-           
         }
         private void Hidden() {
             pictureBox16.Visible = false;
-            
         }
         private void getData() {
+            // Get Data Function to Get data from database 
             SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
             SqlCommand cmd = new SqlCommand("sp_Qustions_Select1", con);
             cmd.CommandType = CommandType.StoredProcedure;
@@ -44,6 +43,7 @@ namespace Task1
                 DataTable dt = new DataTable();
                 dt.Load(rd);
                 dataGridView1.DataSource = dt;
+                // View the data in datagridview 
             }
             catch (Exception ex)
             {
@@ -55,63 +55,16 @@ namespace Task1
             }
 
         }
-        private void FillArray() {
-            SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-            SqlCommand cmd = new SqlCommand("sp_Qustions_SelectAll", con);
-            SqlCommand cmd1 = new SqlCommand();
-            cmd1.Connection = con; 
-            try
-            {
-                SqlDataReader rd = cmd.ExecuteReader(); 
-                string Qusetion, type;
-                int order;
-                int c = 0;
-                string StartValueCap = "", EndValueCap = "";
-                int StartValue = -1, EndValue =-1,ID,IdForType =-1; 
-                while (rd.Read())
-                {
-                    Qusetion = rd["Qustions_text"].ToString();
-                    type = rd["Type_Of_Qustion"].ToString();
-                    order = Convert.ToInt32(rd["Qustion_order"]); 
-                    ID = Convert.ToInt32(rd["ID"]);
-                    ++c;
-                    if (type.Equals("Slider"))
-                    {
-                        cmd1.CommandText = "sp_Slider_SelectAll2";
-                        cmd1.Parameters.AddWithValue("@Qus_ID", rd["ID"]);
-                        SqlDataReader rd1 = cmd1.ExecuteReader();
-                        while (rd1.Read())
-                        {
-                            StartValue = Convert.ToInt32(rd1["Start_Value"]);
-                            EndValue = Convert.ToInt32(rd1["End_Value"]);
-                            StartValueCap = rd1["Start_Value_Cap"].ToString();
-                            EndValueCap = rd1["End_Value_Cap"].ToString();
-                            IdForType = Convert.ToInt32(rd1["ID"]);
-                        }
-                        Slider obj = new Slider(ID, IdForType, Qusetion,type,order,StartValue, EndValue, StartValueCap, EndValueCap);
-                        Qustions.lissSlid.Add(obj); 
-                    }else if (type.Equals("Smily"))
-                    {
 
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message); 
-            }
-            finally
-            {
-                con.Close();
-            }
-        }
         private void fill(int number) {
+            // for fill the array in true for stars 
             for (int i = 0; i <number; ++i) {
                 Smiles.f[i] = true; 
             }
         }
         private bool CheckStar(int number)
         {
+            // this function to check in stars 
             bool f = true;
             for (int i = 0; i < 10; ++i)
             {
@@ -131,6 +84,7 @@ namespace Task1
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // to go to the Add page 
             Form2 f = new Form2();
             f.Show();
         }
@@ -141,7 +95,7 @@ namespace Task1
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-             
+             // this function for which cell is choose 
             int rowindex = e.RowIndex;
             DataGridViewRow row = dataGridView1.Rows[rowindex];
             string s = row.Cells[0].Value.ToString();
@@ -417,14 +371,16 @@ namespace Task1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            // to the refresh the data 
             Slider.ShowQuestion();
             Smiles.ShowQuestion();
-            Stars.ShowQuestion(); 
-
+            Stars.ShowQuestion();
+            getData(); 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // this function for delete the answer 
             DialogResult dialogResult = MessageBox.Show("Are you sure to Delete this answer ?", "Delete", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
@@ -433,12 +389,13 @@ namespace Task1
                 Stars  obj3 = null; 
                 if (ID == -1 && Qustions.lissSlid.Count>0)
                 {
-
+                    // if user not choose by defual choose the first question 
                     DataGridViewRow row = dataGridView1.Rows[0];
                     ID = Qustions.lissSlid.ElementAt(0).Id;
                     Type = Qustions.lissSlid.ElementAt(0).TypeOfQuestion;
 
                 }
+                // delete from data base 
                 for (int i = 0; i<Qustions.lissSlid.Count; ++i)
                 {
                     if (Qustions.lissSlid.ElementAt(i).Id == ID)
@@ -545,7 +502,7 @@ namespace Task1
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+            // for take the id for cell which choose 
             if (ID == -1) {
                 
                 DataGridViewRow row = dataGridView1.Rows[0];
@@ -553,6 +510,7 @@ namespace Task1
                 Type = Qustions.lissSlid.ElementAt(0).TypeOfQuestion; 
 
             }
+            // this function for go to the edit page and give me the id 
             Form3 f = new Form3(ID,Type);
             f.Show();
         }

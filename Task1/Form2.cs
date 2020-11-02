@@ -19,6 +19,7 @@ namespace Task1
             HidePanel(); 
         }
         private void HidePanel() {
+            // for hide the textbox 
             panel2.Visible = false;
             panel3.Visible = false;
             panel4.Visible = false;
@@ -31,6 +32,7 @@ namespace Task1
 
         }
         private int InsertQuestion() {
+            // this function for insert the question in databse 
             int QustionOrder = Convert.ToInt32(textBox8.Text);
             string Qus = textBox1.Text;
             SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
@@ -67,6 +69,7 @@ namespace Task1
         }
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
+            // for radio Button cahnges 
             if (radioButton1.Checked == true) {
                 panel2.Visible = true; 
             
@@ -84,13 +87,14 @@ namespace Task1
 
         }
         private bool IsNumber(string number) {
-            
+            // to check the string is number or not ? 
             return int.TryParse(number, out int n);
         
         }
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            
+            // for radio Button cahnges 
+
             if (radioButton2.Checked == true)
             {
                 panel3.Visible = true;
@@ -108,6 +112,7 @@ namespace Task1
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
         {
+            // for radio Button cahnges 
             if (radioButton3.Checked == true)
             {
                 panel3.Visible = false;
@@ -122,6 +127,7 @@ namespace Task1
             }
         }
         private void Clear() {
+            // to clear every thing and back the curser in the start point 
             textBox1.Text = null;
             textBox2.Text = null;
             textBox3.Text = null;
@@ -140,6 +146,7 @@ namespace Task1
             textBox1.Focus();
         }
         private bool CheckValidate() {
+            // this function for check text box is valid or not in some rules 
             if (textBox1.Text == "")
             {
                 MessageBox.Show("You Must Fill Your Qustion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -282,6 +289,7 @@ namespace Task1
         }
         private void pictureBox10_Click(object sender, EventArgs e)
         {
+            // this for save and add the new question after check validate and save a new question in data base 
              if (radioButton1.Checked)
             {
                 if (CheckValidate()) {
@@ -427,7 +435,7 @@ namespace Task1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-           
+           // for exit from  Add page 
             this.Close(); 
         }
 
