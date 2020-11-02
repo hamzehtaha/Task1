@@ -303,7 +303,8 @@ namespace Task1
                                 {
                                     smiles = Convert.ToInt32(textBox6.Text);
                                     obj1.NumberOfSmiles = smiles;
-                                    Result += " Smiles"; 
+                                    Result += " Smiles";
+                                    ///haha
                                 }
                                 else
                                 {
