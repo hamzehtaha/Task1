@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Task1
 {
-    class Qustions
+   abstract class Qustions
     {
         public static List<Qustions> lissSlid = new List<Qustions>(); 
         private string qustion;
@@ -17,6 +18,6 @@ namespace Task1
         public int Order { get; set; }
         public int Id { get; set; }
         public string TypeOfQuestion { get; set;  }
-
+        public void ShowQuestion() { }
     }
 }

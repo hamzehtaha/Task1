@@ -10,118 +10,100 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace Task1
 {
     public partial class Form1 : MetroFramework.Forms.MetroForm
     {
-        private int ID;
+        private int ID = -1;
         private string Type; 
         public Form1()
         { 
             InitializeComponent();
             Hidden();
-            
-            getData();
-         }
+            Slider.ShowQuestion();
+            Smiles.ShowQuestion();
+            Stars.ShowQuestion();
+            getData(); 
+           
+        }
         private void Hidden() {
             pictureBox16.Visible = false;
             
         }
         private void getData() {
             SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-            SqlCommand cmd1 = new SqlCommand("select * from Qustions", con);
-             try
+            SqlCommand cmd = new SqlCommand("sp_Qustions_Select1", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            
+            try
             {
                 con.Open();
-                string s = "",type;
-                int or = 0;
-                dataGridView1.ColumnCount = 3;
-                dataGridView1.RowCount = 100; 
-                SqlDataReader rd = cmd1.ExecuteReader();
-                List<string> li = new List<string>();
-                List<int> li1 = new List<int>();
-                List<int> liOrder = new List<int>();
-                List<string> liQus = new List<string>(); 
-                int c = 0;
-                int id;
-                
-                while (rd.Read()) {
-                    s = rd["Qustions_text"].ToString(); 
-                    or = Convert.ToInt32(rd["Qustion_order"]);
-                    id = Convert.ToInt32(rd["ID"]);
-                    type = rd["Type_Of_Qustion"].ToString();
-                    dataGridView1.Rows[c].Cells[0].Value = s;
-                    dataGridView1.Rows[c].Cells[2].Value = or;
-                    dataGridView1.Rows[c].Cells[1].Value = type;
-                    ++c;
-                    li1.Add(id); 
-                    li.Add(type);
-                    liOrder.Add(or);
-                    liQus.Add(s); 
-                }
-                
-                c = 0;
-                rd.Close();
-                for (int i = 0; i <li1.Count; ++i)
-                {
-                    if (li.ElementAt(i).Equals("Slider"))
-                    {
-                        cmd1.CommandText = "select * from Slider where Qus_ID=" +li1.ElementAt(i);
-                        SqlDataReader rd2 = cmd1.ExecuteReader();
-                        while (rd2.Read())
-                        {
-                            Qustions obj = new Slider(li1.ElementAt(i), Convert.ToInt32(rd2["ID"]), liQus.ElementAt(i), li.ElementAt(i), liOrder.ElementAt(i), Convert.ToInt32(rd2["Start_Value"]), Convert.ToInt32(rd2["End_Value"]), rd2["Start_Value_Cap"].ToString(), rd2["End_Value_Cap"].ToString());
-                            Slider obj1 =(Slider) obj;
-                            obj1.IdForType = Convert.ToInt32(rd2["ID"]); 
-                            Qustions.lissSlid.Add(obj);
-
-                        }
-                        rd2.Close();
-
-                    }
-                    else if (li.ElementAt(i).Equals("Smily"))
-                    {
-                        
-                        cmd1.CommandText = "select * from Smily where Qus_ID=" + li1.ElementAt(i);
-                        SqlDataReader rd2 = cmd1.ExecuteReader();
-                        while (rd2.Read())
-                        {
-                            Qustions obj = new Smiles(li1.ElementAt(i),Convert.ToInt32(rd2["ID"]), liQus.ElementAt(i), li.ElementAt(i), liOrder.ElementAt(i), Convert.ToInt32(rd2["Number_of_smily"]));
-                            Smiles obj1 = (Smiles)obj;
-                            obj1.idForType = Convert.ToInt32(rd2["ID"]);
-                            Qustions.lissSlid.Add(obj);
-                        }
-                        rd2.Close(); 
-                    }
-                    else if (li.ElementAt(i).Equals("Stars"))
-                    {
-                        cmd1.CommandText = "select * from stars where Qus_ID=" + li1.ElementAt(i);
-                        
-                        SqlDataReader rd2 = cmd1.ExecuteReader();
-                        while (rd2.Read())
-                        {
-                             
-                            Qustions obj = new Stars(li1.ElementAt(i), Convert.ToInt32(rd2["ID"]), liQus.ElementAt(i), li.ElementAt(i), liOrder.ElementAt(i), Convert.ToInt32(rd2["Number_Of_Stars"]));
-                            Qustions.lissSlid.Add(obj);
-                        }
-                        rd2.Close(); 
-
-
-                    }
-                }
-
-             }
+                SqlDataReader rd = cmd.ExecuteReader(); 
+                DataTable dt = new DataTable();
+                dt.Load(rd);
+                dataGridView1.DataSource = dt;
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            finally {
-                
+            finally
+            {
                 con.Close(); 
-                
             }
 
+        }
+        private void FillArray() {
+            SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
+            SqlCommand cmd = new SqlCommand("sp_Qustions_SelectAll", con);
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.Connection = con; 
+            try
+            {
+                SqlDataReader rd = cmd.ExecuteReader(); 
+                string Qusetion, type;
+                int order;
+                int c = 0;
+                string StartValueCap = "", EndValueCap = "";
+                int StartValue = -1, EndValue =-1,ID,IdForType =-1; 
+                while (rd.Read())
+                {
+                    Qusetion = rd["Qustions_text"].ToString();
+                    type = rd["Type_Of_Qustion"].ToString();
+                    order = Convert.ToInt32(rd["Qustion_order"]); 
+                    ID = Convert.ToInt32(rd["ID"]);
+                    ++c;
+                    if (type.Equals("Slider"))
+                    {
+                        cmd1.CommandText = "sp_Slider_SelectAll2";
+                        cmd1.Parameters.AddWithValue("@Qus_ID", rd["ID"]);
+                        SqlDataReader rd1 = cmd1.ExecuteReader();
+                        while (rd1.Read())
+                        {
+                            StartValue = Convert.ToInt32(rd1["Start_Value"]);
+                            EndValue = Convert.ToInt32(rd1["End_Value"]);
+                            StartValueCap = rd1["Start_Value_Cap"].ToString();
+                            EndValueCap = rd1["End_Value_Cap"].ToString();
+                            IdForType = Convert.ToInt32(rd1["ID"]);
+                        }
+                        Slider obj = new Slider(ID, IdForType, Qusetion,type,order,StartValue, EndValue, StartValueCap, EndValueCap);
+                        Qustions.lissSlid.Add(obj); 
+                    }else if (type.Equals("Smily"))
+                    {
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message); 
+            }
+            finally
+            {
+                con.Close();
+            }
         }
         private void fill(int number) {
             for (int i = 0; i <number; ++i) {
@@ -435,18 +417,136 @@ namespace Task1
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            getData();
+            Slider.ShowQuestion();
+            Smiles.ShowQuestion();
+            Stars.ShowQuestion(); 
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            
+            DialogResult dialogResult = MessageBox.Show("Are you sure to Delete this answer ?", "Delete", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                Slider obj1 = null;
+                Smiles obj2 = null;
+                Stars  obj3 = null; 
+                if (ID == -1 && Qustions.lissSlid.Count>0)
+                {
+
+                    DataGridViewRow row = dataGridView1.Rows[0];
+                    ID = Qustions.lissSlid.ElementAt(0).Id;
+                    Type = Qustions.lissSlid.ElementAt(0).TypeOfQuestion;
+
+                }
+                for (int i = 0; i<Qustions.lissSlid.Count; ++i)
+                {
+                    if (Qustions.lissSlid.ElementAt(i).Id == ID)
+                    {
+                        if (Qustions.lissSlid.ElementAt(i) is Slider)
+                        {
+                            SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
+                            try
+                            {
+                                con.Open();
+                                SqlCommand cmd3 = new SqlCommand("sp_Slider_Delete", con);
+                                cmd3.CommandType = CommandType.StoredProcedure;
+                                obj1 = (Slider)Qustions.lissSlid.ElementAt(i);
+                                cmd3.Parameters.AddWithValue("@ID", obj1.IdForType);
+                                cmd3.ExecuteNonQuery();
+                                cmd3.Parameters.Clear();
+                                cmd3.CommandText = "sp_Qustion_Delete";
+                                cmd3.CommandType = CommandType.StoredProcedure;
+                                cmd3.Parameters.AddWithValue("@ID", obj1.Id);
+                                cmd3.ExecuteNonQuery();
+                                cmd3.Parameters.Clear();
+                                Qustions.lissSlid.Remove(obj1);
+                                MessageBox.Show("This Answer is Deleted");
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            finally
+                            {
+                                con.Close();
+                            }
+                        }else if (Qustions.lissSlid.ElementAt(i) is Smiles)
+                        {
+                            SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
+                            try
+                            {
+                                con.Open();
+                                SqlCommand cmd3 = new SqlCommand("sp_Smily_Delete", con);
+                                cmd3.CommandType = CommandType.StoredProcedure;
+                                obj2 = (Smiles)Qustions.lissSlid.ElementAt(i);
+                                cmd3.Parameters.AddWithValue("@ID", obj2.idForType);
+                                cmd3.ExecuteNonQuery();
+                                cmd3.Parameters.Clear();
+                                cmd3.CommandText = "sp_Qustion_Delete";
+                                cmd3.CommandType = CommandType.StoredProcedure;
+                                cmd3.Parameters.AddWithValue("@ID", obj2.Id);
+                                cmd3.ExecuteNonQuery();
+                                cmd3.Parameters.Clear();
+                                Qustions.lissSlid.Remove(obj2);
+                                MessageBox.Show("This Answer is Deleted");
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            finally
+                            {
+                                con.Close();
+                            }
+                        }
+                        else if (Qustions.lissSlid.ElementAt(i) is Stars)
+                        {
+                            SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
+                            try
+                            {
+                                con.Open();
+                                SqlCommand cmd3 = new SqlCommand("sp_Stars_Delete", con);
+                                cmd3.CommandType = CommandType.StoredProcedure;
+                                obj3 = (Stars)Qustions.lissSlid.ElementAt(i);
+                                cmd3.Parameters.AddWithValue("@ID", obj3.idForType);
+                                cmd3.ExecuteNonQuery();
+                                cmd3.Parameters.Clear();
+                                cmd3.CommandText = "sp_Qustion_Delete";
+                                cmd3.CommandType = CommandType.StoredProcedure;
+                                cmd3.Parameters.AddWithValue("@ID", obj3.Id);
+                                cmd3.ExecuteNonQuery();
+                                cmd3.Parameters.Clear();
+                                Qustions.lissSlid.RemoveAt(i);
+                                MessageBox.Show("This Answer is Deleted");
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                            }
+                            finally
+                            {
+                                con.Close();
+                            }
+                        }
+                    }
+                }
+                getData(); 
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                //do something else
+            }
+           
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             
-            if (ID == 0) {
+            if (ID == -1) {
                 
                 DataGridViewRow row = dataGridView1.Rows[0];
                 ID = Qustions.lissSlid.ElementAt(0).Id;

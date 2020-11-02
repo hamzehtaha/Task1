@@ -287,6 +287,7 @@ namespace Task1
                 if (CheckValidate()) {
                     int StartValue = Convert.ToInt32(textBox2.Text);
                     int EndValue = Convert.ToInt32(textBox3.Text);
+                    int idForType = -1; 
                     string Qus = textBox1.Text;
                     string StartValueCap = textBox5.Text;
                     string EndValueCap = textBox6.Text;
@@ -308,6 +309,14 @@ namespace Task1
                             cmd3.Parameters.AddWithValue("@End_Value_Cap", EndValueCap);
                             cmd3.Parameters.AddWithValue("@Qus_ID", id);
                             cmd3.ExecuteNonQuery();
+                            /*cmd3.Parameters.Clear();
+                            cmd3.CommandType = CommandType.StoredProcedure;
+                            cmd3.CommandText = "select ID from Slider where ID="+id;
+                            SqlDataReader rd = cmd3.ExecuteReader();
+                            while (rd.Read())
+                                idForType = Convert.ToInt32(rd["ID"]);
+                            Slider obj = new Slider(id, idForType, Qus, "Slider", QustionOrder, StartValue, EndValue, StartValueCap, EndValueCap);
+                            Qustions.lissSlid.Add(obj); */
                             MessageBox.Show("Your Qustion is Added", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             Clear();
                            // Qustions.lissSlid.Add(obj);
@@ -344,6 +353,13 @@ namespace Task1
                             cmd3.Parameters.AddWithValue("@Number_of_smily", NumberOfSmiles);
                             cmd3.Parameters.AddWithValue("@Qus_ID", id);
                             cmd3.ExecuteNonQuery();
+                            cmd3.Parameters.Clear();
+                           /* cmd3.CommandText = "select max(ID) as ID from Smily";
+                            SqlDataReader rd = cmd3.ExecuteReader();
+                            while (rd.Read())
+                                idForType = Convert.ToInt32(rd["ID"]);
+                            Smiles obj = new Smiles(id, idForType, Qus, "Smily", QustionOrder, NumberOfSmiles);
+                            Qustions.lissSlid.Add(obj); */
                             MessageBox.Show("Your Qustion is Added", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             Clear();
                            // Qustions.lissSlid.Add(obj);
@@ -367,6 +383,7 @@ namespace Task1
                 {
                     int NumberOfStars = Convert.ToInt32(textBox7.Text);
                     string Qus = textBox1.Text;
+                    int idForType = -1; 
                     int QustionOrder = Convert.ToInt32(textBox8.Text);
                 //    Qustions obj = new Stars(Qus,"Stars", QustionOrder, NumberOfStars);
                     SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
@@ -381,6 +398,13 @@ namespace Task1
                             cmd3.Parameters.AddWithValue("@Number_Of_Stars", NumberOfStars);
                             cmd3.Parameters.AddWithValue("@Qus_ID", id);
                             cmd3.ExecuteNonQuery();
+                            cmd3.Parameters.Clear();
+                           /* cmd3.CommandText = "select max(ID) as ID from Stars";
+                            SqlDataReader rd = cmd3.ExecuteReader();
+                            while (rd.Read())
+                                idForType = Convert.ToInt32(rd["ID"]);
+                            Stars obj = new Stars(id, idForType, Qus, "Smily", QustionOrder, NumberOfStars);
+                            Qustions.lissSlid.Add(obj);*/
                             MessageBox.Show("Your Qustion is Added", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                             Clear();
                            // Qustions.lissSlid.Add(obj);
