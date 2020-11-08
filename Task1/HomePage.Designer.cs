@@ -1,6 +1,6 @@
 ﻿namespace Task1
 {
-    partial class Form1
+    partial class HomePage
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomePage));
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -45,22 +46,25 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.panel1.AutoSize = true;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.dataGridView1);
-            this.panel1.Location = new System.Drawing.Point(13, 28);
+            this.panel1.Location = new System.Drawing.Point(18, 25);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(689, 294);
+            this.panel1.Size = new System.Drawing.Size(689, 297);
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(452, 264);
+            this.button2.Location = new System.Drawing.Point(378, 264);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(138, 26);
+            this.button2.Size = new System.Drawing.Size(102, 26);
             this.button2.TabIndex = 7;
             this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = false;
@@ -69,9 +73,10 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.White;
+            this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button3.Location = new System.Drawing.Point(270, 264);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(138, 26);
+            this.button3.Size = new System.Drawing.Size(102, 26);
             this.button3.TabIndex = 8;
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = false;
@@ -80,9 +85,10 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(72, 264);
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button1.Location = new System.Drawing.Point(158, 264);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(138, 26);
+            this.button1.Size = new System.Drawing.Size(102, 26);
             this.button1.TabIndex = 1;
             this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = false;
@@ -135,17 +141,24 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // Form1
+            // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(708, 330);
+            this.ClientSize = new System.Drawing.Size(718, 327);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
+            this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "HomePage";
+            this.ShadowType = MetroFramework.Forms.MetroFormShadowType.DropShadow;
+            this.Style = MetroFramework.MetroColorStyle.Default;
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.HomePage_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

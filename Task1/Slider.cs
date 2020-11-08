@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Configuration;
 namespace Task1
 {
     class Slider : Qustions
@@ -45,7 +45,7 @@ namespace Task1
         public static  void ShowQuestion()
         {
             
-            SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
+            SqlConnection con = new SqlConnection(Qustions.connectionString);
             SqlCommand cmd = new SqlCommand("sp_Qustions_SelectAll2", con);
             cmd.CommandType = CommandType.StoredProcedure; 
 
@@ -103,6 +103,136 @@ namespace Task1
                 con.Close();
             }
         }
+        public override void AddQuestion(string [] att)
+        {
+            Console.WriteLine("Done0");
+            
+            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlCommand cmd = new SqlCommand("sp_Qustion_Insert3", con);
+            SqlCommand cmd1 = new SqlCommand("select max(ID) as ID from Qustions", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Qustions_text", att[0]);
+            cmd.Parameters.AddWithValue("@Qustion_order", Convert.ToInt32(att[1]));
+            cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Slider");
+            
+            int id = -1;
+            try{
+                con.Open();
+                cmd.ExecuteNonQuery();
+                SqlDataReader rd = cmd1.ExecuteReader();
+                while (rd.Read())
+                    id = Convert.ToInt32(rd["ID"]);
+                rd.Close();
 
+            }
+ 
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message); 
+            }
+            finally
+            {
+                con.Close();
+                cmd.Parameters.Clear();
+                cmd1.Parameters.Clear();
+            }
+            Console.WriteLine("Done1");
+            if (id != -1)
+            {
+                try
+                {
+                    con.Open();
+                    cmd.CommandText = "sp_Slider_Insert1";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@Start_Value", Convert.ToInt32(att[2]));
+                    cmd.Parameters.AddWithValue("@End_Value", Convert.ToInt32(att[3]));
+                    cmd.Parameters.AddWithValue("@Start_Value_Cap", att[4]);
+                    cmd.Parameters.AddWithValue("@End_Value_Cap", att[5]);
+                    cmd.Parameters.AddWithValue("@Qus_ID", id);
+                    cmd.ExecuteNonQuery();
+                    Console.WriteLine("Done1");
+                    Slider.ShowQuestion();
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message); 
+                }
+                finally
+                {
+                    con.Close(); 
+                }
+            }
+        }
+
+        public override void EditQuestion(string[] att)
+        {
+            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            try
+            {
+                con.Open();
+                SqlCommand cmd3 = new SqlCommand("sp_Slider_Update10", con);
+                cmd3.CommandType = CommandType.StoredProcedure;
+                cmd3.Parameters.AddWithValue("@ID",Convert.ToInt32(att[6]));
+                if (att[2]!="")
+                cmd3.Parameters.AddWithValue("@Start_Value",Convert.ToInt32(att[2]));
+                if (att[3]!="")
+                cmd3.Parameters.AddWithValue("@End_Value", Convert.ToInt32(att[3]));
+                if (att[4]!="")
+                cmd3.Parameters.AddWithValue("@Start_Value_Cap", att[4]);
+                if (att[5]!="" )
+                cmd3.Parameters.AddWithValue("@End_Value_Cap", att[5]);
+                cmd3.ExecuteNonQuery();
+                cmd3.Parameters.Clear();
+                cmd3.CommandText = "sp_Qustion_update7";
+                cmd3.CommandType = CommandType.StoredProcedure;
+                cmd3.Parameters.AddWithValue("@ID",Convert.ToInt32(att[7]));
+                if (att[0] !="")
+                cmd3.Parameters.AddWithValue("@Qustions_text",att[0]);
+                if (att[1] !="")
+                cmd3.Parameters.AddWithValue("@Qustion_order",att[1] );
+                cmd3.Parameters.AddWithValue("@Type_Of_Qustion","Slider");
+                cmd3.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+            finally
+            {
+                con.Close();
+            }
+
+        }
+
+        public override void Delete(int id, int idFroType)
+        {
+            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            try
+            {
+                con.Open();
+                SqlCommand cmd3 = new SqlCommand("sp_Slider_Delete", con);
+                cmd3.CommandType = CommandType.StoredProcedure;
+                cmd3.Parameters.AddWithValue("@ID", idFroType);
+                cmd3.ExecuteNonQuery();
+                cmd3.Parameters.Clear();
+                cmd3.CommandText = "sp_Qustion_Delete";
+                cmd3.CommandType = CommandType.StoredProcedure;
+                cmd3.Parameters.AddWithValue("@ID",Id);
+                cmd3.ExecuteNonQuery();
+                cmd3.Parameters.Clear();
+                
+                //MessageBox.Show("This Answer is Deleted");
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+        }
     }
 }

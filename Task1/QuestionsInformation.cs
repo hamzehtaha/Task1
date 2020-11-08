@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using System.Configuration; 
 namespace Task1
 {
     public partial class QuestionsInformation : Form
@@ -16,11 +16,10 @@ namespace Task1
         public int id = -1;
         public string type = "";
         public DataGridView dt;
-        int EdOrAd = 0; 
-        public QuestionsInformation(DataGridView dt,int id,string type, int EdOrAd)
+        int EdOrAd = 0;
+        public QuestionsInformation(DataGridView dt, int id, string type, int EdOrAd)
         {
             InitializeComponent();
-            HidePanel(); 
             this.dt = dt;
             this.id = id;
             this.type = type;
@@ -28,11 +27,24 @@ namespace Task1
             if (EdOrAd == 2)
             {
                 panel1.Visible = false;
-                InitHide(); 
+
             }
             else
             {
-                panel1.Visible = true; 
+                panel1.Visible = true;
+                panel2.Visible = false;
+            }
+            if (type.Equals("Slider"))
+            {
+                Show();
+            } else if (type.Equals("Smily"))
+            {
+                InitHide();
+                label3.Text = "Number Of Smiles";
+            }else if (type.Equals("Stars"))
+            {
+                InitHide();
+                label3.Text = "Number Of Stars";
             }
         }
         private int InsertQuestion()
@@ -75,32 +87,24 @@ namespace Task1
         }
         private void InitHide()
         {
+            panel2.Visible = true;
+            textBox3.Visible = false;
+            textBox5.Visible = false;
+            textBox6.Visible = false;
+            label4.Visible = false;
+            label5.Visible = false;
+            label6.Visible = false;
 
-            if (type.Equals("Slider"))
-            {
-                panel2.Visible = true;
-                panel3.Visible = false;
-                panel4.Visible = false;
-            }
-            else if (type.Equals("Smily"))
-            {
-                panel2.Visible = false;
-                panel3.Visible = true;
-                panel4.Visible = false;
-            }
-            else if (type.Equals("Stars"))
-            {
-                panel2.Visible = false;
-                panel3.Visible = false;
-                panel4.Visible = true;
-            }
         }
-        private void HidePanel()
+        private void Show()
         {
-            // for hide the textbox 
-            panel2.Visible = false;
-            panel3.Visible = false;
-            panel4.Visible = false;
+            panel2.Visible = true;
+            textBox3.Visible = true;
+            textBox5.Visible = true;
+            textBox6.Visible = true;
+            label4.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
         }
         private bool IsNumber(string number)
         {
@@ -123,15 +127,8 @@ namespace Task1
             // for radio Button cahnges 
             if (radioButton1.Checked == true)
             {
-                panel2.Visible = true;
-
-            }
-            else if (radioButton1.Checked == false)
-            {
-                panel2.Visible = false;
-                panel3.Visible = true;
-                panel4.Visible = true;
-
+                Show(); 
+                label3.Text = "Start Value";
             }
         }
 
@@ -141,15 +138,9 @@ namespace Task1
 
             if (radioButton2.Checked == true)
             {
-                panel3.Visible = true;
-                panel2.Visible = false;
-                panel4.Visible = false;
+                InitHide(); 
 
-            }
-            else if (radioButton2.Checked == false)
-            {
-                panel3.Visible = false;
-
+                label3.Text = "Number Of Smiles"; 
             }
         }
 
@@ -158,16 +149,11 @@ namespace Task1
             // for radio Button cahnges 
             if (radioButton3.Checked == true)
             {
-                panel3.Visible = false;
-                panel2.Visible = false;
-                panel4.Visible = true;
+                InitHide(); 
+                label3.Text = "Number Of Stars";
 
             }
-            else if (radioButton3.Checked == false)
-            {
-                panel4.Visible = false;
 
-            }
         }
         private void Clear()
         {
@@ -175,10 +161,8 @@ namespace Task1
             textBox1.Text = null;
             textBox2.Text = null;
             textBox3.Text = null;
-            textBox4.Text = null;
             textBox5.Text = null;
             textBox6.Text = null;
-            textBox7.Text = null;
             textBox8.Text = null;
             if (EdOrAd == 1)
             {
@@ -188,7 +172,7 @@ namespace Task1
                     radioButton2.Checked = false;
                 else if (radioButton3.Checked)
                     radioButton3.Checked = false;
-                HidePanel();
+                panel2.Visible = false; 
             }
             textBox1.Focus();
         }
@@ -286,24 +270,24 @@ namespace Task1
             }
             else if (radioButton2.Checked)
             {
-                if (textBox4.Text == "")
+                if (textBox2.Text == "")
                 {
                     MessageBox.Show("You Must Fill Number of Smile Faces", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
-                else if (!IsNumber(textBox4.Text))
+                else if (!IsNumber(textBox2.Text))
                 {
                     MessageBox.Show("Your Number of smiles is not a Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                else if (Convert.ToInt32(textBox4.Text) <= 0)
+                else if (Convert.ToInt32(textBox2.Text) <= 0)
                 {
                     MessageBox.Show("Your Number of smiles is less than or Equal zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
 
                 }
-                else if (Convert.ToInt32(textBox4.Text) < 2 || Convert.ToInt32(textBox4.Text) > 5)
+                else if (Convert.ToInt32(textBox2.Text) < 2 || Convert.ToInt32(textBox2.Text) > 5)
                 {
                     MessageBox.Show("Your Number of smiles is more or less the range (2-5)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
@@ -313,24 +297,24 @@ namespace Task1
             }
             else if (radioButton3.Checked)
             {
-                if (textBox7.Text == "")
+                if (textBox2.Text == "")
                 {
                     MessageBox.Show("You Must Fill Number of the number of stars", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
-                else if (!IsNumber(textBox7.Text))
+                else if (!IsNumber(textBox2.Text))
                 {
                     MessageBox.Show("Your Number of Stars is not a Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-                else if (Convert.ToInt32(textBox7.Text) <= 0)
+                else if (Convert.ToInt32(textBox2.Text) <= 0)
                 {
                     MessageBox.Show("Your Number of Stars is less than or Equal zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
 
                 }
-                else if (Convert.ToInt32(textBox7.Text) > 10)
+                else if (Convert.ToInt32(textBox2.Text) > 10)
                 {
                     MessageBox.Show("Your Number of Stars is more than 10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
@@ -343,7 +327,7 @@ namespace Task1
         }
         private bool CheckValid()
         {
-            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox4.Text == "" && textBox5.Text == "" && textBox8.Text == "" && textBox6.Text == "" && textBox7.Text == "")
+            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox2.Text == "" && textBox5.Text == "" && textBox8.Text == "" && textBox6.Text == "" && textBox2.Text == "")
             {
                 return true;
             }
@@ -353,133 +337,67 @@ namespace Task1
         {
             if (EdOrAd == 1)
             {
+                Qustions Bigobj = null;
+                string[] att = null;
+                bool f = false; 
                 if (radioButton1.Checked)
                 {
-                    if (CheckValidate())
+                    f = CheckValidate(); 
+                    if (f)
                     {
-                        int StartValue = Convert.ToInt32(textBox2.Text);
-                        int EndValue = Convert.ToInt32(textBox3.Text);
-                        string Qus = textBox1.Text;
-                        string StartValueCap = textBox5.Text;
-                        string EndValueCap = textBox6.Text;
-                        int QustionOrder = Convert.ToInt32(textBox8.Text);
-                        SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-                        try
-                        {
-                            int id = InsertQuestion();
-                            if (id != -1)
-                            {
-                                con.Open();
-                                SqlCommand cmd3 = new SqlCommand("sp_Slider_Insert1", con);
-                                cmd3.CommandType = CommandType.StoredProcedure;
-                                cmd3.Parameters.AddWithValue("@Start_Value", StartValue);
-                                cmd3.Parameters.AddWithValue("@End_Value", EndValue);
-                                cmd3.Parameters.AddWithValue("@Start_Value_Cap", StartValueCap);
-                                cmd3.Parameters.AddWithValue("@End_Value_Cap", EndValueCap);
-                                cmd3.Parameters.AddWithValue("@Qus_ID", id);
-                                cmd3.ExecuteNonQuery();
-                                Slider.ShowQuestion();
-                                MessageBox.Show("Your Qustion is Added", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                Clear();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                        finally
-                        {
-                            con.Close();
-
-                        }
+                        att = new string[6];
+                        att[0] = textBox1.Text;
+                        att[1] = textBox8.Text;
+                        att[2] = textBox2.Text;
+                        att[3] = textBox3.Text;
+                        att[4] = textBox5.Text;
+                        att[5] = textBox6.Text;
+                        Console.WriteLine("Done1");
+                        Bigobj = Program.QusFac.GetQustion("Slider");
                     }
                 }
                 else if (radioButton2.Checked)
                 {
-
-
-                    if (CheckValidate())
+                    f = CheckValidate(); 
+                    if (f)
                     {
-                        int NumberOfSmiles = Convert.ToInt32(textBox4.Text);
-                        string Qus = textBox1.Text;
-                        int QustionOrder = Convert.ToInt32(textBox8.Text);
-                        SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-                        try
-                        {
-                            int id = InsertQuestion();
-                            if (id != -1)
-                            {
-                                con.Open();
-                                SqlCommand cmd3 = new SqlCommand("sp_Smiles_Insert5", con);
-                                cmd3.CommandType = CommandType.StoredProcedure;
-                                cmd3.Parameters.AddWithValue("@Number_of_smily", NumberOfSmiles);
-                                cmd3.Parameters.AddWithValue("@Qus_ID", id);
-                                cmd3.ExecuteNonQuery();
-                                cmd3.Parameters.Clear();
-                                Smiles.ShowQuestion();
-                                MessageBox.Show("Your Qustion is Added", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                Clear();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                        finally
-                        {
-                            con.Close();
-                        }
+                        att = new string[3];
+                        att[0] = textBox1.Text;
+                        att[1] = textBox8.Text;
+                        att[2] = textBox2.Text;
+                        Bigobj = Program.QusFac.GetQustion("Smily");
 
                     }
-
                 }
                 else if (radioButton3.Checked)
                 {
-                    if (CheckValidate())
+                    f =  CheckValidate();
+                    if (f)
                     {
-                        int NumberOfStars = Convert.ToInt32(textBox7.Text);
-                        string Qus = textBox1.Text;
-                        int QustionOrder = Convert.ToInt32(textBox8.Text);
-                        SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-                        try
-                        {
-                            int id = InsertQuestion();
-                            if (id != -1)
-                            {
-                                con.Open();
-                                SqlCommand cmd3 = new SqlCommand("sp_Stars_Insert6", con);
-                                cmd3.CommandType = CommandType.StoredProcedure;
-                                cmd3.Parameters.AddWithValue("@Number_Of_Stars", NumberOfStars);
-                                cmd3.Parameters.AddWithValue("@Qus_ID", id);
-                                cmd3.ExecuteNonQuery();
-                                cmd3.Parameters.Clear();
-                                Stars.ShowQuestion();
-                                MessageBox.Show("Your Qustion is Added", "Added!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                Clear();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                        finally
-                        {
-                            con.Close();
-
-                        }
-
+                        att = new string[3];
+                        att[0] = textBox1.Text;
+                        att[1] = textBox8.Text;
+                        att[2] = textBox2.Text;
+                        Bigobj = Program.QusFac.GetQustion("Stars");
                     }
-
-
                 }
-                Qustions.GetData(dt);
-            }else if (EdOrAd == 2)
+                if (f)
+                {
+                    Bigobj.AddQuestion(att);
+                    MessageBox.Show("Yout Question is Add");
+                    Qustions.GetData(dt);
+                    this.Close(); 
+                }
+            }
+            else if (EdOrAd == 2)
             {
                 string Result = "You Update is ", NewQustion = "";
                 int Order = -1;
+                Qustions BigObj = null; 
                 Slider obj = null;
                 Smiles obj1 = null;
                 Stars obj2 = null;
+                string[]att = null; 
                 if (!CheckValid())
                 {
                     for (int i = 0; i < Qustions.lissSlid.Count; ++i)
@@ -489,10 +407,10 @@ namespace Task1
                         {
                             if (Qustions.lissSlid.ElementAt(i) is Slider)
                             {
+                                att = new string[8]; 
                                 string StC = "", EndC = "";
                                 int St = -1, End = -1;
                                 obj = (Slider)Qustions.lissSlid.ElementAt(i);
-
                                 if (textBox1.Text != "")
                                 {
                                     NewQustion = textBox1.Text;
@@ -503,6 +421,7 @@ namespace Task1
                                 {
                                     if (IsNumber(textBox8.Text))
                                     {
+                                        
                                         Order = Convert.ToInt32(textBox8.Text);
                                         if (Order > 0)
                                         {
@@ -579,7 +498,8 @@ namespace Task1
                                 {
                                     if (!IsNumber(textBox5.Text))
                                     {
-                                        StC = textBox4.Text;
+                                        
+                                        StC = textBox5.Text;
                                         obj.StartC = StC;
                                         Result += " ,Start Caption";
                                     }
@@ -603,50 +523,23 @@ namespace Task1
                                         break;
                                     }
                                 }
-
-                                SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-                                try
-                                {
-                                    con.Open();
-                                    SqlCommand cmd3 = new SqlCommand("sp_Slider_Update10", con);
-                                    cmd3.CommandType = CommandType.StoredProcedure;
-                                    cmd3.Parameters.AddWithValue("@ID", obj.IdForType);
-                                    cmd3.Parameters.AddWithValue("@Start_Value", obj.StartV);
-                                    cmd3.Parameters.AddWithValue("@End_Value", obj.EndV);
-                                    cmd3.Parameters.AddWithValue("@Start_Value_Cap", obj.StartC);
-                                    cmd3.Parameters.AddWithValue("@End_Value_Cap", obj.EndC);
-                                    cmd3.ExecuteNonQuery();
-                                    cmd3.Parameters.Clear();
-                                    cmd3.CommandText = "sp_Qustion_update7";
-                                    cmd3.CommandType = CommandType.StoredProcedure;
-                                    cmd3.Parameters.AddWithValue("@ID", obj.Id);
-                                    cmd3.Parameters.AddWithValue("@Qustions_text", obj.Qustion);
-                                    cmd3.Parameters.AddWithValue("@Qustion_order", obj.Order);
-                                    cmd3.Parameters.AddWithValue("@Type_Of_Qustion", obj.TypeOfQuestion);
-                                    cmd3.ExecuteNonQuery();
-                                    Clear();
-                                    MessageBox.Show(Result);
-                                    //MessageBox.Show(obj.StartV+" "+St);
-
-
-
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-
-
-                                }
-                                finally
-                                {
-                                    con.Close();
-                                }
-
+                                att[0] = obj.Qustion; 
+                                att[1] = obj.Order + ""; 
+                                att[2] = obj.StartV + "";
+                                att[3] = obj.EndV + ""; 
+                                att[4] = obj.StartC; 
+                                att[5] = obj.EndC; 
+                                att[6] = obj.IdForType + "";
+                                att[7] = obj.Id + "";
+                                BigObj = Program.QusFac.GetQustion("Slider");
+                                Clear(); 
+                                MessageBox.Show(Result); 
                             }
                             else if (Qustions.lissSlid.ElementAt(i) is Smiles)
                             {
                                 int smiles = -1;
                                 obj1 = (Smiles)Qustions.lissSlid.ElementAt(i);
+                                att = new string[5]; 
                                 if (textBox1.Text != "")
                                 {
                                     NewQustion = textBox1.Text;
@@ -675,16 +568,15 @@ namespace Task1
                                         break;
                                     }
                                 }
-                                if (textBox4.Text != "")
+                                if (textBox2.Text != "")
                                 {
-                                    if (IsNumber(textBox4.Text))
+                                    if (IsNumber(textBox2.Text))
                                     {
-                                        if (Convert.ToInt32(textBox4.Text) >= 2 && Convert.ToInt32(textBox4.Text) <= 5)
+                                        if (Convert.ToInt32(textBox2.Text) >= 2 && Convert.ToInt32(textBox2.Text) <= 5)
                                         {
-                                            smiles = Convert.ToInt32(textBox4.Text);
+                                            smiles = Convert.ToInt32(textBox2.Text);
                                             obj1.NumberOfSmiles = smiles;
                                             Result += " Smiles";
-                                            ///haha
                                         }
                                         else
                                         {
@@ -698,48 +590,19 @@ namespace Task1
                                         break;
                                     }
                                 }
-                                SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-                                try
-                                {
-                                    con.Open();
-                                    ///////////////////////////////////////////////////////////////////////
-                                    SqlCommand cmd3 = new SqlCommand("sp_Smily_Update10", con);
-                                    cmd3.CommandType = CommandType.StoredProcedure;
-                                    cmd3.Parameters.AddWithValue("@ID", obj1.idForType);
-                                    if (textBox6.Text != "")
-                                    {
-                                        cmd3.Parameters.AddWithValue("@Number_of_smily", smiles);
-                                    }
-                                    else
-                                    {
-                                        cmd3.Parameters.AddWithValue("@Number_of_smily", obj1.NumberOfSmiles);
-                                    }
-                                    cmd3.ExecuteNonQuery();
-                                    cmd3.Parameters.Clear();
-                                    cmd3.CommandText = "sp_Qustion_update7";
-                                    cmd3.CommandType = CommandType.StoredProcedure;
-                                    cmd3.Parameters.AddWithValue("@ID", obj1.Id);
-                                    cmd3.Parameters.AddWithValue("@Qustions_text", obj1.Qustion);
-                                    cmd3.Parameters.AddWithValue("@Qustion_order", obj1.Order);
-                                    cmd3.Parameters.AddWithValue("@Type_Of_Qustion", obj1.TypeOfQuestion);
-
-                                    cmd3.ExecuteNonQuery();
-                                    Clear();
-                                    MessageBox.Show(Result); ;
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                }
-                                finally
-                                {
-                                    con.Close();
-                                }
+                                att[3] = obj1.idForType + "";
+                                att[4] = obj1.Id + "";
+                                att[2] = obj1.NumberOfSmiles + "";
+                                att[1] = obj1.Order + "";
+                                att[0] = obj1.Qustion;
+                                BigObj = Program.QusFac.GetQustion("Smily"); 
+                                Clear();
+                                MessageBox.Show(Result); ;
                             }
                             else if (Qustions.lissSlid.ElementAt(i) is Stars)
                             {
                                 int stars = -1;
-
+                                att = new string[5]; 
                                 obj2 = (Stars)Qustions.lissSlid.ElementAt(i);
                                 if (textBox1.Text != "")
                                 {
@@ -769,14 +632,14 @@ namespace Task1
                                         break;
                                     }
                                 }
-                                if (textBox7.Text != "")
+                                if (textBox2.Text != "")
                                 {
-                                    if (IsNumber(textBox7.Text))
+                                    if (IsNumber(textBox2.Text))
                                     {
-                                        if (Convert.ToInt32(textBox7.Text) <= 10)
+                                        if (Convert.ToInt32(textBox2.Text) <= 10)
                                         {
 
-                                            stars = Convert.ToInt32(textBox7.Text);
+                                            stars = Convert.ToInt32(textBox2.Text);
                                             if (stars > 0)
                                             {
                                                 obj2.NumberOfStars = stars;
@@ -801,52 +664,61 @@ namespace Task1
                                         break;
                                     }
                                 }
-                                SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-                                try
-                                {
-                                    con.Open();
-                                    ///////////////////////////////////////////////////////////////////////
-                                    SqlCommand cmd3 = new SqlCommand("sp_Stars_Update10", con);
-                                    cmd3.CommandType = CommandType.StoredProcedure;
-                                    cmd3.Parameters.AddWithValue("@ID", obj2.idForType);
-                                    cmd3.Parameters.AddWithValue("@Number_Of_Stars", obj2.NumberOfStars);
-                                    cmd3.ExecuteNonQuery();
-                                    cmd3.Parameters.Clear();
-                                    cmd3.CommandText = "sp_Qustion_update7";
-                                    cmd3.CommandType = CommandType.StoredProcedure;
-                                    cmd3.Parameters.AddWithValue("@ID", obj2.Id);
-                                    cmd3.Parameters.AddWithValue("@Qustions_text", obj2.Qustion);
-                                    cmd3.Parameters.AddWithValue("@Qustion_order", obj2.Order);
-                                    cmd3.Parameters.AddWithValue("@Type_Of_Qustion", obj2.TypeOfQuestion);
-                                    cmd3.ExecuteNonQuery();
-                                    Clear();
-                                    MessageBox.Show(Result); ;
-                                }
-                                catch (Exception ex)
-                                {
-                                    MessageBox.Show(ex.Message);
-                                }
-                                finally
-                                {
-                                    con.Close();
-                                }
+                                att[3] = obj2.idForType + "";
+                                att[4] = obj2.Id + "";
+                                att[2] = obj2.NumberOfStars + "";
+                                att[1] = obj2.Order + "";
+                                att[0] = obj2.Qustion;
+                                BigObj = Program.QusFac.GetQustion("Stars");
+                                Clear();
+                                MessageBox.Show(Result); ;                                                                                                     
                             }
+                            BigObj.EditQuestion(att);
+                            this.Close();
                             break;
                         }
                     }
                 }
-                else
-                {
+                else                          
                     MessageBox.Show("There is no any Update ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
                 Qustions.GetData(dt);
-            }
-        }
 
+            }
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close(); 
+        }
+
+        private void textBox8_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Char ch = e.KeyChar;
+            if (!Char.IsDigit(ch))
+            {
+                e.Handled = true;
+                MessageBox.Show("only numbers"); 
+            }
+        }
+
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Char ch = e.KeyChar;
+            if (!Char.IsDigit(ch))
+            {
+                e.Handled = true;
+                MessageBox.Show("only numbers");
+            }
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            Char ch = e.KeyChar;
+            if (!Char.IsDigit(ch))
+            {
+                e.Handled = true;
+                MessageBox.Show("only numbers");
+            }
         }
     }
 }
