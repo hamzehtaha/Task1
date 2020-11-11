@@ -8,717 +8,445 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration; 
+using System.Configuration;
+using Survey;
+
 namespace Task1
 {
     public partial class QuestionsInformation : Form
     {
-        public int id = -1;
-        public string type = "";
-        public DataGridView dt;
-        int EdOrAd = 0;
-        public QuestionsInformation(DataGridView dt, int id, string type, int EdOrAd)
+        public DataGridView ListOfQuestion;
+        Slider NewSlider = null;
+        Smiles NewSmile = null;
+        Stars NewStars = null;
+        string[] Attrubite = null;
+        private void ShowForSlider()
         {
-            InitializeComponent();
-            this.dt = dt;
-            this.id = id;
-            this.type = type;
-            this.EdOrAd = EdOrAd;
-            if (EdOrAd == 2)
-            {
-                panel1.Visible = false;
-
-            }
-            else
-            {
-                panel1.Visible = true;
-                panel2.Visible = false;
-            }
-            if (type.Equals("Slider"))
-            {
-                Show();
-            } else if (type.Equals("Smily"))
-            {
-                InitHide();
-                label3.Text = "Number Of Smiles";
-            }else if (type.Equals("Stars"))
-            {
-                InitHide();
-                label3.Text = "Number Of Stars";
-            }
-        }
-        private int InsertQuestion()
-        {
-            // this function for insert the question in databse 
-            int QustionOrder = Convert.ToInt32(textBox8.Text);
-            string Qus = textBox1.Text;
-            SqlConnection con = new SqlConnection(@"data source=HAMZEH; database=Survey; integrated security=SSPI");
-            SqlCommand cmd = new SqlCommand("sp_Qustion_Insert3", con);
-            SqlCommand cmd1 = new SqlCommand("select max(ID) as ID from Qustions", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Qustions_text", Qus);
-            cmd.Parameters.AddWithValue("@Qustion_order", QustionOrder);
-            if (radioButton1.Checked)
-                cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Slider");
-            else if (radioButton2.Checked)
-                cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Smily");
-            else if (radioButton3.Checked)
-                cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Stars");
-            int id = -1;
             try
             {
-                con.Open();
-                cmd.ExecuteNonQuery();
-                SqlDataReader rd = cmd1.ExecuteReader();
-                while (rd.Read())
-                    id = Convert.ToInt32(rd["ID"]);
-                rd.Close();
+                InitHide();
+                GroupOfSlider.Visible = true; 
+            }catch (Exception ex)
+            {
 
-                return id;
+            }
+        }
+        private void ShowForSmiles()
+        {
+            try
+            {
+                InitHide();
+                panel2.Visible = true;
             }
             catch (Exception ex)
             {
-                return id;
+
             }
-            finally
+        }
+        private void ShowForStars()
+        {
+            try
             {
-                con.Close();
+                InitHide();
+                   panel1.Visible = true;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        public QuestionsInformation(DataGridView ListOfQuestion, int Id, string Type, int AddOrEdit)
+        {
+            InitializeComponent();
+            this.ListOfQuestion = ListOfQuestion;
+            Attributes.Id = Id;
+            Attributes.Type = Type;
+            Attributes.AddOrEdit = AddOrEdit;
+            try
+            {
+                if (AddOrEdit == 2)
+                {
+                    GroupOfTypes.Visible = false;
+                    GetObject(); 
+
+                }
+                else
+                {
+                    GroupOfTypes.Visible = true;
+                    InitHide(); 
+                }
+                if (Type.Equals(Attributes.Variables.Slider.ToString()))
+                {
+                    ShowForSlider(); 
+                }
+                else if (Type.Equals(Attributes.Variables.Smily.ToString()))
+                {
+                    ShowForSmiles(); 
+                }
+                else if (Type.Equals(Attributes.Variables.Stars.ToString()))
+                {
+                    ShowForStars(); 
+
+                }
+            }catch (Exception ex)
+            {
+
             }
         }
         private void InitHide()
         {
-            panel2.Visible = true;
-            textBox3.Visible = false;
-            textBox5.Visible = false;
-            textBox6.Visible = false;
-            label4.Visible = false;
-            label5.Visible = false;
-            label6.Visible = false;
+            try
+            {
+                GroupOfSlider.Visible = false ;
+                panel2.Visible = false;
+                panel1.Visible = false; 
+            }catch (Exception ex)
+            {
+
+            }
 
         }
-        private void Show()
+        private bool IsNumber(string Number)
         {
-            panel2.Visible = true;
-            textBox3.Visible = true;
-            textBox5.Visible = true;
-            textBox6.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-            label6.Visible = true;
-        }
-        private bool IsNumber(string number)
-        {
-            // to check the string is number or not ? 
-            return int.TryParse(number, out int n);
+            // to check the string is number or not ?
+            
+            return int.TryParse(Number, out int N);
 
         }
         private void QuestionsInformation_Load(object sender, EventArgs e)
         {
 
         }
-
         private void questionDetalis1_Load(object sender, EventArgs e)
         {
 
         }
-
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void Slider_CheckedChange(object sender, EventArgs e)
         {
             // for radio Button cahnges 
-            if (radioButton1.Checked == true)
+            try
             {
-                Show(); 
-                label3.Text = "Start Value";
+                if (SliderRadio.Checked == true)
+                {
+                    ShowForSlider();
+                }
+            } catch (Exception ex)
+            {
+
             }
         }
-
-        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        private void Smily_CheckedChange(object sender, EventArgs e)
         {
             // for radio Button cahnges 
-
-            if (radioButton2.Checked == true)
+            try
             {
-                InitHide(); 
+                if (SmilyRadio.Checked == true)
+                {
+                    ShowForSmiles(); 
+                }
+            } catch (Exception ex)
+            {
 
-                label3.Text = "Number Of Smiles"; 
             }
         }
-
-        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        private void Stars_CheckedChange(object sender, EventArgs e)
         {
-            // for radio Button cahnges 
-            if (radioButton3.Checked == true)
+            // for radio Button cahnges
+            try
             {
-                InitHide(); 
-                label3.Text = "Number Of Stars";
+                if (StarsRadio.Checked == true)
+                {
+                    ShowForStars(); 
+
+                }
+            } catch (Exception ex)
+            {
 
             }
-
         }
-        private void Clear()
+        private void GetObject()
         {
-            // to clear every thing and back the curser in the start point 
-            textBox1.Text = null;
-            textBox2.Text = null;
-            textBox3.Text = null;
-            textBox5.Text = null;
-            textBox6.Text = null;
-            textBox8.Text = null;
-            if (EdOrAd == 1)
+            try
             {
-                if (radioButton1.Checked)
-                    radioButton1.Checked = false;
-                else if (radioButton2.Checked)
-                    radioButton2.Checked = false;
-                else if (radioButton3.Checked)
-                    radioButton3.Checked = false;
-                panel2.Visible = false; 
-            }
-            textBox1.Focus();
-        }
-        private bool CheckValidate()
-        {
-            // this function for check text box is valid or not in some rules 
-            if (textBox1.Text == "")
-            {
-                MessageBox.Show("You Must Fill Your Qustion", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else if (IsNumber(textBox1.Text))
-            {
-                MessageBox.Show("Your Question is Wrong maybe Contain a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else if (textBox8.Text == "")
-            {
-                MessageBox.Show("You Must Fill Question Order", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else if (!IsNumber(textBox8.Text))
-            {
-                MessageBox.Show("The Oreder of Question Should be Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            else if (Convert.ToInt32(textBox8.Text) <= 0)
-            {
-                MessageBox.Show("The Oreder of Question Should be greater than 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            if (radioButton1.Checked)
-            {
-                if (textBox2.Text == "")
+                for (int i = 0; i < Attributes.ListOfAllQuestion.Count; ++i)
                 {
-                    MessageBox.Show("You Must Fill Start Value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (!IsNumber(textBox2.Text))
-                {
-                    MessageBox.Show("Your start Value is not a Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (Convert.ToInt32(textBox2.Text) <= 0)
-                {
-                    MessageBox.Show("Your start Value less than or equal 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (textBox3.Text == "")
-                {
-                    MessageBox.Show("You Must Fill End Value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (!IsNumber(textBox3.Text))
-                {
-                    MessageBox.Show("Your end Value is not a Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (Convert.ToInt32(textBox3.Text) <= 0)
-                {
-                    MessageBox.Show("Your end Value less than or equal 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (Convert.ToInt32(textBox3.Text) > 100)
-                {
-                    MessageBox.Show("Your end Value is greater than 100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (Convert.ToInt32(textBox2.Text) >= Convert.ToInt32(textBox3.Text))
-                {
-                    MessageBox.Show("Your Start Value greater than or Equal End Value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (textBox5.Text == "")
-                {
-                    MessageBox.Show("You Must Fill Start Value Caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (IsNumber(textBox5.Text))
-                {
-                    MessageBox.Show("Your Caption of start value caption is invlaid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (textBox6.Text == "")
-                {
-                    MessageBox.Show("You Must Fill End Value Caption", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (IsNumber(textBox6.Text))
-                {
-                    MessageBox.Show("Your Caption of end value caption  is invlaid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                return true;
-            }
-            else if (radioButton2.Checked)
-            {
-                if (textBox2.Text == "")
-                {
-                    MessageBox.Show("You Must Fill Number of Smile Faces", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-
-                else if (!IsNumber(textBox2.Text))
-                {
-                    MessageBox.Show("Your Number of smiles is not a Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (Convert.ToInt32(textBox2.Text) <= 0)
-                {
-                    MessageBox.Show("Your Number of smiles is less than or Equal zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-
-                }
-                else if (Convert.ToInt32(textBox2.Text) < 2 || Convert.ToInt32(textBox2.Text) > 5)
-                {
-                    MessageBox.Show("Your Number of smiles is more or less the range (2-5)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-
-                }
-                return true;
-            }
-            else if (radioButton3.Checked)
-            {
-                if (textBox2.Text == "")
-                {
-                    MessageBox.Show("You Must Fill Number of the number of stars", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-
-                else if (!IsNumber(textBox2.Text))
-                {
-                    MessageBox.Show("Your Number of Stars is not a Number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                else if (Convert.ToInt32(textBox2.Text) <= 0)
-                {
-                    MessageBox.Show("Your Number of Stars is less than or Equal zero", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-
-                }
-                else if (Convert.ToInt32(textBox2.Text) > 10)
-                {
-                    MessageBox.Show("Your Number of Stars is more than 10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-
-                }
-                return true;
-            }
-            MessageBox.Show("You Should Choose the Type of your Question", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            return false;
-        }
-        private bool CheckValid()
-        {
-            if (textBox1.Text == "" && textBox2.Text == "" && textBox3.Text == "" && textBox2.Text == "" && textBox5.Text == "" && textBox8.Text == "" && textBox6.Text == "" && textBox2.Text == "")
-            {
-                return true;
-            }
-            return false;
-        }
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (EdOrAd == 1)
-            {
-                Qustions Bigobj = null;
-                string[] att = null;
-                bool f = false; 
-                if (radioButton1.Checked)
-                {
-                    f = CheckValidate(); 
-                    if (f)
+                    if (Attributes.ListOfAllQuestion.ElementAt(i).Id == Attributes.Id)
                     {
-                        att = new string[6];
-                        att[0] = textBox1.Text;
-                        att[1] = textBox8.Text;
-                        att[2] = textBox2.Text;
-                        att[3] = textBox3.Text;
-                        att[4] = textBox5.Text;
-                        att[5] = textBox6.Text;
-                        Console.WriteLine("Done1");
-                        Bigobj = Program.QusFac.GetQustion("Slider");
-                    }
-                }
-                else if (radioButton2.Checked)
-                {
-                    f = CheckValidate(); 
-                    if (f)
-                    {
-                        att = new string[3];
-                        att[0] = textBox1.Text;
-                        att[1] = textBox8.Text;
-                        att[2] = textBox2.Text;
-                        Bigobj = Program.QusFac.GetQustion("Smily");
-
-                    }
-                }
-                else if (radioButton3.Checked)
-                {
-                    f =  CheckValidate();
-                    if (f)
-                    {
-                        att = new string[3];
-                        att[0] = textBox1.Text;
-                        att[1] = textBox8.Text;
-                        att[2] = textBox2.Text;
-                        Bigobj = Program.QusFac.GetQustion("Stars");
-                    }
-                }
-                if (f)
-                {
-                    Bigobj.AddQuestion(att);
-                    MessageBox.Show("Yout Question is Add");
-                    Qustions.GetData(dt);
-                    this.Close(); 
-                }
-            }
-            else if (EdOrAd == 2)
-            {
-                string Result = "You Update is ", NewQustion = "";
-                int Order = -1;
-                Qustions BigObj = null; 
-                Slider obj = null;
-                Smiles obj1 = null;
-                Stars obj2 = null;
-                string[]att = null; 
-                if (!CheckValid())
-                {
-                    for (int i = 0; i < Qustions.lissSlid.Count; ++i)
-                    {
-
-                        if (Qustions.lissSlid.ElementAt(i).Id == id)
+                        if (Attributes.ListOfAllQuestion.ElementAt(i) is Slider)
                         {
-                            if (Qustions.lissSlid.ElementAt(i) is Slider)
-                            {
-                                att = new string[8]; 
-                                string StC = "", EndC = "";
-                                int St = -1, End = -1;
-                                obj = (Slider)Qustions.lissSlid.ElementAt(i);
-                                if (textBox1.Text != "")
-                                {
-                                    NewQustion = textBox1.Text;
-                                    Qustions.lissSlid.ElementAt(i).Qustion = NewQustion;
-                                    Result += "New Qustion ";
-                                }
-                                if (textBox8.Text != "")
-                                {
-                                    if (IsNumber(textBox8.Text))
-                                    {
-                                        
-                                        Order = Convert.ToInt32(textBox8.Text);
-                                        if (Order > 0)
-                                        {
-                                            obj.Order = Order;
-                                            Result += " ,Order";
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Your order should be greater than 0 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your order should be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                if (textBox2.Text != "")
-                                {
-                                    if (IsNumber(textBox2.Text))
-                                    {
-                                        if (Convert.ToInt32(textBox2.Text) > 0 && Convert.ToInt32(textBox2.Text) <= 100)
-                                        {
-                                            St = Convert.ToInt32(textBox2.Text);
-                                            obj.StartV = St;
-                                            Result += " ,Start Value";
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Your Start Value is less than 0 or Greater than 100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            break;
-
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your Start Value is not a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                if (textBox3.Text != "")
-                                {
-                                    if (IsNumber(textBox3.Text))
-                                    {
-                                        if (Convert.ToInt32(textBox3.Text) > 0 && Convert.ToInt32(textBox3.Text) <= 100)
-                                        {
-                                            if (Convert.ToInt32(textBox3.Text) > obj.StartV)
-                                            {
-                                                End = Convert.ToInt32(textBox3.Text);
-                                                obj.EndV = End;
-                                                Result += " ,End Value";
-
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Your End Value Should be greater than Start Value", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                break;
-                                            }
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Your End Value is less than 0 or Greater than 100", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your End Value is not a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                if (textBox5.Text != "")
-                                {
-                                    if (!IsNumber(textBox5.Text))
-                                    {
-                                        
-                                        StC = textBox5.Text;
-                                        obj.StartC = StC;
-                                        Result += " ,Start Caption";
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your Start Caption Must not be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                if (textBox6.Text != "")
-                                {
-                                    if (!IsNumber(textBox6.Text))
-                                    {
-                                        EndC = textBox6.Text;
-                                        obj.EndC = EndC;
-                                        Result += " ,End Caption";
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your End Caption Must not be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                att[0] = obj.Qustion; 
-                                att[1] = obj.Order + ""; 
-                                att[2] = obj.StartV + "";
-                                att[3] = obj.EndV + ""; 
-                                att[4] = obj.StartC; 
-                                att[5] = obj.EndC; 
-                                att[6] = obj.IdForType + "";
-                                att[7] = obj.Id + "";
-                                BigObj = Program.QusFac.GetQustion("Slider");
-                                Clear(); 
-                                MessageBox.Show(Result); 
-                            }
-                            else if (Qustions.lissSlid.ElementAt(i) is Smiles)
-                            {
-                                int smiles = -1;
-                                obj1 = (Smiles)Qustions.lissSlid.ElementAt(i);
-                                att = new string[5]; 
-                                if (textBox1.Text != "")
-                                {
-                                    NewQustion = textBox1.Text;
-                                    obj1.Qustion = NewQustion;
-                                    Result += "New Qustion ";
-                                }
-                                if (textBox8.Text != "")
-                                {
-                                    if (IsNumber(textBox8.Text))
-                                    {
-                                        Order = Convert.ToInt32(textBox8.Text);
-                                        if (Order > 0)
-                                        {
-                                            obj1.Order = Order;
-                                            Result += " ,Order";
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Your order should be greater than 0 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your order should be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                if (textBox2.Text != "")
-                                {
-                                    if (IsNumber(textBox2.Text))
-                                    {
-                                        if (Convert.ToInt32(textBox2.Text) >= 2 && Convert.ToInt32(textBox2.Text) <= 5)
-                                        {
-                                            smiles = Convert.ToInt32(textBox2.Text);
-                                            obj1.NumberOfSmiles = smiles;
-                                            Result += " Smiles";
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Your Smiles Should be greater than or equal 2 and less than or equal 5", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your Smiles Should be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                att[3] = obj1.idForType + "";
-                                att[4] = obj1.Id + "";
-                                att[2] = obj1.NumberOfSmiles + "";
-                                att[1] = obj1.Order + "";
-                                att[0] = obj1.Qustion;
-                                BigObj = Program.QusFac.GetQustion("Smily"); 
-                                Clear();
-                                MessageBox.Show(Result); ;
-                            }
-                            else if (Qustions.lissSlid.ElementAt(i) is Stars)
-                            {
-                                int stars = -1;
-                                att = new string[5]; 
-                                obj2 = (Stars)Qustions.lissSlid.ElementAt(i);
-                                if (textBox1.Text != "")
-                                {
-                                    NewQustion = textBox1.Text;
-                                    obj2.Qustion = NewQustion;
-                                    Result += "New Qustion ";
-                                }
-                                if (textBox8.Text != "")
-                                {
-                                    if (IsNumber(textBox8.Text))
-                                    {
-                                        Order = Convert.ToInt32(textBox8.Text);
-                                        if (Order > 0)
-                                        {
-                                            obj2.Order = Order;
-                                            Result += " ,Order";
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Your order should be greater than 0 ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your order should be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                if (textBox2.Text != "")
-                                {
-                                    if (IsNumber(textBox2.Text))
-                                    {
-                                        if (Convert.ToInt32(textBox2.Text) <= 10)
-                                        {
-
-                                            stars = Convert.ToInt32(textBox2.Text);
-                                            if (stars > 0)
-                                            {
-                                                obj2.NumberOfStars = stars;
-                                                Result += " Stars";
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("Your Stars Should be greater than 0", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                break;
-                                            }
-
-                                        }
-                                        else
-                                        {
-                                            MessageBox.Show("Your Stars Should be less than 10", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                            break;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Your Stars Should be a number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        break;
-                                    }
-                                }
-                                att[3] = obj2.idForType + "";
-                                att[4] = obj2.Id + "";
-                                att[2] = obj2.NumberOfStars + "";
-                                att[1] = obj2.Order + "";
-                                att[0] = obj2.Qustion;
-                                BigObj = Program.QusFac.GetQustion("Stars");
-                                Clear();
-                                MessageBox.Show(Result); ;                                                                                                     
-                            }
-                            BigObj.EditQuestion(att);
-                            this.Close();
-                            break;
+                            NewSlider = (Slider)Attributes.ListOfAllQuestion.ElementAt(i);
+                            NewText.Text = NewSlider.NewText;
+                            NewOrder.Value = NewSlider.Order;
+                            NewStartValue.Value = NewSlider.StartValue;
+                            NewEndValue.Value = NewSlider.EndValue;
+                            NewStartValueCaption.Text = NewSlider.StartCaption;
+                            NewEndValueCaption.Text = NewSlider.EndCaption;
+                        }
+                        else if (Attributes.ListOfAllQuestion.ElementAt(i) is Smiles)
+                        {
+                            NewSmile = (Smiles)Attributes.ListOfAllQuestion.ElementAt(i);
+                            NewText.Text = NewSmile.NewText;
+                            NewOrder.Value = NewSmile.Order;
+                            NewNumberOfSmiles.Value = NewSmile.NumberOfSmiles;
+                        }else
+                        {
+                            NewStars = (Stars)Attributes.ListOfAllQuestion.ElementAt(i);
+                            NewText.Text = NewStars.NewText;
+                            NewOrder.Value = NewStars.Order;
+                            NewNumberOfStars.Value = NewStars.NumberOfStars;
                         }
                     }
                 }
-                else                          
-                    MessageBox.Show("There is no any Update ", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }catch (Exception ex)
+            {
+            }
+        }
+        private void DataEnter()
+        {
+            MessageBox.Show("Your Data is Enterd");
+            Qustions.GetData(ListOfQuestion);
+            this.Close();
 
+        }
+        private bool CheckTheData( Qustions TypeQuestion)
+        {
+            try
+            {
+                if (NewText.Text == "")
+                {
+                    MessageBox.Show("Your Question is Empty", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    return false;
                 }
-                Qustions.GetData(dt);
+                else if (IsNumber(NewText.Text))
+                {
+                    MessageBox.Show("Your Question just numbers  ", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                else if (NewOrder.Value <= 0)
+                {
+                    MessageBox.Show("The order sholud be grater than 0", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                if (TypeQuestion is Slider)
+                {
+                    if (NewStartValue.Value <= 0)
+                    {
+                        MessageBox.Show("Your start value must be greater than 0", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (NewEndValue.Value <= 0)
+                    {
+                        MessageBox.Show("Your end value must be greater than 0", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (NewStartValue.Value > 100)
+                    {
+                        MessageBox.Show("The start value should be less than 100", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (NewEndValue.Value > 100)
+                    {
+                        MessageBox.Show("The end value should be less than 100", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (NewStartValue.Value >= NewEndValue.Value)
+                    {
+                        MessageBox.Show("The end value should be grater than start value", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (NewStartValueCaption.Text == "")
+                    {
+                        MessageBox.Show("The start caption is empty", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (IsNumber(NewStartValueCaption.Text))
+                    {
+                        MessageBox.Show("The start caption should not contain only numbers", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (NewEndValueCaption.Text == "")
+                    {
+                        MessageBox.Show("The end caption is empty", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (IsNumber(NewEndValueCaption.Text))
+                    {
+                        MessageBox.Show("The end caption should not contain only numbers", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                else if (TypeQuestion is Smiles)
+                {
+                    if (NewNumberOfSmiles.Value <= 1 || NewNumberOfSmiles.Value > 5)
+                    {
+                        MessageBox.Show("The number of smile face should be greater than 1 and less than 6", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                else if (TypeQuestion is Stars)
+                {
+                    if (NewNumberOfStars.Value <= 0 || NewNumberOfStars.Value > 10)
+                    {
+                        MessageBox.Show("The number of stars face should be greater than 0 and less than or equal 10", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }catch (Exception ex)
+            {
 
             }
-        private void button2_Click(object sender, EventArgs e)
+            return true; 
+        }
+        private void Save_Click(object sender, EventArgs e)
         {
-            this.Close(); 
+            try
+            {
+                if (Attributes.AddOrEdit == 1)
+                {
+                    Qustions NewQuestion = null;
+                    
+                    bool f = false;
+                    if (SliderRadio.Checked)
+                    {
+                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.Variables.Slider.ToString());
+                        f = CheckTheData(NewQuestion);
+                        if (f)
+                        {
+                            Attrubite = new string[6];
+                            Attrubite[0] = NewText.Text;
+                            Attrubite[1] = NewOrder.Text;
+                            Attrubite[2] = NewStartValue.Text;
+                            Attrubite[3] = NewEndValue.Text;
+                            Attrubite[4] = NewStartValueCaption.Text;
+                            Attrubite[5] = NewEndValueCaption.Text;
+                        }
+                    }
+                    else if (SmilyRadio.Checked)
+                    {
+
+                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.Variables.Smily.ToString());
+                        f = CheckTheData(NewQuestion);
+                        if (f)
+                        {
+                            Attrubite = new string[3];
+                            Attrubite[0] = NewText.Text;
+                            Attrubite[1] = NewOrder.Text;
+                            Attrubite[2] = NewNumberOfSmiles.Text;
+
+
+                        }
+                    }
+                    else if (StarsRadio.Checked)
+                    {
+                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.Variables.Stars.ToString());
+                        f = CheckTheData(NewQuestion);
+                        if (f)
+                        {
+                            Attrubite = new string[3];
+                            Attrubite[0] = NewText.Text;
+                            Attrubite[1] = NewOrder.Text;
+                            Attrubite[2] = NewNumberOfStars.Text;
+
+                        }
+                    }
+                    if (f)
+                    {
+                        NewQuestion.AddQuestion(Attrubite);
+                        DataEnter(); 
+                    }
+                }
+            }catch (Exception ex)
+            {
+
+            }
+            try { 
+                 if (Attributes.AddOrEdit == 2)
+                 {
+                    string[] Attrubite = null;
+                    if (NewSlider != null)
+                    {
+                        if (CheckTheData(NewSlider))
+                        {
+                            Attrubite[0] = NewText.Text;
+                            Attrubite[1] = NewOrder.Value + "";
+                            Attrubite[2] = NewStartValue.Value + "";
+                            Attrubite[3] = NewEndValue.Value + "";
+                            Attrubite[4] = NewStartValueCaption + "";
+                            Attrubite[5] = NewEndValueCaption + "";
+                            Attrubite[6] = NewSlider.IdForType + "";
+                            Attrubite[7] = NewSlider.Id + "";
+                            NewSlider.NewText = Attrubite[0];
+                            NewSlider.Order = Convert.ToInt32(Attrubite[1]);
+                            NewSlider.StartValue = Convert.ToInt32(Attrubite[2]);
+                            NewSlider.EndValue = Convert.ToInt32(Attrubite[3]);
+                            NewSlider.StartCaption = Attrubite[4];
+                            NewSlider.EndCaption = Attrubite[5];
+                            NewSlider.EditQuestion(Attrubite);
+                            DataEnter();
+                        } 
+
+                    }
+                    else if (NewSmile != null)
+                    {
+                        if (CheckTheData(NewSmile))
+                        {
+                            Attrubite = new string[5];
+                            Attrubite[0] = NewText.Text;
+                            Attrubite[1] = NewOrder.Value + "";
+                            Attrubite[2] = NewNumberOfSmiles.Value + "";
+                            Attrubite[3] = NewSmile.IdForType + "";
+                            Attrubite[4] = NewSmile.Id + "";
+                            NewSmile.NewText = Attrubite[0];
+                            NewSmile.Order = Convert.ToInt32(Attrubite[1]);
+                            NewSmile.NumberOfSmiles = Convert.ToInt32(Attrubite[2]);
+                            NewSmile.EditQuestion(Attrubite);
+                            DataEnter();
+
+                        }
+                    }
+                    else if (NewStars != null)
+                    {
+                        if (CheckTheData(NewStars))
+                        {
+                            Attrubite = new string[5];
+                            Attrubite[0] = NewText.Text;
+                            Attrubite[1] = NewOrder.Value + "";
+                            Attrubite[2] = NewNumberOfStars.Value + "";
+                            Attrubite[3] = NewStars.IdForType + "";
+                            Attrubite[4] = NewStars.Id + "";
+                            NewStars.NewText = Attrubite[0];
+                            NewStars.Order = Convert.ToInt32(Attrubite[1]);
+                            NewStars.NumberOfStars = Convert.ToInt32(Attrubite[2]);
+                            NewStars.EditQuestion(Attrubite);
+                            DataEnter();
+                        }
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Your Data not updated something went wrong "); 
+            }
+        }
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
-        private void textBox8_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBox2_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            Char ch = e.KeyChar;
-            if (!Char.IsDigit(ch))
-            {
-                e.Handled = true;
-                MessageBox.Show("only numbers"); 
-            }
+
         }
 
-        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            Char ch = e.KeyChar;
-            if (!Char.IsDigit(ch))
-            {
-                e.Handled = true;
-                MessageBox.Show("only numbers");
-            }
+
         }
 
-        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        private void NewNumberOfSmiles_ValueChanged(object sender, EventArgs e)
         {
-            Char ch = e.KeyChar;
-            if (!Char.IsDigit(ch))
-            {
-                e.Handled = true;
-                MessageBox.Show("only numbers");
-            }
         }
     }
 }

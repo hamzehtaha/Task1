@@ -29,188 +29,237 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuestionsInformation));
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.NewTextName = new System.Windows.Forms.Label();
+            this.NewText = new System.Windows.Forms.TextBox();
+            this.GroupOfSlider = new System.Windows.Forms.Panel();
+            this.NewEndValue = new System.Windows.Forms.NumericUpDown();
+            this.NewStartValue = new System.Windows.Forms.NumericUpDown();
+            this.NewEndCaptionName = new System.Windows.Forms.Label();
+            this.NewStartCaptionName = new System.Windows.Forms.Label();
+            this.NewEndValueCaption = new System.Windows.Forms.TextBox();
+            this.NewEndValueName = new System.Windows.Forms.Label();
+            this.NewStartValueName = new System.Windows.Forms.Label();
+            this.NewStartValueCaption = new System.Windows.Forms.TextBox();
+            this.NewNumberOfStars = new System.Windows.Forms.NumericUpDown();
+            this.NewNumberOfSmiles = new System.Windows.Forms.NumericUpDown();
+            this.GroupOfTypes = new System.Windows.Forms.Panel();
+            this.StarsRadio = new System.Windows.Forms.RadioButton();
+            this.SmilyRadio = new System.Windows.Forms.RadioButton();
+            this.SliderRadio = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.NewOrderName = new System.Windows.Forms.Label();
+            this.Save = new System.Windows.Forms.Button();
+            this.Cancel = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.NewOrder = new System.Windows.Forms.NumericUpDown();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.GroupOfSlider.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewEndValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewStartValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewNumberOfStars)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewNumberOfSmiles)).BeginInit();
+            this.GroupOfTypes.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewOrder)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label1
+            // NewTextName
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(11, 23);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Enter Your Qustion";
+            this.NewTextName.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.NewTextName.AutoSize = true;
+            this.NewTextName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NewTextName.Location = new System.Drawing.Point(11, 23);
+            this.NewTextName.Name = "NewTextName";
+            this.NewTextName.Size = new System.Drawing.Size(96, 13);
+            this.NewTextName.TabIndex = 3;
+            this.NewTextName.Text = "Enter Your Qustion";
             // 
-            // textBox1
+            // NewText
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox1.Location = new System.Drawing.Point(113, 20);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(370, 27);
-            this.textBox1.TabIndex = 5;
+            this.NewText.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.NewText.Location = new System.Drawing.Point(113, 20);
+            this.NewText.Multiline = true;
+            this.NewText.Name = "NewText";
+            this.NewText.Size = new System.Drawing.Size(370, 27);
+            this.NewText.TabIndex = 5;
             // 
-            // panel2
+            // GroupOfSlider
             // 
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.textBox6);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.textBox2);
-            this.panel2.Controls.Add(this.textBox3);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.textBox5);
-            this.panel2.Location = new System.Drawing.Point(283, 59);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(199, 145);
-            this.panel2.TabIndex = 16;
+            this.GroupOfSlider.Controls.Add(this.NewEndValue);
+            this.GroupOfSlider.Controls.Add(this.NewStartValue);
+            this.GroupOfSlider.Controls.Add(this.NewEndCaptionName);
+            this.GroupOfSlider.Controls.Add(this.NewStartCaptionName);
+            this.GroupOfSlider.Controls.Add(this.NewEndValueCaption);
+            this.GroupOfSlider.Controls.Add(this.NewEndValueName);
+            this.GroupOfSlider.Controls.Add(this.NewStartValueName);
+            this.GroupOfSlider.Controls.Add(this.NewStartValueCaption);
+            this.GroupOfSlider.Location = new System.Drawing.Point(283, 59);
+            this.GroupOfSlider.Name = "GroupOfSlider";
+            this.GroupOfSlider.Size = new System.Drawing.Size(199, 145);
+            this.GroupOfSlider.TabIndex = 16;
             // 
-            // label6
+            // NewEndValue
             // 
-            this.label6.AutoSize = true;
-            this.label6.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label6.Location = new System.Drawing.Point(6, 113);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(95, 13);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "End Value Caption";
+            this.NewEndValue.Location = new System.Drawing.Point(131, 35);
+            this.NewEndValue.Name = "NewEndValue";
+            this.NewEndValue.Size = new System.Drawing.Size(65, 20);
+            this.NewEndValue.TabIndex = 26;
             // 
-            // label5
+            // NewStartValue
             // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(6, 77);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(98, 13);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Start Value Caption";
+            this.NewStartValue.Location = new System.Drawing.Point(132, 4);
+            this.NewStartValue.Name = "NewStartValue";
+            this.NewStartValue.Size = new System.Drawing.Size(65, 20);
+            this.NewStartValue.TabIndex = 25;
             // 
-            // textBox6
+            // NewEndCaptionName
             // 
-            this.textBox6.Location = new System.Drawing.Point(132, 110);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(65, 23);
-            this.textBox6.TabIndex = 15;
+            this.NewEndCaptionName.AutoSize = true;
+            this.NewEndCaptionName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NewEndCaptionName.Location = new System.Drawing.Point(6, 113);
+            this.NewEndCaptionName.Name = "NewEndCaptionName";
+            this.NewEndCaptionName.Size = new System.Drawing.Size(95, 13);
+            this.NewEndCaptionName.TabIndex = 15;
+            this.NewEndCaptionName.Text = "End Value Caption";
             // 
-            // label4
+            // NewStartCaptionName
             // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label4.Location = new System.Drawing.Point(6, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 13);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "End Value";
+            this.NewStartCaptionName.AutoSize = true;
+            this.NewStartCaptionName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NewStartCaptionName.Location = new System.Drawing.Point(6, 77);
+            this.NewStartCaptionName.Name = "NewStartCaptionName";
+            this.NewStartCaptionName.Size = new System.Drawing.Size(98, 13);
+            this.NewStartCaptionName.TabIndex = 15;
+            this.NewStartCaptionName.Text = "Start Value Caption";
             // 
-            // textBox2
+            // NewEndValueCaption
             // 
-            this.textBox2.Location = new System.Drawing.Point(132, 3);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(65, 23);
-            this.textBox2.TabIndex = 8;
-            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
+            this.NewEndValueCaption.Location = new System.Drawing.Point(132, 110);
+            this.NewEndValueCaption.Multiline = true;
+            this.NewEndValueCaption.Name = "NewEndValueCaption";
+            this.NewEndValueCaption.Size = new System.Drawing.Size(65, 23);
+            this.NewEndValueCaption.TabIndex = 15;
             // 
-            // textBox3
+            // NewEndValueName
             // 
-            this.textBox3.Location = new System.Drawing.Point(132, 38);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(65, 23);
-            this.textBox3.TabIndex = 10;
-            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
+            this.NewEndValueName.AutoSize = true;
+            this.NewEndValueName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NewEndValueName.Location = new System.Drawing.Point(6, 42);
+            this.NewEndValueName.Name = "NewEndValueName";
+            this.NewEndValueName.Size = new System.Drawing.Size(56, 13);
+            this.NewEndValueName.TabIndex = 13;
+            this.NewEndValueName.Text = "End Value";
             // 
-            // label3
+            // NewStartValueName
             // 
-            this.label3.AutoSize = true;
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label3.Location = new System.Drawing.Point(6, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "Start Value";
+            this.NewStartValueName.AutoSize = true;
+            this.NewStartValueName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NewStartValueName.Location = new System.Drawing.Point(6, 6);
+            this.NewStartValueName.Name = "NewStartValueName";
+            this.NewStartValueName.Size = new System.Drawing.Size(59, 13);
+            this.NewStartValueName.TabIndex = 9;
+            this.NewStartValueName.Text = "Start Value";
             // 
-            // textBox5
+            // NewStartValueCaption
             // 
-            this.textBox5.Location = new System.Drawing.Point(132, 74);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(65, 23);
-            this.textBox5.TabIndex = 12;
+            this.NewStartValueCaption.Location = new System.Drawing.Point(132, 74);
+            this.NewStartValueCaption.Multiline = true;
+            this.NewStartValueCaption.Name = "NewStartValueCaption";
+            this.NewStartValueCaption.Size = new System.Drawing.Size(65, 23);
+            this.NewStartValueCaption.TabIndex = 12;
             // 
-            // panel1
+            // NewNumberOfStars
             // 
-            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.panel1.Controls.Add(this.radioButton3);
-            this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.radioButton1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Location = new System.Drawing.Point(3, 90);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(178, 114);
-            this.panel1.TabIndex = 17;
+            this.NewNumberOfStars.Location = new System.Drawing.Point(132, 5);
+            this.NewNumberOfStars.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.NewNumberOfStars.Name = "NewNumberOfStars";
+            this.NewNumberOfStars.Size = new System.Drawing.Size(65, 20);
+            this.NewNumberOfStars.TabIndex = 27;
+            this.NewNumberOfStars.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // radioButton3
+            // NewNumberOfSmiles
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(110, 80);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(49, 17);
-            this.radioButton3.TabIndex = 8;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Stars";
-            this.radioButton3.UseVisualStyleBackColor = true;
-            this.radioButton3.CheckedChanged += new System.EventHandler(this.radioButton3_CheckedChanged);
+            this.NewNumberOfSmiles.Location = new System.Drawing.Point(132, 6);
+            this.NewNumberOfSmiles.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.NewNumberOfSmiles.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
+            this.NewNumberOfSmiles.Name = "NewNumberOfSmiles";
+            this.NewNumberOfSmiles.Size = new System.Drawing.Size(65, 20);
+            this.NewNumberOfSmiles.TabIndex = 26;
+            this.NewNumberOfSmiles.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.NewNumberOfSmiles.ValueChanged += new System.EventHandler(this.NewNumberOfSmiles_ValueChanged);
             // 
-            // radioButton2
+            // GroupOfTypes
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(110, 47);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(55, 17);
-            this.radioButton2.TabIndex = 7;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Smiley";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            this.GroupOfTypes.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.GroupOfTypes.Controls.Add(this.StarsRadio);
+            this.GroupOfTypes.Controls.Add(this.SmilyRadio);
+            this.GroupOfTypes.Controls.Add(this.SliderRadio);
+            this.GroupOfTypes.Controls.Add(this.label2);
+            this.GroupOfTypes.Location = new System.Drawing.Point(3, 90);
+            this.GroupOfTypes.Name = "GroupOfTypes";
+            this.GroupOfTypes.Size = new System.Drawing.Size(178, 114);
+            this.GroupOfTypes.TabIndex = 17;
             // 
-            // radioButton1
+            // StarsRadio
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(110, 15);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(51, 17);
-            this.radioButton1.TabIndex = 6;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Slider";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.StarsRadio.AutoSize = true;
+            this.StarsRadio.Location = new System.Drawing.Point(110, 80);
+            this.StarsRadio.Name = "StarsRadio";
+            this.StarsRadio.Size = new System.Drawing.Size(49, 17);
+            this.StarsRadio.TabIndex = 8;
+            this.StarsRadio.TabStop = true;
+            this.StarsRadio.Text = "Stars";
+            this.StarsRadio.UseVisualStyleBackColor = true;
+            this.StarsRadio.CheckedChanged += new System.EventHandler(this.Stars_CheckedChange);
+            // 
+            // SmilyRadio
+            // 
+            this.SmilyRadio.AutoSize = true;
+            this.SmilyRadio.Location = new System.Drawing.Point(110, 47);
+            this.SmilyRadio.Name = "SmilyRadio";
+            this.SmilyRadio.Size = new System.Drawing.Size(55, 17);
+            this.SmilyRadio.TabIndex = 7;
+            this.SmilyRadio.TabStop = true;
+            this.SmilyRadio.Text = "Smiley";
+            this.SmilyRadio.UseVisualStyleBackColor = true;
+            this.SmilyRadio.CheckedChanged += new System.EventHandler(this.Smily_CheckedChange);
+            // 
+            // SliderRadio
+            // 
+            this.SliderRadio.AutoSize = true;
+            this.SliderRadio.Location = new System.Drawing.Point(110, 15);
+            this.SliderRadio.Name = "SliderRadio";
+            this.SliderRadio.Size = new System.Drawing.Size(51, 17);
+            this.SliderRadio.TabIndex = 6;
+            this.SliderRadio.TabStop = true;
+            this.SliderRadio.Text = "Slider";
+            this.SliderRadio.UseVisualStyleBackColor = true;
+            this.SliderRadio.CheckedChanged += new System.EventHandler(this.Slider_CheckedChange);
             // 
             // label2
             // 
@@ -223,73 +272,116 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Qustion Type";
             // 
-            // textBox8
+            // NewOrderName
             // 
-            this.textBox8.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.textBox8.Location = new System.Drawing.Point(113, 53);
-            this.textBox8.Multiline = true;
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(86, 25);
-            this.textBox8.TabIndex = 20;
-            this.textBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox8_KeyPress);
+            this.NewOrderName.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.NewOrderName.AutoSize = true;
+            this.NewOrderName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.NewOrderName.Location = new System.Drawing.Point(11, 59);
+            this.NewOrderName.Name = "NewOrderName";
+            this.NewOrderName.Size = new System.Drawing.Size(78, 13);
+            this.NewOrderName.TabIndex = 21;
+            this.NewOrderName.Text = "Qustion Oreder";
             // 
-            // label9
+            // Save
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label9.Location = new System.Drawing.Point(11, 59);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(78, 13);
-            this.label9.TabIndex = 21;
-            this.label9.Text = "Qustion Oreder";
+            this.Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Save.BackColor = System.Drawing.Color.White;
+            this.Save.Location = new System.Drawing.Point(159, 210);
+            this.Save.Name = "Save";
+            this.Save.Size = new System.Drawing.Size(84, 26);
+            this.Save.TabIndex = 22;
+            this.Save.Text = "Save";
+            this.Save.UseVisualStyleBackColor = false;
+            this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
-            // button1
+            // Cancel
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(159, 210);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 26);
-            this.button1.TabIndex = 22;
-            this.button1.Text = "Save";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(249, 210);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(84, 26);
-            this.button2.TabIndex = 23;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.Cancel.BackColor = System.Drawing.Color.White;
+            this.Cancel.Location = new System.Drawing.Point(249, 210);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(84, 26);
+            this.Cancel.TabIndex = 23;
+            this.Cancel.Text = "Cancel";
+            this.Cancel.UseVisualStyleBackColor = false;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.textBox1);
-            this.panel3.Controls.Add(this.button2);
-            this.panel3.Controls.Add(this.label1);
-            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.panel2);
-            this.panel3.Controls.Add(this.label9);
-            this.panel3.Controls.Add(this.textBox8);
+            this.panel3.Controls.Add(this.NewOrder);
             this.panel3.Controls.Add(this.panel1);
+            this.panel3.Controls.Add(this.NewText);
+            this.panel3.Controls.Add(this.Cancel);
+            this.panel3.Controls.Add(this.NewTextName);
+            this.panel3.Controls.Add(this.Save);
+            this.panel3.Controls.Add(this.GroupOfSlider);
+            this.panel3.Controls.Add(this.NewOrderName);
+            this.panel3.Controls.Add(this.GroupOfTypes);
             this.panel3.Location = new System.Drawing.Point(12, 12);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(489, 243);
             this.panel3.TabIndex = 24;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.NewNumberOfSmiles);
+            this.panel2.Location = new System.Drawing.Point(270, 53);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(210, 30);
+            this.panel2.TabIndex = 27;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label3.Location = new System.Drawing.Point(3, 7);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 13);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "Number of Smile";
+            // 
+            // NewOrder
+            // 
+            this.NewOrder.Location = new System.Drawing.Point(113, 53);
+            this.NewOrder.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.NewOrder.Name = "NewOrder";
+            this.NewOrder.Size = new System.Drawing.Size(86, 20);
+            this.NewOrder.TabIndex = 24;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.NewNumberOfStars);
+            this.panel1.Location = new System.Drawing.Point(283, 53);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(200, 35);
+            this.panel1.TabIndex = 25;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label1.Location = new System.Drawing.Point(3, 7);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(83, 13);
+            this.label1.TabIndex = 28;
+            this.label1.Text = "Number of Stars";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // QuestionsInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(518, 258);
+            this.ClientSize = new System.Drawing.Size(518, 261);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.HelpButton = true;
@@ -298,38 +390,53 @@
             this.Name = "QuestionsInformation";
             this.Text = "QuestionsInformation";
             this.Load += new System.EventHandler(this.QuestionsInformation_Load);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.GroupOfSlider.ResumeLayout(false);
+            this.GroupOfSlider.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewEndValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewStartValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewNumberOfStars)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewNumberOfSmiles)).EndInit();
+            this.GroupOfTypes.ResumeLayout(false);
+            this.GroupOfTypes.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.NewOrder)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label NewTextName;
+        private System.Windows.Forms.TextBox NewText;
+        private System.Windows.Forms.Panel GroupOfSlider;
+        private System.Windows.Forms.Label NewEndCaptionName;
+        private System.Windows.Forms.Label NewStartCaptionName;
+        private System.Windows.Forms.TextBox NewEndValueCaption;
+        private System.Windows.Forms.Label NewEndValueName;
+        private System.Windows.Forms.Label NewStartValueName;
+        private System.Windows.Forms.TextBox NewStartValueCaption;
+        private System.Windows.Forms.Panel GroupOfTypes;
+        private System.Windows.Forms.RadioButton StarsRadio;
+        private System.Windows.Forms.RadioButton SmilyRadio;
+        private System.Windows.Forms.RadioButton SliderRadio;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label NewOrderName;
+        private System.Windows.Forms.Button Save;
+        private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.NumericUpDown NewOrder;
+        private System.Windows.Forms.NumericUpDown NewEndValue;
+        private System.Windows.Forms.NumericUpDown NewStartValue;
+        private System.Windows.Forms.NumericUpDown NewNumberOfStars;
+        private System.Windows.Forms.NumericUpDown NewNumberOfSmiles;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label3;
     }
 }

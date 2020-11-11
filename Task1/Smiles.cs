@@ -6,71 +6,71 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using Survey;
+
 namespace Task1
 {
     class Smiles :Qustions 
     {
-        public static Boolean[] f = new Boolean[10];
-        public Smiles(int Id,int idForType, string Qustion,string TypeOfQuestion, int order,int NumberOfSmiles) {
-            this.Qustion = Qustion;
+        public Smiles(int Id,int IdForType, string NewText, string TypeOfQuestion, int Order,int NumberOfSmiles) {
+            this.NewText = NewText;
             this.NumberOfSmiles = NumberOfSmiles;
-            this.Order = order;
+            this.Order = Order;
             this.TypeOfQuestion = TypeOfQuestion;
             this.Id = Id;
-            this.idForType = idForType; 
+            this.IdForType = IdForType; 
         }
-        public Smiles(int idForType, string Qustion, string TypeOfQuestion, int order, int NumberOfSmiles)
+        public Smiles(int idForType, string NewText, string TypeOfQuestion, int Order, int NumberOfSmiles)
         {
-            this.Qustion = Qustion;
+            this.NewText = NewText;
             this.NumberOfSmiles = NumberOfSmiles;
-            this.Order = order;
+            this.Order = Order;
             this.TypeOfQuestion = TypeOfQuestion;
-            this.idForType = idForType; 
+            this.IdForType = idForType; 
 
 
         }
         public Smiles() { }
         public int NumberOfSmiles { get; set; }
-        public int idForType { get; set; }
+        public int IdForType { get; set; }
         public static void ShowQuestion()
         {
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             SqlCommand cmd = new SqlCommand("sp_Qustions_SelectAll2", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlCommand cmd1 = new SqlCommand("sp_Smily_SelectAll2", con);
             cmd1.CommandType = CommandType.StoredProcedure;
-            Smiles obj;
+            Smiles smile;
             try
             {
                 con.Open();
-                cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Smily");
+                cmd.Parameters.AddWithValue("@" + Attributes.Variables.Type_Of_Qustion, Attributes.Variables.Smily.ToString()); ;
                 SqlDataReader rd = cmd.ExecuteReader();
 
-                obj = new Smiles();
-                List<Smiles> li1 = new List<Smiles>();
+                smile = new Smiles();
+                List<Smiles> ListSmiles = new List<Smiles>();
                 while (rd.Read())
                 {
-                    obj.Id = Convert.ToInt32(rd["ID"]);
-                    obj.Qustion = rd["Qustions_text"].ToString();
-                    obj.TypeOfQuestion = "Smily";
-                    obj.Order = Convert.ToInt32(rd["Qustion_order"]);
-                    li1.Add(obj);
-                    obj = new Smiles();
+                    smile.Id = Convert.ToInt32(rd[Attributes.Variables.ID.ToString()]);
+                    smile.NewText = rd[Attributes.Variables.Qustions_text.ToString()].ToString();
+                    smile.TypeOfQuestion = Attributes.Variables.Smily.ToString();
+                    smile.Order = Convert.ToInt32(rd[Attributes.Variables.Qustion_order.ToString()]);
+                    ListSmiles.Add(smile);
+                    smile = new Smiles();
                 }
                 rd.Close();
 
-                for (int i = 0; i < li1.Count; ++i)
+                for (int i = 0; i < ListSmiles.Count; ++i)
                 {
 
-                    cmd1.Parameters.AddWithValue("@Qus_ID", li1.ElementAt(i).Id);
+                    cmd1.Parameters.AddWithValue("@"+ Attributes.Variables.Qus_ID, ListSmiles.ElementAt(i).Id);
                     SqlDataReader rd1 = cmd1.ExecuteReader();
                     while (rd1.Read())
                     {
-                        li1.ElementAt(i).NumberOfSmiles = Convert.ToInt32(rd1["Number_of_smily"]);
-                        li1.ElementAt(i).idForType = Convert.ToInt32(rd1["ID"]);
-                        Qustions.lissSlid.Add(li1.ElementAt(i));
-                        //Console.WriteLine(li1.ElementAt(i).Qustion);
+                        ListSmiles.ElementAt(i).NumberOfSmiles = Convert.ToInt32(rd1[Attributes.Variables.Number_of_smily.ToString()]);
+                        ListSmiles.ElementAt(i).IdForType = Convert.ToInt32(rd1[Attributes.Variables.ID.ToString()]);
+                        Attributes.ListOfAllQuestion.Add(ListSmiles.ElementAt(i));
                     }
                     cmd1.Parameters.Clear();
                     rd1.Close();
@@ -89,16 +89,15 @@ namespace Task1
             }
         }
 
-        public override void AddQuestion(string[] att)
+        public override void AddQuestion(string[] Att)
         {
-            Console.WriteLine("Done6");
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             SqlCommand cmd = new SqlCommand("sp_Qustion_Insert3", con);
             SqlCommand cmd1 = new SqlCommand("select max(ID) as ID from Qustions", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Qustions_text", att[0]);
-            cmd.Parameters.AddWithValue("@Qustion_order", Convert.ToInt32(att[1]));
-            cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Smily");
+            cmd.Parameters.AddWithValue("@"+ Attributes.Variables.Qustions_text, Att[0]);
+            cmd.Parameters.AddWithValue("@"+ Attributes.Variables.Qustion_order, Convert.ToInt32(Att[1]));
+            cmd.Parameters.AddWithValue("@"+ Attributes.Variables.Type_Of_Qustion, Attributes.Variables.Smily.ToString());
             int id = -1;
             try
             {
@@ -106,7 +105,7 @@ namespace Task1
                 cmd.ExecuteNonQuery();
                 SqlDataReader rd = cmd1.ExecuteReader();
                 while (rd.Read())
-                    id = Convert.ToInt32(rd["ID"]);
+                    id = Convert.ToInt32(rd[Attributes.Variables.ID.ToString()]);
                 rd.Close();
 
             }
@@ -128,8 +127,8 @@ namespace Task1
                     con.Open();
                     SqlCommand cmd3 = new SqlCommand("sp_Smiles_Insert5", con);
                     cmd3.CommandType = CommandType.StoredProcedure;
-                    cmd3.Parameters.AddWithValue("@Number_of_smily",Convert.ToInt32(att[2]));
-                    cmd3.Parameters.AddWithValue("@Qus_ID", id);
+                    cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Number_of_smily,Convert.ToInt32(Att[2]));
+                    cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Qus_ID, id);
                     cmd3.ExecuteNonQuery();
                     cmd3.Parameters.Clear();
                     Smiles.ShowQuestion();
@@ -147,24 +146,24 @@ namespace Task1
 
         public override void EditQuestion(string[] Att)
         {
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             try
             {
                 con.Open();
                 ///////////////////////////////////////////////////////////////////////
                 SqlCommand cmd3 = new SqlCommand("sp_Smily_Update10", con);
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID", Convert.ToInt32(Att[3]));
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.ID, Convert.ToInt32(Att[3]));
                 if (Att[2] != "")
-                    cmd3.Parameters.AddWithValue("@Number_of_smily",Att[2]);
+                    cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Number_of_smily,Att[2]);
                 cmd3.ExecuteNonQuery();
                 cmd3.Parameters.Clear();
                 cmd3.CommandText = "sp_Qustion_update7";
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID", Convert.ToInt32(Att[4]));
-                cmd3.Parameters.AddWithValue("@Qustions_text",Att[0]);
-                cmd3.Parameters.AddWithValue("@Qustion_order", Convert.ToInt32(Att[1]));
-                cmd3.Parameters.AddWithValue("@Type_Of_Qustion","Smily");
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.ID, Convert.ToInt32(Att[4]));
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Qustions_text,Att[0]);
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Qustion_order, Convert.ToInt32(Att[1]));
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Type_Of_Qustion, Attributes.Variables.Smily.ToString());
                 cmd3.ExecuteNonQuery();
 
             }
@@ -178,20 +177,20 @@ namespace Task1
             }
         }
 
-        public override void Delete(int id, int idFroType)
+        public override void Delete(int Id, int IdFroType)
         {
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             try
             {
                 con.Open();
                 SqlCommand cmd3 = new SqlCommand("sp_Smily_Delete", con);
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID",idForType);
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.ID,IdForType);
                 cmd3.ExecuteNonQuery();
                 cmd3.Parameters.Clear();
                 cmd3.CommandText = "sp_Qustion_Delete";
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID", id);
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.ID, Id);
                 cmd3.ExecuteNonQuery();
                 cmd3.Parameters.Clear();
             }

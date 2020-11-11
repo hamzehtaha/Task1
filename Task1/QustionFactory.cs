@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Survey;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace Task1
     {
         public override Qustions GetQustion(string Qus_Type)
         {
-            if (Qus_Type.Equals("Slider"))
+            if (Qus_Type.Equals(Attributes.Variables.Slider.ToString()))
             {
                 return new Slider(); 
-            }else if (Qus_Type.Equals("Smily"))
+            }else if (Qus_Type.Equals(Attributes.Variables.Smily.ToString()))
             {
                 return new Smiles(); 
             }else 

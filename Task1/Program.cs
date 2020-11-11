@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Survey;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace Task1
 {
     static class Program
     {
-
-        public static AbstractFactory QusFac = new QustionFactory();  
+        
+        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -18,7 +19,7 @@ namespace Task1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new HomePage());
+            Application.Run(new Home());
         }
     }
 }

@@ -6,27 +6,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using Survey;
+
 namespace Task1
 {
     class Stars : Qustions
     {
         public int NumberOfStars { get; set; }
-        public int idForType { get; set;  }
-        public Stars(int Id,int idForType, string Qustion,string TypeOfQuestion, int order , int NumberOfStars) {
-            this.Qustion = Qustion;
+        public int IdForType { get; set;  }
+        public Stars(int Id,int IdForType, string NewText, string TypeOfQuestion, int Order , int NumberOfStars) {
+            this.NewText = NewText;
             this.NumberOfStars = NumberOfStars;
-            this.Order = order;
+            this.Order = Order;
             this.TypeOfQuestion = TypeOfQuestion;
             this.Id = Id;
-            this.idForType = idForType; 
+            this.IdForType = IdForType; 
         }
-        public Stars(int idForType, string Qustion, string TypeOfQuestion, int order, int NumberOfStars)
+        public Stars(int IdForType, string NewText, string TypeOfQuestion, int Order, int NumberOfStars)
         {
-            this.Qustion = Qustion;
+            this.NewText = NewText;
             this.NumberOfStars = NumberOfStars;
-            this.Order = order;
+            this.Order = Order;
             this.TypeOfQuestion = TypeOfQuestion;
-            this.idForType = idForType; 
+            this.IdForType = IdForType; 
 
         }
         public Stars()
@@ -36,43 +38,42 @@ namespace Task1
         public static void ShowQuestion()
         {
 
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             SqlCommand cmd = new SqlCommand("sp_Qustions_SelectAll2", con);
             cmd.CommandType = CommandType.StoredProcedure;
 
             SqlCommand cmd1 = new SqlCommand("sp_Stars_SelectAll2", con);
             cmd1.CommandType = CommandType.StoredProcedure;
-            Stars obj;
+            Stars stars;
             try
             {
                 con.Open();
-                cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Stars");
+                cmd.Parameters.AddWithValue(Attributes.Variables.Type_Of_Qustion.ToString(), Attributes.Variables.Stars.ToString());
                 SqlDataReader rd = cmd.ExecuteReader();
 
-                obj = new Stars();
-                List<Stars> li1 = new List<Stars>();
+                stars = new Stars();
+                List<Stars> ListOfStars = new List<Stars>();
                 while (rd.Read())
                 {
-                    obj.Id = Convert.ToInt32(rd["ID"]);
-                    obj.Qustion = rd["Qustions_text"].ToString();
-                    obj.TypeOfQuestion = "Stars";
-                    obj.Order = Convert.ToInt32(rd["Qustion_order"]);
-                    li1.Add(obj);
-                    obj = new Stars();
+                    stars.Id = Convert.ToInt32(rd[Attributes.Variables.ID.ToString()]);
+                    stars.NewText = rd[Attributes.Variables.Qustions_text.ToString()].ToString();
+                    stars.TypeOfQuestion = Attributes.Variables.Stars.ToString();
+                    stars.Order = Convert.ToInt32(rd[Attributes.Variables.Qustion_order.ToString()]);
+                    ListOfStars.Add(stars);
+                    stars = new Stars();
                 }
                 rd.Close();
 
-                for (int i = 0; i < li1.Count; ++i)
+                for (int i = 0; i < ListOfStars.Count; ++i)
                 {
 
-                    cmd1.Parameters.AddWithValue("@Qus_ID", li1.ElementAt(i).Id);
+                    cmd1.Parameters.AddWithValue("@"+ Attributes.Variables.Qus_ID, ListOfStars.ElementAt(i).Id);
                     SqlDataReader rd1 = cmd1.ExecuteReader();
                     while (rd1.Read())
                     {
-                        li1.ElementAt(i).NumberOfStars = Convert.ToInt32(rd1["Number_Of_Stars"]);
-                        li1.ElementAt(i).idForType = Convert.ToInt32(rd1["ID"]);
-                        Qustions.lissSlid.Add(li1.ElementAt(i));
-                       // Console.WriteLine(li1.ElementAt(i).Qustion);
+                        ListOfStars.ElementAt(i).NumberOfStars = Convert.ToInt32(rd1[Attributes.Variables.Number_Of_Stars.ToString()]);
+                        ListOfStars.ElementAt(i).IdForType = Convert.ToInt32(rd1[Attributes.Variables.ID.ToString()]);
+                        Attributes.ListOfAllQuestion.Add(ListOfStars.ElementAt(i));
                     }
                     cmd1.Parameters.Clear();
                     rd1.Close();
@@ -93,14 +94,13 @@ namespace Task1
 
         public override void AddQuestion(string [] att)
         {
-            Console.WriteLine("Done3");
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             SqlCommand cmd = new SqlCommand("sp_Qustion_Insert3", con);
             SqlCommand cmd1 = new SqlCommand("select max(ID) as ID from Qustions", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@Qustions_text", att[0]);
-            cmd.Parameters.AddWithValue("@Qustion_order", Convert.ToInt32(att[1]));
-            cmd.Parameters.AddWithValue("@Type_Of_Qustion", "Stars");
+            cmd.Parameters.AddWithValue("@"+ Attributes.Variables.Qustions_text, att[0]);
+            cmd.Parameters.AddWithValue("@"+ Attributes.Variables.Qustion_order, Convert.ToInt32(att[1]));
+            cmd.Parameters.AddWithValue("@"+ Attributes.Variables.Type_Of_Qustion, Attributes.Variables.Stars.ToString());
             int id = -1;
             try
             {
@@ -108,7 +108,7 @@ namespace Task1
                 cmd.ExecuteNonQuery();
                 SqlDataReader rd = cmd1.ExecuteReader();
                 while (rd.Read())
-                    id = Convert.ToInt32(rd["ID"]);
+                    id = Convert.ToInt32(rd[Attributes.Variables.ID.ToString()]);
                 rd.Close();
 
             }
@@ -130,8 +130,8 @@ namespace Task1
                     con.Open();
                     SqlCommand cmd3 = new SqlCommand("sp_Stars_Insert6", con);
                     cmd3.CommandType = CommandType.StoredProcedure;
-                    cmd3.Parameters.AddWithValue("@Number_Of_Stars", Convert.ToInt32(att[2]));
-                    cmd3.Parameters.AddWithValue("@Qus_ID", id);
+                    cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Number_Of_Stars, Convert.ToInt32(att[2]));
+                    cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Qus_ID, id);
                     cmd3.ExecuteNonQuery();
                     cmd3.Parameters.Clear();
                     Stars.ShowQuestion();
@@ -148,23 +148,23 @@ namespace Task1
 
         public override void EditQuestion(string[] Att)
         {
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             try
             {
                 con.Open();
                 ///////////////////////////////////////////////////////////////////////
                 SqlCommand cmd3 = new SqlCommand("sp_Stars_Update10", con);
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID",Convert.ToInt32(Att[3]));
-                cmd3.Parameters.AddWithValue("@Number_Of_Stars", Convert.ToInt32(Att[2]));
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Qus_ID, Convert.ToInt32(Att[3]));
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Number_Of_Stars,Convert.ToInt32(Att[2]));
                 cmd3.ExecuteNonQuery();
                 cmd3.Parameters.Clear();
                 cmd3.CommandText = "sp_Qustion_update7";
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID",Convert.ToInt32(Att[4]));
-                cmd3.Parameters.AddWithValue("@Qustions_text", Att[0]);
-                cmd3.Parameters.AddWithValue("@Qustion_order", Convert.ToInt32(Att[1]));
-                cmd3.Parameters.AddWithValue("@Type_Of_Qustion","Stars");
+                cmd3.Parameters.AddWithValue("@" + Attributes.Variables.ID, Convert.ToInt32(Att[4]));
+                cmd3.Parameters.AddWithValue("@" + Attributes.Variables.Qustions_text, Att[0]);
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.Qustion_order, Convert.ToInt32(Att[1]));
+                cmd3.Parameters.AddWithValue("@" + Attributes.Variables.Qustion_order, Attributes.Variables.Stars.ToString());
                 cmd3.ExecuteNonQuery();
             }
             catch (Exception ex)
@@ -179,18 +179,18 @@ namespace Task1
 
         public override void Delete(int id, int idFroType)
         {
-            SqlConnection con = new SqlConnection(Qustions.connectionString);
+            SqlConnection con = Attributes.GetConnection();
             try
             {
                 con.Open();
                 SqlCommand cmd3 = new SqlCommand("sp_Stars_Delete", con);
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID",idForType);
+                cmd3.Parameters.AddWithValue("@" + Attributes.Variables.ID, IdForType);
                 cmd3.ExecuteNonQuery();
                 cmd3.Parameters.Clear();
                 cmd3.CommandText = "sp_Qustion_Delete";
                 cmd3.CommandType = CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@ID",Id);
+                cmd3.Parameters.AddWithValue("@"+ Attributes.Variables.ID, Id);
                 cmd3.ExecuteNonQuery();
                 cmd3.Parameters.Clear();
             }

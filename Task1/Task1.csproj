@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4C276C6B-E8D1-4302-81A1-6014BC59C218}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>Task1</RootNamespace>
-    <AssemblyName>Task1</AssemblyName>
+    <RootNamespace>Survey</RootNamespace>
+    <AssemblyName>Survey</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -61,11 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractFactory.cs" />
-    <Compile Include="HomePage.cs">
+    <Compile Include="Attrubites.cs" />
+    <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="HomePage.Designer.cs">
-      <DependentUpon>HomePage.cs</DependentUpon>
+    <Compile Include="Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,8 +81,8 @@
     <Compile Include="Slider.cs" />
     <Compile Include="Smiles.cs" />
     <Compile Include="Stars.cs" />
-    <EmbeddedResource Include="HomePage.resx">
-      <DependentUpon>HomePage.cs</DependentUpon>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
