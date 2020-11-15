@@ -130,12 +130,6 @@
   <data name="NewText.Location" type="System.Drawing.Point, System.Drawing">
     <value>51, 3</value>
   </data>
-  <data name="GroupOfSlider.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 53</value>
-  </data>
-  <data name="GroupOfSlider.Size" type="System.Drawing.Size, System.Drawing">
-    <value>199, 127</value>
-  </data>
   <data name="NewEndValue.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 33</value>
   </data>
@@ -184,14 +178,17 @@
   <data name="NewStartValueCaption.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 63</value>
   </data>
+  <data name="GroupOfSlider.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 53</value>
+  </data>
+  <data name="GroupOfSlider.Size" type="System.Drawing.Size, System.Drawing">
+    <value>199, 127</value>
+  </data>
   <data name="NewNumberOfStars.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 7</value>
   </data>
   <data name="NewNumberOfSmiles.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 3</value>
-  </data>
-  <data name="GroupOfTypes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>309, 94</value>
   </data>
   <data name="StarsRadio.Location" type="System.Drawing.Point, System.Drawing">
     <value>29, 69</value>
@@ -228,6 +225,9 @@
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>نوع السؤال </value>
+  </data>
+  <data name="GroupOfTypes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>309, 94</value>
   </data>
   <data name="NewOrderName.Location" type="System.Drawing.Point, System.Drawing">
     <value>435, 48</value>
@@ -1406,5 +1406,15 @@
         H///////////////AAAAAH///////////////8AAAAD////////////////wAAAD////////////////
         /AAAH/////////////////+AAH////////8=
 </value>
+  </data>
+  <data name="$this.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>Yes</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.RightToLeftLayout" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>حمزة</value>
   </data>
 </root>

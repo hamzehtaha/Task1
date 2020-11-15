@@ -29,9 +29,8 @@ namespace Task1
                 GroupOfSlider.Visible = true; 
             }catch (Exception ex)
             {
-
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void ShowForSmiles()
@@ -44,8 +43,8 @@ namespace Task1
             catch (Exception ex)
             {
 
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void ShowForStars()
@@ -58,50 +57,40 @@ namespace Task1
             catch (Exception ex)
             {
 
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         public QuestionsInformation(DataGridView ListOfQuestion, int Id, string Type, string AddOrEdit)
         {
             InitializeComponent();
-            switch (Attributes.Languge) {
-                case "English":
-                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
-                    break;
-                case "Arabic":
-                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
-                    break;
-                default:
-                    break;
-            }
             this.ListOfQuestion = ListOfQuestion;
-            Attributes.Id = Id;
-            Attributes.Type = Type;
+            Constant.Id = Id;
+            Constant.Type = Type;
             try
             {
-                if (AddOrEdit == "Edit")
+                if (AddOrEdit.Equals(Constant.EDIT))
                 {
                     GroupOfTypes.Visible = false;
-                    Attributes.AddOrEdit = "Edit"; 
+                    Constant.AddOrEdit = Constant.EDIT; 
                     GetObject(); 
 
                 }
-                else if (AddOrEdit == "Add")
+                else if (AddOrEdit.Equals(Constant.ADD))
                 {
                     GroupOfTypes.Visible = true;
-                    Attributes.AddOrEdit = "Add";
+                    Constant.AddOrEdit = Constant.ADD;
                     InitHide(); 
                 }
-                if (Type.Equals(Attributes.SliderString))
+                if (Type.Equals(Constant.SliderString))
                 {
                     ShowForSlider(); 
                 }
-                else if (Type.Equals(Attributes.SmilyString))
+                else if (Type.Equals(Constant.SmilyString))
                 {
                     ShowForSmiles(); 
                 }
-                else if (Type.Equals(Attributes.StarsString))
+                else if (Type.Equals(Constant.StarsString))
                 {
                     ShowForStars(); 
 
@@ -109,12 +98,13 @@ namespace Task1
             }catch (Exception ex)
             {
 
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void InitHide()
         {
+            // This For Hide panel and radio Button
             try
             {
                 GroupOfSlider.Visible = false ;
@@ -123,8 +113,8 @@ namespace Task1
             }catch (Exception ex)
             {
 
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
 
         }
@@ -155,8 +145,8 @@ namespace Task1
             } catch (Exception ex)
             {
 
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void Smily_CheckedChange(object sender, EventArgs e)
@@ -170,7 +160,8 @@ namespace Task1
                 }
             } catch (Exception ex)
             {
-
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void Stars_CheckedChange(object sender, EventArgs e)
@@ -185,20 +176,22 @@ namespace Task1
                 }
             } catch (Exception ex)
             {
-
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void GetObject()
         {
+            // This Function To get Object Selected And Show data in my Edit page 
             try
             {
-                for (int i = 0; i < Attributes.ListOfAllQuestion.Count; ++i)
+                for (int i = 0; i < Constant.ListOfAllQuestion.Count; ++i)
                 {
-                    if (Attributes.ListOfAllQuestion.ElementAt(i).Id == Attributes.Id)
+                    if (Constant.ListOfAllQuestion.ElementAt(i).Id == Constant.Id)
                     {
-                        if (Attributes.ListOfAllQuestion.ElementAt(i) is Slider)
+                        if (Constant.ListOfAllQuestion.ElementAt(i) is Slider)
                         {
-                            NewSlider = (Slider)Attributes.ListOfAllQuestion.ElementAt(i);
+                            NewSlider = (Slider)Constant.ListOfAllQuestion.ElementAt(i);
                             NewText.Text = NewSlider.NewText;
                             NewOrder.Value = NewSlider.Order;
                             NewStartValue.Value = NewSlider.StartValue;
@@ -206,15 +199,15 @@ namespace Task1
                             NewStartValueCaption.Text = NewSlider.StartCaption;
                             NewEndValueCaption.Text = NewSlider.EndCaption;
                         }
-                        else if (Attributes.ListOfAllQuestion.ElementAt(i) is Smiles)
+                        else if (Constant.ListOfAllQuestion.ElementAt(i) is Smiles)
                         {
-                            NewSmile = (Smiles)Attributes.ListOfAllQuestion.ElementAt(i);
+                            NewSmile = (Smiles)Constant.ListOfAllQuestion.ElementAt(i);
                             NewText.Text = NewSmile.NewText;
                             NewOrder.Value = NewSmile.Order;
                             NewNumberOfSmiles.Value = NewSmile.NumberOfSmiles;
                         }else
                         {
-                            NewStars = (Stars)Attributes.ListOfAllQuestion.ElementAt(i);
+                            NewStars = (Stars)Constant.ListOfAllQuestion.ElementAt(i);
                             NewText.Text = NewStars.NewText;
                             NewOrder.Value = NewStars.Order;
                             NewNumberOfStars.Value = NewStars.NumberOfStars;
@@ -223,83 +216,91 @@ namespace Task1
                 }
             }catch (Exception ex)
             {
-
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void DataEnter()
         {
-            MessageBox.Show("Your Data is Enterd");
-            Qustions.GetData(ListOfQuestion);
-            this.Close();
+            // This Function For User know is data is edited or Added
+            try
+            {
+                MessageBox.Show("Your Data is Enterd");
+                Qustions.GetData(ListOfQuestion);
+                this.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
+            }
 
         }
         private bool CheckTheData( Qustions TypeQuestion)
         {
+            // This Function to Check validation of data 
             try
             {
                 if (NewText.Text == "")
                 {
-                    MessageBox.Show("Your Question is Empty", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    MessageBox.Show("Your Question is Empty", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
                     return false;
                 }
                 else if (IsNumber(NewText.Text))
                 {
-                    MessageBox.Show("Your Question just numbers  ", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Your Question just numbers  ", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
                 else if (NewOrder.Value <= 0)
                 {
-                    MessageBox.Show("The order sholud be grater than 0", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The order sholud be grater than 0", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 if (TypeQuestion is Slider)
                 {
                     if (NewStartValue.Value <= 0)
                     {
-                        MessageBox.Show("Your start value must be greater than 0", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Your start value must be greater than 0", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValue.Value <= 0)
                     {
-                        MessageBox.Show("Your end value must be greater than 0", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Your end value must be greater than 0", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValue.Value > 100)
                     {
-                        MessageBox.Show("The start value should be less than 100", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The start value should be less than 100", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValue.Value > 100)
                     {
-                        MessageBox.Show("The end value should be less than 100", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end value should be less than 100", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValue.Value >= NewEndValue.Value)
                     {
-                        MessageBox.Show("The end value should be grater than start value", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end value should be grater than start value", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValueCaption.Text == "")
                     {
-                        MessageBox.Show("The start caption is empty", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The start caption is empty", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (IsNumber(NewStartValueCaption.Text))
                     {
-                        MessageBox.Show("The start caption should not contain only numbers", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The start caption should not contain only numbers", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValueCaption.Text == "")
                     {
-                        MessageBox.Show("The end caption is empty", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end caption is empty", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (IsNumber(NewEndValueCaption.Text))
                     {
-                        MessageBox.Show("The end caption should not contain only numbers", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end caption should not contain only numbers", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -307,7 +308,7 @@ namespace Task1
                 {
                     if (NewNumberOfSmiles.Value <= 1 || NewNumberOfSmiles.Value > 5)
                     {
-                        MessageBox.Show("The number of smile face should be greater than 1 and less than 6", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The number of smile face should be greater than 1 and less than 6", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -315,15 +316,15 @@ namespace Task1
                 {
                     if (NewNumberOfStars.Value <= 0 || NewNumberOfStars.Value > 10)
                     {
-                        MessageBox.Show("The number of stars face should be greater than 0 and less than or equal 10", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The number of stars face should be greater than 0 and less than or equal 10", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
             }catch (Exception ex)
             {
 
-                MessageBox.Show(Attributes.MessageError);
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
             return true; 
         }
@@ -331,14 +332,14 @@ namespace Task1
         {
             try
             {
-                if (Attributes.AddOrEdit == "Add")
+                if (Constant.AddOrEdit == Constant.ADD)
                 {
                     Qustions NewQuestion = null;
                     
                     bool f = false;
                     if (SliderRadio.Checked)
                     {
-                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.SliderString);
+                        NewQuestion = Constant.QuestionFactory.GetQustion(Constant.SliderString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
@@ -354,7 +355,7 @@ namespace Task1
                     else if (SmilyRadio.Checked)
                     {
 
-                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.SmilyString);
+                        NewQuestion = Constant.QuestionFactory.GetQustion(Constant.SmilyString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
@@ -368,7 +369,7 @@ namespace Task1
                     }
                     else if (StarsRadio.Checked)
                     {
-                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.StarsString);
+                        NewQuestion = Constant.QuestionFactory.GetQustion(Constant.StarsString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
@@ -388,11 +389,11 @@ namespace Task1
             }catch (Exception ex)
             {
 
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
             try { 
-                 if (Attributes.AddOrEdit == "Edit")
+                 if (Constant.AddOrEdit == Constant.EDIT)
                  {
                     string[] Attrubite = null;
                     if (NewSlider != null)
@@ -461,8 +462,8 @@ namespace Task1
             catch (Exception ex)
             {
 
-                MessageBox.Show("Smomething went wrong!");
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         private void Cancel_Click(object sender, EventArgs e)

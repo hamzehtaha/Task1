@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace Survey
 {
+    // This Class using  AbstractLog For Error 
     class Logger : AbstractLog
     {
         private string CurrentDirectory {
@@ -34,6 +35,7 @@ namespace Survey
 
         public override void Log(string Message)
         {
+            //This Function OVERRIDE FROM AbstractLog that is write Errors and dates in log file  
 
             StreamWriter writer = new StreamWriter(this.FilePath);
             try

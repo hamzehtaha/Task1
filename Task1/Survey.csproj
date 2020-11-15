@@ -64,7 +64,7 @@
   <ItemGroup>
     <Compile Include="AbstractFactory.cs" />
     <Compile Include="AbstractLog.cs" />
-    <Compile Include="Attrubites.cs" />
+    <Compile Include="Constant.cs" />
     <Compile Include="DataBaseConnections.cs" />
     <Compile Include="Home.cs">
       <SubType>Form</SubType>

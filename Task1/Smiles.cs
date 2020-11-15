@@ -24,8 +24,8 @@ namespace Task1
                 this.IdForType = IdForType;
             }catch (Exception ex)
             {
-                MessageBox.Show(Attributes.MessageError);
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
         }
         public Smiles(int idForType, string NewText, string TypeOfQuestion, int Order, int NumberOfSmiles)
@@ -40,8 +40,8 @@ namespace Task1
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Attributes.MessageError);
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.MessageError);
+                Constant.Erros.Log(ex.Message);
             }
 
         }
@@ -50,27 +50,28 @@ namespace Task1
         public int IdForType { get; set; }
         public static void ShowQuestion()
         {
+            //  This Function for get Question From data base and add it in my ListOfAllQuestion
             SqlConnection Connection = DataBaseConnections.GetConnection();
-            SqlCommand Command = new SqlCommand("sp_Qustions_SelectAll2", Connection);
+            SqlCommand Command = new SqlCommand(Constant.ProcdureQuestionSelectAll, Connection);
             Command.CommandType = CommandType.StoredProcedure;
 
-            SqlCommand Command1 = new SqlCommand("sp_Smily_SelectAll2", Connection);
+            SqlCommand Command1 = new SqlCommand(Constant.ProcdureSmilesSelectAll, Connection);
             Command1.CommandType = CommandType.StoredProcedure;
             Smiles smile;
             try
             {
                 Connection.Open();
-                Command.Parameters.AddWithValue(Attributes.AtsMark + Attributes.Type_Of_QustionString, Attributes.SmilyString); ;
+                Command.Parameters.AddWithValue(Constant.AtsMark + Constant.Type_Of_QustionString, Constant.SmilyString); ;
                 SqlDataReader Reader = Command.ExecuteReader();
 
                 smile = new Smiles();
                 List<Smiles> ListSmiles = new List<Smiles>();
                 while (Reader.Read())
                 {
-                    smile.Id = Convert.ToInt32(Reader[Attributes.IDString]);
-                    smile.NewText = Reader[Attributes.Qustions_textString].ToString();
-                    smile.TypeOfQuestion = Attributes.SmilyString;
-                    smile.Order = Convert.ToInt32(Reader[Attributes.Qustion_orderString]);
+                    smile.Id = Convert.ToInt32(Reader[Constant.IDString]);
+                    smile.NewText = Reader[Constant.Qustions_textString].ToString();
+                    smile.TypeOfQuestion = Constant.SmilyString;
+                    smile.Order = Convert.ToInt32(Reader[Constant.Qustion_orderString]);
                     ListSmiles.Add(smile);
                     smile = new Smiles();
                 }
@@ -79,13 +80,13 @@ namespace Task1
                 for (int i = 0; i < ListSmiles.Count; ++i)
                 {
 
-                    Command1.Parameters.AddWithValue(Attributes.AtsMark+ Attributes.Qus_IDString, ListSmiles.ElementAt(i).Id);
+                    Command1.Parameters.AddWithValue(Constant.AtsMark+ Constant.Qus_IDString, ListSmiles.ElementAt(i).Id);
                     SqlDataReader Reader1 = Command1.ExecuteReader();
                     while (Reader1.Read())
                     {
-                        ListSmiles.ElementAt(i).NumberOfSmiles = Convert.ToInt32(Reader1[Attributes.Number_of_smilyString]);
-                        ListSmiles.ElementAt(i).IdForType = Convert.ToInt32(Reader1[Attributes.IDString]);
-                        Attributes.ListOfAllQuestion.Add(ListSmiles.ElementAt(i));
+                        ListSmiles.ElementAt(i).NumberOfSmiles = Convert.ToInt32(Reader1[Constant.Number_of_smilyString]);
+                        ListSmiles.ElementAt(i).IdForType = Convert.ToInt32(Reader1[Constant.IDString]);
+                        Constant.ListOfAllQuestion.Add(ListSmiles.ElementAt(i));
                     }
                     Command1.Parameters.Clear();
                     Reader1.Close();
@@ -97,8 +98,8 @@ namespace Task1
             catch (Exception ex)
             {
 
-                MessageBox.Show(Attributes.ErrorString);
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.ErrorString);
+                Constant.Erros.Log(ex.Message);
             }
             finally
             {
@@ -108,13 +109,14 @@ namespace Task1
 
         public override void AddQuestion(string[] Att)
         {
+            //  This Function override from Question and immplment it For Add Smily Question 
             SqlConnection Connection = DataBaseConnections.GetConnection();
-            SqlCommand Command = new SqlCommand("sp_Qustion_Insert3", Connection);
-            SqlCommand Command1 = new SqlCommand("select max(ID) as ID from Qustions", Connection);
+            SqlCommand Command = new SqlCommand(Constant.ProcdureQuestionInsert, Connection);
+            SqlCommand Command1 = new SqlCommand(Constant.ProcdureQuestionSelectForMax, Connection);
             Command.CommandType = CommandType.StoredProcedure;
-            Command.Parameters.AddWithValue(Attributes.AtsMark+ Attributes.Qustions_textString, Att[0]);
-            Command.Parameters.AddWithValue(Attributes.AtsMark + Attributes.Qustion_orderString, Convert.ToInt32(Att[1]));
-            Command.Parameters.AddWithValue(Attributes.AtsMark + Attributes.Type_Of_QustionString, Attributes.SmilyString);
+            Command.Parameters.AddWithValue(Constant.AtsMark+ Constant.Qustions_textString, Att[0]);
+            Command.Parameters.AddWithValue(Constant.AtsMark + Constant.Qustion_orderString, Convert.ToInt32(Att[1]));
+            Command.Parameters.AddWithValue(Constant.AtsMark + Constant.Type_Of_QustionString, Constant.SmilyString);
             int id = -1;
             try
             {
@@ -122,7 +124,7 @@ namespace Task1
                 Command.ExecuteNonQuery();
                 SqlDataReader Reader = Command1.ExecuteReader();
                 while (Reader.Read())
-                    id = Convert.ToInt32(Reader[Attributes.IDString]);
+                    id = Convert.ToInt32(Reader[Constant.IDString]);
                 Reader.Close();
 
             }
@@ -142,10 +144,10 @@ namespace Task1
                 try
                 {
                     Connection.Open();
-                    SqlCommand Command3 = new SqlCommand("sp_Smiles_Insert5", Connection);
+                    SqlCommand Command3 = new SqlCommand(Constant.ProcdureSmilesInsert, Connection);
                     Command3.CommandType = CommandType.StoredProcedure;
-                    Command3.Parameters.AddWithValue(Attributes.AtsMark+ Attributes.Number_of_smilyString,Convert.ToInt32(Att[2]));
-                    Command3.Parameters.AddWithValue(Attributes.AtsMark+ Attributes.Qus_IDString, id);
+                    Command3.Parameters.AddWithValue(Constant.AtsMark+ Constant.Number_of_smilyString,Convert.ToInt32(Att[2]));
+                    Command3.Parameters.AddWithValue(Constant.AtsMark+ Constant.Qus_IDString, id);
                     Command3.ExecuteNonQuery();
                     Command3.Parameters.Clear();
                     Smiles.ShowQuestion();
@@ -153,8 +155,8 @@ namespace Task1
                 catch(Exception ex)
                 {
 
-                    MessageBox.Show(Attributes.ErrorString);
-                    Attributes.Erros.Log(ex.Message);
+                    MessageBox.Show(Constant.ErrorString);
+                    Constant.Erros.Log(ex.Message);
                 }
                 finally
                 {
@@ -165,32 +167,33 @@ namespace Task1
 
         public override void EditQuestion(string[] Att)
         {
+            //  This Function override from Question and immplment it For Edit Smily Question 
             SqlConnection Connection = DataBaseConnections.GetConnection();
             try
             {
                 Connection.Open();
                 ///////////////////////////////////////////////////////////////////////
-                SqlCommand Command3 = new SqlCommand("sp_Smily_Update10", Connection);
+                SqlCommand Command3 = new SqlCommand(Constant.ProcdureSmilesUpdate, Connection);
                 Command3.CommandType = CommandType.StoredProcedure;
-                Command3.Parameters.AddWithValue(Attributes.AtsMark+ Attributes.IDString, Convert.ToInt32(Att[3]));
+                Command3.Parameters.AddWithValue(Constant.AtsMark+ Constant.IDString, Convert.ToInt32(Att[3]));
                 if (Att[2] != "")
-                    Command3.Parameters.AddWithValue("@"+ Attributes.Number_of_smilyString,Att[2]);
+                    Command3.Parameters.AddWithValue(Constant.AtsMark+ Constant.Number_of_smilyString,Att[2]);
                 Command3.ExecuteNonQuery();
                 Command3.Parameters.Clear();
-                Command3.CommandText = "sp_Qustion_update7";
+                Command3.CommandText = Constant.ProcdureQuestionUpdate;
                 Command3.CommandType = CommandType.StoredProcedure;
-                Command3.Parameters.AddWithValue(Attributes.AtsMark + Attributes.IDString, Convert.ToInt32(Att[4]));
-                Command3.Parameters.AddWithValue(Attributes.AtsMark + Attributes.Qustions_textString,Att[0]);
-                Command3.Parameters.AddWithValue(Attributes.AtsMark + Attributes.Qustion_orderString, Convert.ToInt32(Att[1]));
-                Command3.Parameters.AddWithValue(Attributes.AtsMark + Attributes.Type_Of_QustionString, Attributes.SmilyString.ToString());
+                Command3.Parameters.AddWithValue(Constant.AtsMark + Constant.IDString, Convert.ToInt32(Att[4]));
+                Command3.Parameters.AddWithValue(Constant.AtsMark + Constant.Qustions_textString,Att[0]);
+                Command3.Parameters.AddWithValue(Constant.AtsMark + Constant.Qustion_orderString, Convert.ToInt32(Att[1]));
+                Command3.Parameters.AddWithValue(Constant.AtsMark + Constant.Type_Of_QustionString, Constant.SmilyString.ToString());
                 Command3.ExecuteNonQuery();
 
             }
             catch(Exception ex)
             {
 
-                MessageBox.Show(Attributes.ErrorString);
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.ErrorString);
+                Constant.Erros.Log(ex.Message);
             }
             finally
             {
@@ -200,26 +203,27 @@ namespace Task1
 
         public override void Delete(int Id, int IdFroType)
         {
+            //  This Function override from Question and immplment it For Delete Smily Question 
             SqlConnection Connection = DataBaseConnections.GetConnection();
             try
             {
                 Connection.Open();
-                SqlCommand Command3 = new SqlCommand("sp_Smily_Delete", Connection);
+                SqlCommand Command3 = new SqlCommand(Constant.ProcdureSmilesDelete, Connection);
                 Command3.CommandType = CommandType.StoredProcedure;
-                Command3.Parameters.AddWithValue(Attributes.AtsMark+ Attributes.IDString,IdForType);
+                Command3.Parameters.AddWithValue(Constant.AtsMark+ Constant.IDString,IdForType);
                 Command3.ExecuteNonQuery();
                 Command3.Parameters.Clear();
-                Command3.CommandText = "sp_Qustion_Delete";
+                Command3.CommandText = Constant.ProcdureQuestionDelete;
                 Command3.CommandType = CommandType.StoredProcedure;
-                Command3.Parameters.AddWithValue(Attributes.AtsMark+ Attributes.IDString, Id);
+                Command3.Parameters.AddWithValue(Constant.AtsMark+ Constant.IDString, Id);
                 Command3.ExecuteNonQuery();
                 Command3.Parameters.Clear();
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show(Attributes.ErrorString);
-                Attributes.Erros.Log(ex.Message);
+                MessageBox.Show(Constant.ErrorString);
+                Constant.Erros.Log(ex.Message);
             }
             finally
             {
