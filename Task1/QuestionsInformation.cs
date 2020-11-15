@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Configuration;
 using Survey;
+using System.Threading;
 
 namespace Task1
 {
@@ -29,6 +30,8 @@ namespace Task1
             }catch (Exception ex)
             {
 
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void ShowForSmiles()
@@ -41,6 +44,8 @@ namespace Task1
             catch (Exception ex)
             {
 
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void ShowForStars()
@@ -53,37 +58,50 @@ namespace Task1
             catch (Exception ex)
             {
 
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
-        public QuestionsInformation(DataGridView ListOfQuestion, int Id, string Type, int AddOrEdit)
+        public QuestionsInformation(DataGridView ListOfQuestion, int Id, string Type, string AddOrEdit)
         {
             InitializeComponent();
+            switch (Attributes.Languge) {
+                case "English":
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+                    break;
+                case "Arabic":
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
+                    break;
+                default:
+                    break;
+            }
             this.ListOfQuestion = ListOfQuestion;
             Attributes.Id = Id;
             Attributes.Type = Type;
-            Attributes.AddOrEdit = AddOrEdit;
             try
             {
-                if (AddOrEdit == 2)
+                if (AddOrEdit == "Edit")
                 {
                     GroupOfTypes.Visible = false;
+                    Attributes.AddOrEdit = "Edit"; 
                     GetObject(); 
 
                 }
-                else
+                else if (AddOrEdit == "Add")
                 {
                     GroupOfTypes.Visible = true;
+                    Attributes.AddOrEdit = "Add";
                     InitHide(); 
                 }
-                if (Type.Equals(Attributes.Variables.Slider.ToString()))
+                if (Type.Equals(Attributes.SliderString))
                 {
                     ShowForSlider(); 
                 }
-                else if (Type.Equals(Attributes.Variables.Smily.ToString()))
+                else if (Type.Equals(Attributes.SmilyString))
                 {
                     ShowForSmiles(); 
                 }
-                else if (Type.Equals(Attributes.Variables.Stars.ToString()))
+                else if (Type.Equals(Attributes.StarsString))
                 {
                     ShowForStars(); 
 
@@ -91,6 +109,8 @@ namespace Task1
             }catch (Exception ex)
             {
 
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void InitHide()
@@ -103,6 +123,8 @@ namespace Task1
             }catch (Exception ex)
             {
 
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
 
         }
@@ -133,6 +155,8 @@ namespace Task1
             } catch (Exception ex)
             {
 
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void Smily_CheckedChange(object sender, EventArgs e)
@@ -199,6 +223,9 @@ namespace Task1
                 }
             }catch (Exception ex)
             {
+
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void DataEnter()
@@ -214,65 +241,65 @@ namespace Task1
             {
                 if (NewText.Text == "")
                 {
-                    MessageBox.Show("Your Question is Empty", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    MessageBox.Show("Your Question is Empty", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
                     return false;
                 }
                 else if (IsNumber(NewText.Text))
                 {
-                    MessageBox.Show("Your Question just numbers  ", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Your Question just numbers  ", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
                 else if (NewOrder.Value <= 0)
                 {
-                    MessageBox.Show("The order sholud be grater than 0", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("The order sholud be grater than 0", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 if (TypeQuestion is Slider)
                 {
                     if (NewStartValue.Value <= 0)
                     {
-                        MessageBox.Show("Your start value must be greater than 0", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Your start value must be greater than 0", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValue.Value <= 0)
                     {
-                        MessageBox.Show("Your end value must be greater than 0", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Your end value must be greater than 0", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValue.Value > 100)
                     {
-                        MessageBox.Show("The start value should be less than 100", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The start value should be less than 100", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValue.Value > 100)
                     {
-                        MessageBox.Show("The end value should be less than 100", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end value should be less than 100", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValue.Value >= NewEndValue.Value)
                     {
-                        MessageBox.Show("The end value should be grater than start value", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end value should be grater than start value", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValueCaption.Text == "")
                     {
-                        MessageBox.Show("The start caption is empty", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The start caption is empty", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (IsNumber(NewStartValueCaption.Text))
                     {
-                        MessageBox.Show("The start caption should not contain only numbers", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The start caption should not contain only numbers", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValueCaption.Text == "")
                     {
-                        MessageBox.Show("The end caption is empty", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end caption is empty", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (IsNumber(NewEndValueCaption.Text))
                     {
-                        MessageBox.Show("The end caption should not contain only numbers", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The end caption should not contain only numbers", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -280,7 +307,7 @@ namespace Task1
                 {
                     if (NewNumberOfSmiles.Value <= 1 || NewNumberOfSmiles.Value > 5)
                     {
-                        MessageBox.Show("The number of smile face should be greater than 1 and less than 6", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The number of smile face should be greater than 1 and less than 6", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -288,13 +315,15 @@ namespace Task1
                 {
                     if (NewNumberOfStars.Value <= 0 || NewNumberOfStars.Value > 10)
                     {
-                        MessageBox.Show("The number of stars face should be greater than 0 and less than or equal 10", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("The number of stars face should be greater than 0 and less than or equal 10", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
             }catch (Exception ex)
             {
 
+                MessageBox.Show(Attributes.MessageError);
+                Attributes.Erros.Log(ex.Message);
             }
             return true; 
         }
@@ -302,14 +331,14 @@ namespace Task1
         {
             try
             {
-                if (Attributes.AddOrEdit == 1)
+                if (Attributes.AddOrEdit == "Add")
                 {
                     Qustions NewQuestion = null;
                     
                     bool f = false;
                     if (SliderRadio.Checked)
                     {
-                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.Variables.Slider.ToString());
+                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.SliderString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
@@ -325,7 +354,7 @@ namespace Task1
                     else if (SmilyRadio.Checked)
                     {
 
-                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.Variables.Smily.ToString());
+                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.SmilyString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
@@ -339,7 +368,7 @@ namespace Task1
                     }
                     else if (StarsRadio.Checked)
                     {
-                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.Variables.Stars.ToString());
+                        NewQuestion = Attributes.QusFac.GetQustion(Attributes.StarsString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
@@ -359,15 +388,18 @@ namespace Task1
             }catch (Exception ex)
             {
 
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
             try { 
-                 if (Attributes.AddOrEdit == 2)
+                 if (Attributes.AddOrEdit == "Edit")
                  {
                     string[] Attrubite = null;
                     if (NewSlider != null)
                     {
                         if (CheckTheData(NewSlider))
                         {
+                            Attrubite = new string[8]; 
                             Attrubite[0] = NewText.Text;
                             Attrubite[1] = NewOrder.Value + "";
                             Attrubite[2] = NewStartValue.Value + "";
@@ -384,8 +416,8 @@ namespace Task1
                             NewSlider.EndCaption = Attrubite[5];
                             NewSlider.EditQuestion(Attrubite);
                             DataEnter();
-                        } 
-
+                        }
+                        
                     }
                     else if (NewSmile != null)
                     {
@@ -425,9 +457,12 @@ namespace Task1
                 }
 
             }
+
             catch (Exception ex)
             {
-                MessageBox.Show("Your Data not updated something went wrong "); 
+
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void Cancel_Click(object sender, EventArgs e)

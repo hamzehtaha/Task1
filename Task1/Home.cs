@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Task1;
@@ -14,6 +15,10 @@ namespace Survey
     public partial class Home : Form
     {
         public Home()
+        {
+            StartFunction(); 
+        }
+        private void StartFunction()
         {
             InitializeComponent();
             Slider.ShowQuestion();
@@ -26,11 +31,13 @@ namespace Survey
             // to go to the Add page
             try
             {
-                QuestionsInformation f = new QuestionsInformation(ListOfQuestion, -1, "", 1);
+                
+                QuestionsInformation f = new QuestionsInformation(ListOfQuestion, -1, "", "Add");
                 f.Show();
             }catch (Exception ex)
             {
-
+                MessageBox.Show("Smomething went wrong!");
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void Edit_Click(object sender, EventArgs e)
@@ -39,37 +46,40 @@ namespace Survey
             try
             {
                 List<int> ListOfId = new List<int>();
-                List<string> types = new List<string>();
+                List<string> Types = new List<string>();
                 foreach (DataGridViewRow row in ListOfQuestion.Rows)
                 {
                     if ((bool)ListOfQuestion.Rows[row.Index].Cells[0].Value == true)
                     {
-                        string s = ListOfQuestion.Rows[row.Index].Cells[1].Value.ToString();
+                        string TempText = ListOfQuestion.Rows[row.Index].Cells[1].Value.ToString();
                         for (int i = 0; i < Attributes.ListOfAllQuestion.Count; ++i)
-                            if (s.Equals(Attributes.ListOfAllQuestion.ElementAt(i).NewText))
+                            if (TempText.Equals(Attributes.ListOfAllQuestion.ElementAt(i).NewText))
                             {
                                 ListOfId.Add(Attributes.ListOfAllQuestion.ElementAt(i).Id);
-                                types.Add(Attributes.ListOfAllQuestion.ElementAt(i).TypeOfQuestion);
+                                Types.Add(Attributes.ListOfAllQuestion.ElementAt(i).TypeOfQuestion);
+                                
                             }
                     }
                 }
                 if (ListOfId.Count > 1)
                 {
-                    MessageBox.Show("You Can not choose more than one Question for Edit", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("You Can not choose more than one Question for Edit", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (ListOfId.Count == 0)
                 {
-                    MessageBox.Show("Please Choose one Question for Edit", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please Choose one Question for Edit", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else if (ListOfId.Count == 1)
                 {
-                    QuestionsInformation f = new QuestionsInformation(ListOfQuestion, ListOfId.ElementAt(0), types.ElementAt(0), 2);
+                    QuestionsInformation f = new QuestionsInformation(ListOfQuestion, ListOfId.ElementAt(0), Types.ElementAt(0), "Edit");
                     f.Show();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+
+                MessageBox.Show(Attributes.MessageError);
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void Delete_Click(object sender, EventArgs e)
@@ -93,7 +103,7 @@ namespace Survey
                 }
                 if (ListOfId.Count == 0)
                 {
-                    MessageBox.Show("This is not select any Question !", Attributes.Variables.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("This is not select any Question !", Attributes.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
@@ -141,11 +151,31 @@ namespace Survey
             catch (Exception ex)
             {
 
+                MessageBox.Show(Attributes.MessageError);
+                Attributes.Erros.Log(ex.Message);
             }
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void changeToArabicToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            switch (Thread.CurrentThread.CurrentUICulture.IetfLanguageTag) {
+                case "ar-EG":
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+                    Attributes.Languge = "Englsih"; 
+                    break;
+                case "en-US":
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
+                    Attributes.Languge = "Arabic"; 
+                    break;
+                default:
+                    break;
+            }
+            this.Controls.Clear();
+            StartFunction(); 
         }
     }
 }

@@ -21,40 +21,40 @@ namespace Task1
         public void ShowQuestion() { }
         public abstract void AddQuestion(string [] Att);
         public abstract void EditQuestion(string[] Att);
-        public static void GetData(DataGridView dataGridView1)
+        public static void GetData(DataGridView ListViewQuestion)
         {
-            // Get Data Function to Get data from database 
-            SqlConnection con = Attributes.GetConnection();
-            //SqlCommand cmd = new SqlCommand("sp_Qustions_Select1", con);
-            SqlDataAdapter sda = new SqlDataAdapter("SELECT * FROM Qustions", con);
-            //cmd.CommandType = CommandType.StoredProcedure;
+            SqlConnection Connection = DataBaseConnections.GetConnection();
+
+            SqlDataAdapter  SqlAdapter = new SqlDataAdapter("SELECT * FROM Qustions", Connection);
 
             try
             {
-                con.Open();
+                Connection.Open();
                 // SqlDataReader rd = cmd.ExecuteReader(); 
-                DataTable dt = new DataTable();
+                DataTable DataTableView = new DataTable();
                 //dt.Load(rd);
-                sda.Fill(dt);
-                dataGridView1.Rows.Clear();
-                foreach (DataRow item in dt.Rows)
+                SqlAdapter.Fill(DataTableView);
+                ListViewQuestion.Rows.Clear();
+                foreach (DataRow item in DataTableView.Rows)
                 {
-                    int n = dataGridView1.Rows.Add();
-                    dataGridView1.Rows[n].Cells[0].Value = false;
-                    dataGridView1.Rows[n].Cells[1].Value = item[Attributes.Variables.Qustions_text.ToString()].ToString();
-                    dataGridView1.Rows[n].Cells[2].Value = item[Attributes.Variables.Type_Of_Qustion.ToString()].ToString();
-                    dataGridView1.Rows[n].Cells[3].Value = item[Attributes.Variables.Qustion_order.ToString()].ToString();
+                    int Index = ListViewQuestion.Rows.Add();
+                    ListViewQuestion.Rows[Index].Cells[0].Value = false;
+                    ListViewQuestion.Rows[Index].Cells[1].Value = item[Attributes.Qustions_textString].ToString();
+                    ListViewQuestion.Rows[Index].Cells[2].Value = item[Attributes.Type_Of_QustionString].ToString();
+                    ListViewQuestion.Rows[Index].Cells[3].Value = item[Attributes.Qustion_orderString].ToString();
 
                 }
                 // View the data in datagridview 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+
+                MessageBox.Show(Attributes.MessageError);
+                Attributes.Erros.Log(ex.Message);
             }
             finally
             {
-                con.Close();
+                Connection.Close();
             }
 
         }

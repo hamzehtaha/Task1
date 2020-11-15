@@ -11,10 +11,10 @@ namespace Task1
     {
         public override Qustions GetQustion(string Qus_Type)
         {
-            if (Qus_Type.Equals(Attributes.Variables.Slider.ToString()))
+            if (Qus_Type.Equals(Attributes.SliderString))
             {
                 return new Slider(); 
-            }else if (Qus_Type.Equals(Attributes.Variables.Smily.ToString()))
+            }else if (Qus_Type.Equals(Attributes.SmilyString))
             {
                 return new Smiles(); 
             }else 

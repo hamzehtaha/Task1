@@ -70,26 +70,18 @@
             // 
             // NewTextName
             // 
-            this.NewTextName.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.NewTextName.AutoSize = true;
+            resources.ApplyResources(this.NewTextName, "NewTextName");
             this.NewTextName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.NewTextName.Location = new System.Drawing.Point(11, 23);
             this.NewTextName.Name = "NewTextName";
-            this.NewTextName.Size = new System.Drawing.Size(96, 13);
-            this.NewTextName.TabIndex = 3;
-            this.NewTextName.Text = "Enter Your Qustion";
             // 
             // NewText
             // 
-            this.NewText.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.NewText.Location = new System.Drawing.Point(113, 20);
-            this.NewText.Multiline = true;
+            resources.ApplyResources(this.NewText, "NewText");
             this.NewText.Name = "NewText";
-            this.NewText.Size = new System.Drawing.Size(370, 27);
-            this.NewText.TabIndex = 5;
             // 
             // GroupOfSlider
             // 
+            resources.ApplyResources(this.GroupOfSlider, "GroupOfSlider");
             this.GroupOfSlider.Controls.Add(this.NewEndValue);
             this.GroupOfSlider.Controls.Add(this.NewStartValue);
             this.GroupOfSlider.Controls.Add(this.NewEndCaptionName);
@@ -98,92 +90,81 @@
             this.GroupOfSlider.Controls.Add(this.NewEndValueName);
             this.GroupOfSlider.Controls.Add(this.NewStartValueName);
             this.GroupOfSlider.Controls.Add(this.NewStartValueCaption);
-            this.GroupOfSlider.Location = new System.Drawing.Point(283, 59);
             this.GroupOfSlider.Name = "GroupOfSlider";
-            this.GroupOfSlider.Size = new System.Drawing.Size(199, 145);
-            this.GroupOfSlider.TabIndex = 16;
             // 
             // NewEndValue
             // 
-            this.NewEndValue.Location = new System.Drawing.Point(131, 35);
+            resources.ApplyResources(this.NewEndValue, "NewEndValue");
+            this.NewEndValue.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.NewEndValue.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
             this.NewEndValue.Name = "NewEndValue";
-            this.NewEndValue.Size = new System.Drawing.Size(65, 20);
-            this.NewEndValue.TabIndex = 26;
             // 
             // NewStartValue
             // 
-            this.NewStartValue.Location = new System.Drawing.Point(132, 4);
+            resources.ApplyResources(this.NewStartValue, "NewStartValue");
+            this.NewStartValue.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.NewStartValue.Minimum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            -2147483648});
             this.NewStartValue.Name = "NewStartValue";
-            this.NewStartValue.Size = new System.Drawing.Size(65, 20);
-            this.NewStartValue.TabIndex = 25;
             // 
             // NewEndCaptionName
             // 
-            this.NewEndCaptionName.AutoSize = true;
+            resources.ApplyResources(this.NewEndCaptionName, "NewEndCaptionName");
             this.NewEndCaptionName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.NewEndCaptionName.Location = new System.Drawing.Point(6, 113);
             this.NewEndCaptionName.Name = "NewEndCaptionName";
-            this.NewEndCaptionName.Size = new System.Drawing.Size(95, 13);
-            this.NewEndCaptionName.TabIndex = 15;
-            this.NewEndCaptionName.Text = "End Value Caption";
             // 
             // NewStartCaptionName
             // 
-            this.NewStartCaptionName.AutoSize = true;
+            resources.ApplyResources(this.NewStartCaptionName, "NewStartCaptionName");
             this.NewStartCaptionName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.NewStartCaptionName.Location = new System.Drawing.Point(6, 77);
             this.NewStartCaptionName.Name = "NewStartCaptionName";
-            this.NewStartCaptionName.Size = new System.Drawing.Size(98, 13);
-            this.NewStartCaptionName.TabIndex = 15;
-            this.NewStartCaptionName.Text = "Start Value Caption";
             // 
             // NewEndValueCaption
             // 
-            this.NewEndValueCaption.Location = new System.Drawing.Point(132, 110);
-            this.NewEndValueCaption.Multiline = true;
+            resources.ApplyResources(this.NewEndValueCaption, "NewEndValueCaption");
             this.NewEndValueCaption.Name = "NewEndValueCaption";
-            this.NewEndValueCaption.Size = new System.Drawing.Size(65, 23);
-            this.NewEndValueCaption.TabIndex = 15;
             // 
             // NewEndValueName
             // 
-            this.NewEndValueName.AutoSize = true;
+            resources.ApplyResources(this.NewEndValueName, "NewEndValueName");
             this.NewEndValueName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.NewEndValueName.Location = new System.Drawing.Point(6, 42);
             this.NewEndValueName.Name = "NewEndValueName";
-            this.NewEndValueName.Size = new System.Drawing.Size(56, 13);
-            this.NewEndValueName.TabIndex = 13;
-            this.NewEndValueName.Text = "End Value";
             // 
             // NewStartValueName
             // 
-            this.NewStartValueName.AutoSize = true;
+            resources.ApplyResources(this.NewStartValueName, "NewStartValueName");
             this.NewStartValueName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.NewStartValueName.Location = new System.Drawing.Point(6, 6);
             this.NewStartValueName.Name = "NewStartValueName";
-            this.NewStartValueName.Size = new System.Drawing.Size(59, 13);
-            this.NewStartValueName.TabIndex = 9;
-            this.NewStartValueName.Text = "Start Value";
             // 
             // NewStartValueCaption
             // 
-            this.NewStartValueCaption.Location = new System.Drawing.Point(132, 74);
-            this.NewStartValueCaption.Multiline = true;
+            resources.ApplyResources(this.NewStartValueCaption, "NewStartValueCaption");
             this.NewStartValueCaption.Name = "NewStartValueCaption";
-            this.NewStartValueCaption.Size = new System.Drawing.Size(65, 23);
-            this.NewStartValueCaption.TabIndex = 12;
             // 
             // NewNumberOfStars
             // 
-            this.NewNumberOfStars.Location = new System.Drawing.Point(132, 5);
+            resources.ApplyResources(this.NewNumberOfStars, "NewNumberOfStars");
             this.NewNumberOfStars.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.NewNumberOfStars.Name = "NewNumberOfStars";
-            this.NewNumberOfStars.Size = new System.Drawing.Size(65, 20);
-            this.NewNumberOfStars.TabIndex = 27;
             this.NewNumberOfStars.Value = new decimal(new int[] {
             1,
             0,
@@ -192,7 +173,7 @@
             // 
             // NewNumberOfSmiles
             // 
-            this.NewNumberOfSmiles.Location = new System.Drawing.Point(132, 6);
+            resources.ApplyResources(this.NewNumberOfSmiles, "NewNumberOfSmiles");
             this.NewNumberOfSmiles.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -204,8 +185,6 @@
             0,
             -2147483648});
             this.NewNumberOfSmiles.Name = "NewNumberOfSmiles";
-            this.NewNumberOfSmiles.Size = new System.Drawing.Size(65, 20);
-            this.NewNumberOfSmiles.TabIndex = 26;
             this.NewNumberOfSmiles.Value = new decimal(new int[] {
             2,
             0,
@@ -215,100 +194,68 @@
             // 
             // GroupOfTypes
             // 
-            this.GroupOfTypes.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            resources.ApplyResources(this.GroupOfTypes, "GroupOfTypes");
             this.GroupOfTypes.Controls.Add(this.StarsRadio);
             this.GroupOfTypes.Controls.Add(this.SmilyRadio);
             this.GroupOfTypes.Controls.Add(this.SliderRadio);
             this.GroupOfTypes.Controls.Add(this.label2);
-            this.GroupOfTypes.Location = new System.Drawing.Point(3, 90);
             this.GroupOfTypes.Name = "GroupOfTypes";
-            this.GroupOfTypes.Size = new System.Drawing.Size(178, 114);
-            this.GroupOfTypes.TabIndex = 17;
             // 
             // StarsRadio
             // 
-            this.StarsRadio.AutoSize = true;
-            this.StarsRadio.Location = new System.Drawing.Point(110, 80);
+            resources.ApplyResources(this.StarsRadio, "StarsRadio");
             this.StarsRadio.Name = "StarsRadio";
-            this.StarsRadio.Size = new System.Drawing.Size(49, 17);
-            this.StarsRadio.TabIndex = 8;
             this.StarsRadio.TabStop = true;
-            this.StarsRadio.Text = "Stars";
             this.StarsRadio.UseVisualStyleBackColor = true;
             this.StarsRadio.CheckedChanged += new System.EventHandler(this.Stars_CheckedChange);
             // 
             // SmilyRadio
             // 
-            this.SmilyRadio.AutoSize = true;
-            this.SmilyRadio.Location = new System.Drawing.Point(110, 47);
+            resources.ApplyResources(this.SmilyRadio, "SmilyRadio");
             this.SmilyRadio.Name = "SmilyRadio";
-            this.SmilyRadio.Size = new System.Drawing.Size(55, 17);
-            this.SmilyRadio.TabIndex = 7;
             this.SmilyRadio.TabStop = true;
-            this.SmilyRadio.Text = "Smiley";
             this.SmilyRadio.UseVisualStyleBackColor = true;
             this.SmilyRadio.CheckedChanged += new System.EventHandler(this.Smily_CheckedChange);
             // 
             // SliderRadio
             // 
-            this.SliderRadio.AutoSize = true;
-            this.SliderRadio.Location = new System.Drawing.Point(110, 15);
+            resources.ApplyResources(this.SliderRadio, "SliderRadio");
             this.SliderRadio.Name = "SliderRadio";
-            this.SliderRadio.Size = new System.Drawing.Size(51, 17);
-            this.SliderRadio.TabIndex = 6;
             this.SliderRadio.TabStop = true;
-            this.SliderRadio.Text = "Slider";
             this.SliderRadio.UseVisualStyleBackColor = true;
             this.SliderRadio.CheckedChanged += new System.EventHandler(this.Slider_CheckedChange);
             // 
             // label2
             // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label2.AutoSize = true;
+            resources.ApplyResources(this.label2, "label2");
             this.label2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label2.Location = new System.Drawing.Point(8, 15);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(70, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Qustion Type";
             // 
             // NewOrderName
             // 
-            this.NewOrderName.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.NewOrderName.AutoSize = true;
+            resources.ApplyResources(this.NewOrderName, "NewOrderName");
             this.NewOrderName.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.NewOrderName.Location = new System.Drawing.Point(11, 59);
             this.NewOrderName.Name = "NewOrderName";
-            this.NewOrderName.Size = new System.Drawing.Size(78, 13);
-            this.NewOrderName.TabIndex = 21;
-            this.NewOrderName.Text = "Qustion Oreder";
             // 
             // Save
             // 
-            this.Save.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            resources.ApplyResources(this.Save, "Save");
             this.Save.BackColor = System.Drawing.Color.White;
-            this.Save.Location = new System.Drawing.Point(159, 210);
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(84, 26);
-            this.Save.TabIndex = 22;
-            this.Save.Text = "Save";
             this.Save.UseVisualStyleBackColor = false;
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
             // Cancel
             // 
-            this.Cancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            resources.ApplyResources(this.Cancel, "Cancel");
             this.Cancel.BackColor = System.Drawing.Color.White;
-            this.Cancel.Location = new System.Drawing.Point(249, 210);
             this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(84, 26);
-            this.Cancel.TabIndex = 23;
-            this.Cancel.Text = "Cancel";
             this.Cancel.UseVisualStyleBackColor = false;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // panel3
             // 
+            resources.ApplyResources(this.panel3, "panel3");
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.NewOrder);
@@ -320,75 +267,55 @@
             this.panel3.Controls.Add(this.GroupOfSlider);
             this.panel3.Controls.Add(this.NewOrderName);
             this.panel3.Controls.Add(this.GroupOfTypes);
-            this.panel3.Location = new System.Drawing.Point(12, 12);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(489, 243);
-            this.panel3.TabIndex = 24;
             // 
             // panel2
             // 
+            resources.ApplyResources(this.panel2, "panel2");
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.NewNumberOfSmiles);
-            this.panel2.Location = new System.Drawing.Point(270, 53);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(210, 30);
-            this.panel2.TabIndex = 27;
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
+            resources.ApplyResources(this.label3, "label3");
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label3.Location = new System.Drawing.Point(3, 7);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 13);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Number of Smile";
             // 
             // NewOrder
             // 
-            this.NewOrder.Location = new System.Drawing.Point(113, 53);
+            resources.ApplyResources(this.NewOrder, "NewOrder");
             this.NewOrder.Maximum = new decimal(new int[] {
             10000000,
             0,
             0,
             0});
             this.NewOrder.Name = "NewOrder";
-            this.NewOrder.Size = new System.Drawing.Size(86, 20);
-            this.NewOrder.TabIndex = 24;
             // 
             // panel1
             // 
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.NewNumberOfStars);
-            this.panel1.Location = new System.Drawing.Point(283, 53);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 35);
-            this.panel1.TabIndex = 25;
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
+            resources.ApplyResources(this.label1, "label1");
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(83, 13);
-            this.label1.TabIndex = 28;
-            this.label1.Text = "Number of Stars";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // QuestionsInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(518, 261);
             this.Controls.Add(this.panel3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.HelpButton = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "QuestionsInformation";
-            this.Text = "QuestionsInformation";
             this.Load += new System.EventHandler(this.QuestionsInformation_Load);
             this.GroupOfSlider.ResumeLayout(false);
             this.GroupOfSlider.PerformLayout();
