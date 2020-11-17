@@ -17,10 +17,7 @@ namespace Task1
     public partial class QuestionsInformation : Form
     {
         public DataGridView ListOfQuestion;
-        Slider NewSlider = null;
-        Smiles NewSmile = null;
-        Stars NewStars = null;
-        string[] Attrubite = null;
+        
         private void ShowForSlider()
         {
             try
@@ -30,7 +27,7 @@ namespace Task1
             }catch (Exception ex)
             {
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void ShowForSmiles()
@@ -44,7 +41,7 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void ShowForStars()
@@ -58,7 +55,7 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         public QuestionsInformation(DataGridView ListOfQuestion, int Id, string Type, string AddOrEdit)
@@ -67,6 +64,10 @@ namespace Task1
             this.ListOfQuestion = ListOfQuestion;
             Constant.Id = Id;
             Constant.Type = Type;
+            StaticObjects.NewSlider = null;
+            StaticObjects.NewSmile = null;
+            StaticObjects.NewStars = null;
+            NewText.Focus(); 
             try
             {
                 if (AddOrEdit.Equals(Constant.EDIT))
@@ -99,7 +100,7 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void InitHide()
@@ -114,7 +115,7 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
 
         }
@@ -146,7 +147,7 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void Smily_CheckedChange(object sender, EventArgs e)
@@ -161,7 +162,7 @@ namespace Task1
             } catch (Exception ex)
             {
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void Stars_CheckedChange(object sender, EventArgs e)
@@ -177,7 +178,7 @@ namespace Task1
             } catch (Exception ex)
             {
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void GetObject()
@@ -185,39 +186,39 @@ namespace Task1
             // This Function To get Object Selected And Show data in my Edit page 
             try
             {
-                for (int i = 0; i < Constant.ListOfAllQuestion.Count; ++i)
+                for (int i = 0; i < StaticObjects.ListOfAllQuestion.Count; ++i)
                 {
-                    if (Constant.ListOfAllQuestion.ElementAt(i).Id == Constant.Id)
+                    if (StaticObjects.ListOfAllQuestion.ElementAt(i).Id == Constant.Id)
                     {
-                        if (Constant.ListOfAllQuestion.ElementAt(i) is Slider)
+                        if (StaticObjects.ListOfAllQuestion.ElementAt(i) is Slider)
                         {
-                            NewSlider = (Slider)Constant.ListOfAllQuestion.ElementAt(i);
-                            NewText.Text = NewSlider.NewText;
-                            NewOrder.Value = NewSlider.Order;
-                            NewStartValue.Value = NewSlider.StartValue;
-                            NewEndValue.Value = NewSlider.EndValue;
-                            NewStartValueCaption.Text = NewSlider.StartCaption;
-                            NewEndValueCaption.Text = NewSlider.EndCaption;
+                            StaticObjects.NewSlider = (Slider)StaticObjects.ListOfAllQuestion.ElementAt(i);
+                            NewText.Text = StaticObjects.NewSlider.NewText;
+                            NewOrder.Value = StaticObjects.NewSlider.Order;
+                            NewStartValue.Value = StaticObjects.NewSlider.StartValue;
+                            NewEndValue.Value = StaticObjects.NewSlider.EndValue;
+                            NewStartValueCaption.Text = StaticObjects.NewSlider.StartCaption;
+                            NewEndValueCaption.Text = StaticObjects.NewSlider.EndCaption;
                         }
-                        else if (Constant.ListOfAllQuestion.ElementAt(i) is Smiles)
+                        else if (StaticObjects.ListOfAllQuestion.ElementAt(i) is Smiles)
                         {
-                            NewSmile = (Smiles)Constant.ListOfAllQuestion.ElementAt(i);
-                            NewText.Text = NewSmile.NewText;
-                            NewOrder.Value = NewSmile.Order;
-                            NewNumberOfSmiles.Value = NewSmile.NumberOfSmiles;
+                            StaticObjects.NewSmile = (Smiles)StaticObjects.ListOfAllQuestion.ElementAt(i);
+                            NewText.Text = StaticObjects.NewSmile.NewText;
+                            NewOrder.Value = StaticObjects.NewSmile.Order;
+                            NewNumberOfSmiles.Value = StaticObjects.NewSmile.NumberOfSmiles;
                         }else
                         {
-                            NewStars = (Stars)Constant.ListOfAllQuestion.ElementAt(i);
-                            NewText.Text = NewStars.NewText;
-                            NewOrder.Value = NewStars.Order;
-                            NewNumberOfStars.Value = NewStars.NumberOfStars;
+                            StaticObjects.NewStars = (Stars)StaticObjects.ListOfAllQuestion.ElementAt(i);
+                            NewText.Text = StaticObjects.NewStars.NewText;
+                            NewOrder.Value = StaticObjects.NewStars.Order;
+                            NewNumberOfStars.Value = StaticObjects.NewStars.NumberOfStars;
                         }
                     }
                 }
             }catch (Exception ex)
             {
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void DataEnter()
@@ -225,13 +226,13 @@ namespace Task1
             // This Function For User know is data is edited or Added
             try
             {
-                MessageBox.Show("Your Data is Enterd");
+                MessageBox.Show(Constant.DataIsEnterd);
                 Qustions.GetData(ListOfQuestion);
                 this.Close();
             }catch(Exception ex)
             {
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
 
         }
@@ -240,67 +241,68 @@ namespace Task1
             // This Function to Check validation of data 
             try
             {
-                if (NewText.Text == "")
+                if (NewText.Text == Constant.Empty)
                 {
-                    MessageBox.Show("Your Question is Empty", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    MessageBox.Show( Constant.QuestionIsEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
                     return false;
                 }
                 else if (IsNumber(NewText.Text))
                 {
-                    MessageBox.Show("Your Question just numbers  ", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Constant.QuestionIsJustANumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
-
+                
                 else if (NewOrder.Value <= 0)
                 {
-                    MessageBox.Show("The order sholud be grater than 0", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Constant.NewOrderLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
+               
                 if (TypeQuestion is Slider)
                 {
                     if (NewStartValue.Value <= 0)
                     {
-                        MessageBox.Show("Your start value must be greater than 0", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.StartValueLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValue.Value <= 0)
                     {
-                        MessageBox.Show("Your end value must be greater than 0", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.EndValueLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValue.Value > 100)
                     {
-                        MessageBox.Show("The start value should be less than 100", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.StartValueGreaterThanOneHundredMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewEndValue.Value > 100)
                     {
-                        MessageBox.Show("The end value should be less than 100", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.EndValueGreaterThanOneHundredMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (NewStartValue.Value >= NewEndValue.Value)
                     {
-                        MessageBox.Show("The end value should be grater than start value", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.TheEndValueSholudGreaterThanStartValueMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                    else if (NewStartValueCaption.Text == "")
+                    else if (NewStartValueCaption.Text == Constant.Empty)
                     {
-                        MessageBox.Show("The start caption is empty", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.StartCaptionEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (IsNumber(NewStartValueCaption.Text))
                     {
-                        MessageBox.Show("The start caption should not contain only numbers", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.StartCaptionJustNumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
-                    else if (NewEndValueCaption.Text == "")
+                    else if (NewEndValueCaption.Text == Constant.Empty)
                     {
-                        MessageBox.Show("The end caption is empty", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.EndCaptionEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                     else if (IsNumber(NewEndValueCaption.Text))
                     {
-                        MessageBox.Show("The end caption should not contain only numbers", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.EndCaptionJustNumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -308,7 +310,7 @@ namespace Task1
                 {
                     if (NewNumberOfSmiles.Value <= 1 || NewNumberOfSmiles.Value > 5)
                     {
-                        MessageBox.Show("The number of smile face should be greater than 1 and less than 6", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.NumberOfSmileBetweenFiveAndTow, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -316,7 +318,7 @@ namespace Task1
                 {
                     if (NewNumberOfStars.Value <= 0 || NewNumberOfStars.Value > 10)
                     {
-                        MessageBox.Show("The number of stars face should be greater than 0 and less than or equal 10", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Constant.NumberOfStrasBetweenTenAndOne, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -324,134 +326,155 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
+
+                return false; 
             }
             return true; 
         }
         private void Save_Click(object sender, EventArgs e)
         {
+            
             try
             {
+                
                 if (Constant.AddOrEdit == Constant.ADD)
                 {
+                    
                     Qustions NewQuestion = null;
                     
                     bool f = false;
                     if (SliderRadio.Checked)
                     {
-                        NewQuestion = Constant.QuestionFactory.GetQustion(Constant.SliderString);
+                        
+
+                        NewQuestion = StaticObjects.QuestionFactory.GetQustion(Constant.SliderString);
+                        
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
-                            Attrubite = new string[6];
-                            Attrubite[0] = NewText.Text;
-                            Attrubite[1] = NewOrder.Text;
-                            Attrubite[2] = NewStartValue.Text;
-                            Attrubite[3] = NewEndValue.Text;
-                            Attrubite[4] = NewStartValueCaption.Text;
-                            Attrubite[5] = NewEndValueCaption.Text;
+                            
+                            StaticObjects.Attrubite = new string[7];
+                            StaticObjects.Attrubite[0] = NewText.Text;
+                            StaticObjects.Attrubite[1] = NewOrder.Text;
+                            StaticObjects.Attrubite[2] = Constant.SliderString;
+                            StaticObjects.Attrubite[3] = NewStartValue.Text;
+                            StaticObjects.Attrubite[4] = NewEndValue.Text;
+                            StaticObjects.Attrubite[5] = NewStartValueCaption.Text;
+                            StaticObjects.Attrubite[6] = NewEndValueCaption.Text;
+                            
+
                         }
                     }
                     else if (SmilyRadio.Checked)
                     {
 
-                        NewQuestion = Constant.QuestionFactory.GetQustion(Constant.SmilyString);
+                        NewQuestion = StaticObjects.QuestionFactory.GetQustion(Constant.SmilyString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
-                            Attrubite = new string[3];
-                            Attrubite[0] = NewText.Text;
-                            Attrubite[1] = NewOrder.Text;
-                            Attrubite[2] = NewNumberOfSmiles.Text;
+                            StaticObjects.Attrubite = new string[4];
+                            StaticObjects.Attrubite[0] = NewText.Text;
+                            StaticObjects.Attrubite[1] = NewOrder.Text;
+                            StaticObjects.Attrubite[2] = Constant.SmilyString;
+                            StaticObjects.Attrubite[3] = NewNumberOfSmiles.Text;
+
+
+
 
 
                         }
                     }
                     else if (StarsRadio.Checked)
                     {
-                        NewQuestion = Constant.QuestionFactory.GetQustion(Constant.StarsString);
+                        NewQuestion = StaticObjects.QuestionFactory.GetQustion(Constant.StarsString);
                         f = CheckTheData(NewQuestion);
                         if (f)
                         {
-                            Attrubite = new string[3];
-                            Attrubite[0] = NewText.Text;
-                            Attrubite[1] = NewOrder.Text;
-                            Attrubite[2] = NewNumberOfStars.Text;
-
+                            StaticObjects.Attrubite = new string[4];
+                            StaticObjects.Attrubite[0] = NewText.Text;
+                            StaticObjects.Attrubite[1] = NewOrder.Text;
+                            StaticObjects.Attrubite[2] = Constant.StarsString;
+                            StaticObjects.Attrubite[3] = NewNumberOfStars.Text;
                         }
+                    }else
+                    {
+                        MessageBox.Show(Constant.NotChooseTheType, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     if (f)
                     {
-                        NewQuestion.AddQuestion(Attrubite);
+                       DataBaseConnections.AddQuestion(NewQuestion, StaticObjects.Attrubite);  
+                        if (Constant.DoneOrNot.Equals(Constant.Done))
                         DataEnter(); 
+                        
                     }
                 }
             }catch (Exception ex)
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
             try { 
                  if (Constant.AddOrEdit == Constant.EDIT)
                  {
-                    string[] Attrubite = null;
-                    if (NewSlider != null)
+                    
+                    if (StaticObjects.NewSlider != null)
                     {
-                        if (CheckTheData(NewSlider))
+                        if (CheckTheData(StaticObjects.NewSlider))
                         {
-                            Attrubite = new string[8]; 
-                            Attrubite[0] = NewText.Text;
-                            Attrubite[1] = NewOrder.Value + "";
-                            Attrubite[2] = NewStartValue.Value + "";
-                            Attrubite[3] = NewEndValue.Value + "";
-                            Attrubite[4] = NewStartValueCaption + "";
-                            Attrubite[5] = NewEndValueCaption + "";
-                            Attrubite[6] = NewSlider.IdForType + "";
-                            Attrubite[7] = NewSlider.Id + "";
-                            NewSlider.NewText = Attrubite[0];
-                            NewSlider.Order = Convert.ToInt32(Attrubite[1]);
-                            NewSlider.StartValue = Convert.ToInt32(Attrubite[2]);
-                            NewSlider.EndValue = Convert.ToInt32(Attrubite[3]);
-                            NewSlider.StartCaption = Attrubite[4];
-                            NewSlider.EndCaption = Attrubite[5];
-                            NewSlider.EditQuestion(Attrubite);
+                            StaticObjects.Attrubite = new string[8];
+                            StaticObjects.Attrubite[0] = NewText.Text;
+                            StaticObjects.Attrubite[1] = NewOrder.Value + Constant.Empty;
+                            StaticObjects.Attrubite[2] = NewStartValue.Value + Constant.Empty;
+                            StaticObjects.Attrubite[3] = NewEndValue.Value + Constant.Empty;
+                            StaticObjects.Attrubite[4] = NewStartValueCaption.Text;
+                            StaticObjects.Attrubite[5] = NewEndValueCaption.Text;
+                            StaticObjects.Attrubite[6] = StaticObjects.NewSlider.IdForType + Constant.Empty;
+                            StaticObjects.Attrubite[7] = StaticObjects.NewSlider.Id + Constant.Empty;
+                            StaticObjects.NewSlider.NewText = StaticObjects.Attrubite[0];
+                            StaticObjects.NewSlider.Order = Convert.ToInt32(StaticObjects.Attrubite[1]);
+                            StaticObjects.NewSlider.StartValue = Convert.ToInt32(StaticObjects.Attrubite[2]);
+                            StaticObjects.NewSlider.EndValue = Convert.ToInt32(StaticObjects.Attrubite[3]);
+                            StaticObjects.NewSlider.StartCaption = StaticObjects.Attrubite[4];
+                            StaticObjects.NewSlider.EndCaption = StaticObjects.Attrubite[5];
+                            DataBaseConnections.EditQuestion(StaticObjects.NewSlider, StaticObjects.Attrubite); 
                             DataEnter();
                         }
                         
                     }
-                    else if (NewSmile != null)
+                    else if (StaticObjects.NewSmile != null)
                     {
-                        if (CheckTheData(NewSmile))
+                        if (CheckTheData(StaticObjects.NewSmile))
                         {
-                            Attrubite = new string[5];
-                            Attrubite[0] = NewText.Text;
-                            Attrubite[1] = NewOrder.Value + "";
-                            Attrubite[2] = NewNumberOfSmiles.Value + "";
-                            Attrubite[3] = NewSmile.IdForType + "";
-                            Attrubite[4] = NewSmile.Id + "";
-                            NewSmile.NewText = Attrubite[0];
-                            NewSmile.Order = Convert.ToInt32(Attrubite[1]);
-                            NewSmile.NumberOfSmiles = Convert.ToInt32(Attrubite[2]);
-                            NewSmile.EditQuestion(Attrubite);
+                            StaticObjects.Attrubite = new string[5];
+                            StaticObjects.Attrubite[0] = NewText.Text;
+                            StaticObjects.Attrubite[1] = NewOrder.Value + Constant.Empty;
+                            StaticObjects.Attrubite[2] = NewNumberOfSmiles.Value + Constant.Empty;
+                            StaticObjects.Attrubite[3] = StaticObjects.NewSmile.IdForType + Constant.Empty;
+                            StaticObjects.Attrubite[4] = StaticObjects.NewSmile.Id + Constant.Empty;
+                            StaticObjects.NewSmile.NewText = StaticObjects.Attrubite[0];
+                            StaticObjects.NewSmile.Order = Convert.ToInt32(StaticObjects.Attrubite[1]);
+                            StaticObjects.NewSmile.NumberOfSmiles = Convert.ToInt32(StaticObjects.Attrubite[2]);
+                            DataBaseConnections.EditQuestion(StaticObjects.NewSmile, StaticObjects.Attrubite);
                             DataEnter();
 
                         }
                     }
-                    else if (NewStars != null)
+                    else if (StaticObjects.NewStars != null)
                     {
-                        if (CheckTheData(NewStars))
+                        if (CheckTheData(StaticObjects.NewStars))
                         {
-                            Attrubite = new string[5];
-                            Attrubite[0] = NewText.Text;
-                            Attrubite[1] = NewOrder.Value + "";
-                            Attrubite[2] = NewNumberOfStars.Value + "";
-                            Attrubite[3] = NewStars.IdForType + "";
-                            Attrubite[4] = NewStars.Id + "";
-                            NewStars.NewText = Attrubite[0];
-                            NewStars.Order = Convert.ToInt32(Attrubite[1]);
-                            NewStars.NumberOfStars = Convert.ToInt32(Attrubite[2]);
-                            NewStars.EditQuestion(Attrubite);
+                            StaticObjects.Attrubite = new string[5];
+                            StaticObjects.Attrubite[0] = NewText.Text;
+                            StaticObjects.Attrubite[1] = NewOrder.Value + Constant.Empty;
+                            StaticObjects.Attrubite[2] = NewNumberOfStars.Value + Constant.Empty;
+                            StaticObjects.Attrubite[3] = StaticObjects.NewStars.IdForType + Constant.Empty;
+                            StaticObjects.Attrubite[4] = StaticObjects.NewStars.Id + Constant.Empty;
+                            StaticObjects.NewStars.NewText = StaticObjects.Attrubite[0];
+                            StaticObjects.NewStars.Order = Convert.ToInt32(StaticObjects.Attrubite[1]);
+                            StaticObjects.NewStars.NumberOfStars = Convert.ToInt32(StaticObjects.Attrubite[2]);
+                            DataBaseConnections.EditQuestion(StaticObjects.NewStars, StaticObjects.Attrubite);
                             DataEnter();
                         }
                     }
@@ -463,7 +486,7 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void Cancel_Click(object sender, EventArgs e)

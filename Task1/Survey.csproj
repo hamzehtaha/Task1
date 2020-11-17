@@ -86,6 +86,7 @@
     <Compile Include="Slider.cs" />
     <Compile Include="Smiles.cs" />
     <Compile Include="Stars.cs" />
+    <Compile Include="StaticObjects.cs" />
     <EmbeddedResource Include="Home.ar.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>

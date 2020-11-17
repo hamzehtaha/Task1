@@ -34,7 +34,6 @@
             this.Edit = new System.Windows.Forms.Button();
             this.Add = new System.Windows.Forms.Button();
             this.ListOfQuestion = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,78 +56,77 @@
             // 
             // Delete
             // 
-            resources.ApplyResources(this.Delete, "Delete");
             this.Delete.BackColor = System.Drawing.Color.White;
+            resources.ApplyResources(this.Delete, "Delete");
             this.Delete.Name = "Delete";
             this.Delete.UseVisualStyleBackColor = false;
             this.Delete.Click += new System.EventHandler(this.Delete_Click);
             // 
             // Edit
             // 
-            resources.ApplyResources(this.Edit, "Edit");
             this.Edit.BackColor = System.Drawing.Color.White;
             this.Edit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.Edit, "Edit");
             this.Edit.Name = "Edit";
             this.Edit.UseVisualStyleBackColor = false;
             this.Edit.Click += new System.EventHandler(this.Edit_Click);
             // 
             // Add
             // 
-            resources.ApplyResources(this.Add, "Add");
             this.Add.BackColor = System.Drawing.Color.White;
             this.Add.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            resources.ApplyResources(this.Add, "Add");
             this.Add.Name = "Add";
             this.Add.UseVisualStyleBackColor = false;
             this.Add.Click += new System.EventHandler(this.Add_Click);
             // 
             // ListOfQuestion
             // 
-            resources.ApplyResources(this.ListOfQuestion, "ListOfQuestion");
             this.ListOfQuestion.AllowUserToAddRows = false;
             this.ListOfQuestion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ListOfQuestion.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.ListOfQuestion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ListOfQuestion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
             this.Column2,
             this.Column3,
             this.Column4});
             this.ListOfQuestion.GridColor = System.Drawing.SystemColors.GrayText;
+            resources.ApplyResources(this.ListOfQuestion, "ListOfQuestion");
             this.ListOfQuestion.Name = "ListOfQuestion";
-            // 
-            // Column1
-            // 
-            resources.ApplyResources(this.Column1, "Column1");
-            this.Column1.Name = "Column1";
+            this.ListOfQuestion.ReadOnly = true;
+            this.ListOfQuestion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChooseTheQuestionClick);
             // 
             // Column2
             // 
             this.Column2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             resources.ApplyResources(this.Column2, "Column2");
             this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // Column3
             // 
             resources.ApplyResources(this.Column3, "Column3");
             this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             // 
             // Column4
             // 
             resources.ApplyResources(this.Column4, "Column4");
             this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             // 
             // menuStrip1
             // 
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeToArabicToolStripMenuItem});
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // changeToArabicToolStripMenuItem
             // 
-            resources.ApplyResources(this.changeToArabicToolStripMenuItem, "changeToArabicToolStripMenuItem");
             this.changeToArabicToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.changeToArabicToolStripMenuItem.Name = "changeToArabicToolStripMenuItem";
+            resources.ApplyResources(this.changeToArabicToolStripMenuItem, "changeToArabicToolStripMenuItem");
             this.changeToArabicToolStripMenuItem.Click += new System.EventHandler(this.changeToArabicToolStripMenuItem_Click);
             // 
             // Home
@@ -140,6 +138,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Home";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ListOfQuestion)).EndInit();
@@ -159,7 +158,6 @@
         private System.Windows.Forms.DataGridView ListOfQuestion;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem changeToArabicToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;

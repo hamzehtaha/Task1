@@ -18,17 +18,12 @@ namespace Task1
         public int Order { get; set; }
         public int Id { get; set; }
         public string TypeOfQuestion { get; set;}
-        public  void ShowQuestion() { }
         //This abstract Method And override in all types of Question 
-        public abstract void AddQuestion(string [] Att);
-        public abstract void EditQuestion(string[] Att);
-        public abstract void Delete(int id, int idFroType);
         public static void GetData(DataGridView ListViewQuestion)
         {
             //This Function For get data and Show it in my datagridview 
             SqlConnection Connection = DataBaseConnections.GetConnection();
-
-            SqlDataAdapter  SqlAdapter = new SqlDataAdapter("SELECT * FROM Qustions", Connection);
+            SqlDataAdapter  SqlAdapter = new SqlDataAdapter(Constant.SelectStarFromQuestion, Connection);
 
             try
             {
@@ -39,10 +34,9 @@ namespace Task1
                 foreach (DataRow item in DataTableView.Rows)
                 {
                     int Index = ListViewQuestion.Rows.Add();
-                    ListViewQuestion.Rows[Index].Cells[0].Value = false;
-                    ListViewQuestion.Rows[Index].Cells[1].Value = item[Constant.Qustions_textString].ToString();
-                    ListViewQuestion.Rows[Index].Cells[2].Value = item[Constant.Type_Of_QustionString].ToString();
-                    ListViewQuestion.Rows[Index].Cells[3].Value = item[Constant.Qustion_orderString].ToString();
+                    ListViewQuestion.Rows[Index].Cells[0].Value = item[Constant.Qustions_textString].ToString();
+                    ListViewQuestion.Rows[Index].Cells[1].Value = item[Constant.Type_Of_QustionString].ToString();
+                    ListViewQuestion.Rows[Index].Cells[2].Value = item[Constant.Qustion_orderString].ToString();
 
                 }
                 // View the data in datagridview 
@@ -51,7 +45,7 @@ namespace Task1
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
             finally
             {

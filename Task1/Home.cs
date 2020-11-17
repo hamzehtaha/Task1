@@ -14,6 +14,7 @@ namespace Survey
 {
     public partial class Home : Form
     {
+        public Qustions QuestionWillDeleteOrEdit = null; 
         public Home()
         {
             StartFunction(); 
@@ -21,9 +22,9 @@ namespace Survey
         private void StartFunction()
         {
             InitializeComponent();
-            Slider.ShowQuestion();
-            Smiles.ShowQuestion();
-            Stars.ShowQuestion();
+            DataBaseConnections.GetQuestionFromDataBase(new Slider());
+            DataBaseConnections.GetQuestionFromDataBase(new Smiles());
+            DataBaseConnections.GetQuestionFromDataBase(new Stars());
             Qustions.GetData(ListOfQuestion);
         }
         private void Add_Click(object sender, EventArgs e)
@@ -32,12 +33,12 @@ namespace Survey
             try
             {
                 
-                QuestionsInformation f = new QuestionsInformation(ListOfQuestion, -1, "", Constant.ADD);
+                QuestionsInformation f = new QuestionsInformation(ListOfQuestion, -1, Constant.Empty, Constant.ADD);
                 f.Show();
             }catch (Exception ex)
             {
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void Edit_Click(object sender, EventArgs e)
@@ -45,114 +46,117 @@ namespace Survey
             // this function for go to the edit page and give me the id 
             try
             {
-                List<int> ListOfId = new List<int>();
-                List<string> Types = new List<string>();
-                foreach (DataGridViewRow row in ListOfQuestion.Rows)
+                if (QuestionWillDeleteOrEdit != null)
                 {
-                    if ((bool)ListOfQuestion.Rows[row.Index].Cells[0].Value == true)
-                    {
-                        string TempText = ListOfQuestion.Rows[row.Index].Cells[1].Value.ToString();
-                        for (int i = 0; i < Constant.ListOfAllQuestion.Count; ++i)
-                            if (TempText.Equals(Constant.ListOfAllQuestion.ElementAt(i).NewText))
-                            {
-                                ListOfId.Add(Constant.ListOfAllQuestion.ElementAt(i).Id);
-                                Types.Add(Constant.ListOfAllQuestion.ElementAt(i).TypeOfQuestion);
-                                
-                            }
-                    }
-                }
-                if (ListOfId.Count > 1)
-                {
-                    MessageBox.Show("You Can not choose more than one Question for Edit", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (ListOfId.Count == 0)
-                {
-                    MessageBox.Show("Please Choose one Question for Edit", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (ListOfId.Count == 1)
-                {
-                    QuestionsInformation f = new QuestionsInformation(ListOfQuestion, ListOfId.ElementAt(0), Types.ElementAt(0), Constant.EDIT);
+                    QuestionsInformation f = new QuestionsInformation(ListOfQuestion, QuestionWillDeleteOrEdit.Id, QuestionWillDeleteOrEdit.TypeOfQuestion, Constant.EDIT);
                     f.Show();
+                    QuestionWillDeleteOrEdit = null; 
                 }
+                else
+                {
+                    MessageBox.Show(Constant.NoSelectItem, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
+        /*
+         foreach (DataGridViewRow row in ListOfQuestion.Rows)
+                {
+                    if ((bool)ListOfQuestion.Rows[row.Index].Cells[0].Value == true)
+                    {
+                        string s = ListOfQuestion.Rows[row.Index].Cells[1].Value.ToString();
+                        for (int i = 0; i < StaticObjects.ListOfAllQuestion.Count; ++i)
+                            if (s.Equals(StaticObjects.ListOfAllQuestion.ElementAt(i).NewText))
+                                ListOfId.Add(StaticObjects.ListOfAllQuestion.ElementAt(i).Id);
+                    }
+                }
+        
+                            for (int i = 0; i < StaticObjects.ListOfAllQuestion.Count; ++i)
+                            {
+                                if (StaticObjects.ListOfAllQuestion.ElementAt(i).Id == ListOfId.ElementAt(j))
+                                {
+                                    if (StaticObjects.ListOfAllQuestion.ElementAt(i) is Slider)
+                                    {
+                                        slider = (Slider)StaticObjects.ListOfAllQuestion.ElementAt(i);
+                                        DataBaseConnections.DeleteQuestion(slider,slider.Id, slider.IdForType);
+                                        StaticObjects.ListOfAllQuestion.Remove(slider);
+                                        break;
+                                    }
+                                    else if (StaticObjects.ListOfAllQuestion.ElementAt(i) is Smiles)
+                                    {
+                                        smiles = (Smiles)StaticObjects.ListOfAllQuestion.ElementAt(i);
+                                        DataBaseConnections.DeleteQuestion(smiles, smiles.Id, smiles.IdForType);
+                                        StaticObjects.ListOfAllQuestion.Remove(smiles);
+                                        break;
+
+                                    }
+                                    else if (StaticObjects.ListOfAllQuestion.ElementAt(i) is Stars)
+                                    {
+                                        stars = (Stars)StaticObjects.ListOfAllQuestion.ElementAt(i);
+                                        DataBaseConnections.DeleteQuestion(stars, stars.Id, stars.IdForType);
+                                        StaticObjects.ListOfAllQuestion.RemoveAt(i);
+                                        break;
+
+                                    }
+                                
+                            }
+
+
+         */
         private void Delete_Click(object sender, EventArgs e)
         {
             // this function for delete the answer 
             try
             {
-                List<int> ListOfId = new List<int>();
                 Slider slider = null;
                 Stars stars = null;
                 Smiles smiles = null;
-                foreach (DataGridViewRow row in ListOfQuestion.Rows)
+                
+                if (QuestionWillDeleteOrEdit == null)
                 {
-                    if ((bool)ListOfQuestion.Rows[row.Index].Cells[0].Value == true)
-                    {
-                        string s = ListOfQuestion.Rows[row.Index].Cells[1].Value.ToString();
-                        for (int i = 0; i < Constant.ListOfAllQuestion.Count; ++i)
-                            if (s.Equals(Constant.ListOfAllQuestion.ElementAt(i).NewText))
-                                ListOfId.Add(Constant.ListOfAllQuestion.ElementAt(i).Id);
-                    }
-                }
-                if (ListOfId.Count == 0)
-                {
-                    MessageBox.Show("This is not select any Question !", Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Constant.NoSelectItem, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    DialogResult dialogResult = MessageBox.Show("Are you sure to Delete this answer ?", "Delete", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes && ListOfId.Count > 0)
+                    DialogResult dialogResult = MessageBox.Show(Constant.SureToDeleteMessage, Constant.DELETE, MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes )
                     {
-                        for (int j = 0; j < ListOfId.Count; ++j)
+                        if (QuestionWillDeleteOrEdit is Slider)
                         {
-                            for (int i = 0; i < Constant.ListOfAllQuestion.Count; ++i)
-                            {
-                                if (Constant.ListOfAllQuestion.ElementAt(i).Id == ListOfId.ElementAt(j))
-                                {
-                                    if (Constant.ListOfAllQuestion.ElementAt(i) is Slider)
-                                    {
-                                        slider = (Slider)Constant.ListOfAllQuestion.ElementAt(i);
-                                        slider.Delete(slider.Id, slider.IdForType);
-                                        Constant.ListOfAllQuestion.Remove(slider);
-                                        break;
-                                    }
-                                    else if (Constant.ListOfAllQuestion.ElementAt(i) is Smiles)
-                                    {
-                                        smiles = (Smiles)Constant.ListOfAllQuestion.ElementAt(i);
-                                        smiles.Delete(smiles.Id, smiles.IdForType);
-                                        Constant.ListOfAllQuestion.Remove(smiles);
-                                        break;
-
-                                    }
-                                    else if (Constant.ListOfAllQuestion.ElementAt(i) is Stars)
-                                    {
-                                        stars = (Stars)Constant.ListOfAllQuestion.ElementAt(i);
-                                        stars.Delete(stars.Id, stars.IdForType);
-                                        Constant.ListOfAllQuestion.RemoveAt(i);
-                                        break;
-
-                                    }
-                                }
-                            }
-
+                            slider = (Slider)QuestionWillDeleteOrEdit; 
+                            DataBaseConnections.DeleteQuestion(slider, slider.Id,slider.IdForType);
+                            StaticObjects.ListOfAllQuestion.Remove(slider);
+                        }else if (QuestionWillDeleteOrEdit is Smiles)
+                        {
+                            smiles = (Smiles)QuestionWillDeleteOrEdit;
+                            DataBaseConnections.DeleteQuestion(smiles, smiles.Id, smiles.IdForType);
+                            StaticObjects.ListOfAllQuestion.Remove(smiles);
+                        }else if (QuestionWillDeleteOrEdit is Stars)
+                        {
+                            stars = (Stars)QuestionWillDeleteOrEdit;
+                            DataBaseConnections.DeleteQuestion(stars, stars.Id, stars.IdForType);
+                            StaticObjects.ListOfAllQuestion.Remove(stars);
                         }
                         Qustions.GetData(ListOfQuestion);
-                        MessageBox.Show(Constant.MessageError);
+
+
                     }
-                }
+                        
+                        
+                    }
+                
             }
             catch (Exception ex)
             {
 
                 MessageBox.Show(Constant.MessageError);
-                Constant.Erros.Log(ex.Message);
+                StaticObjects.Erros.Log(ex.Message);
             }
         }
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -162,20 +166,51 @@ namespace Survey
 
         private void changeToArabicToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Constant.Languge.Equals(Constant.English))
+            try
             {
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("ar-EG");
-                Constant.Languge = Constant.Arabic;
-                
-            }
-            else
-            {
-                Constant.Languge = Constant.English;
+                if (Constant.Languge.Equals(Constant.English))
+                {
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Constant.ArabicMark);
+                    Constant.Languge = Constant.Arabic;
 
-                Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("en-US");
+                }
+                else
+                {
+                    Constant.Languge = Constant.English;
+
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Constant.EnglishMark);
+                }
+                this.Controls.Clear();
+                StartFunction();
+            }catch (Exception ex)
+            {
+                MessageBox.Show(Constant.MessageError);
+                StaticObjects.Erros.Log(ex.Message);
             }
-            this.Controls.Clear();
-            StartFunction(); 
+        }
+        private void ChooseTheQuestionClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (ListOfQuestion.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                {
+                    ListOfQuestion.CurrentRow.Selected = true;
+                    string Text = ListOfQuestion.Rows[e.RowIndex].Cells[0].Value.ToString();
+                    string Type = ListOfQuestion.Rows[e.RowIndex].Cells[1].Value.ToString();
+                    int Order = Convert.ToInt32(ListOfQuestion.Rows[e.RowIndex].Cells[2].Value.ToString());
+                    foreach (Qustions QustionTemp in StaticObjects.ListOfAllQuestion)
+                    {
+                        if (Text.Equals(QustionTemp.NewText) && Type.Equals(QustionTemp.TypeOfQuestion) && Order == QustionTemp.Order)
+                        {
+                            QuestionWillDeleteOrEdit = QustionTemp; 
+                        }
+                    }
+                }
+            }catch (Exception ex)
+            {
+                MessageBox.Show(Constant.MessageError);
+                StaticObjects.Erros.Log(ex.Message);
+            }
         }
     }
 }
