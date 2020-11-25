@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="Delete.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 264</value>
+    <value>86, 227</value>
   </data>
   <data name="Delete.Text" xml:space="preserve">
     <value>حذف</value>
@@ -128,13 +128,10 @@
     <value>تعديل</value>
   </data>
   <data name="Add.Location" type="System.Drawing.Point, System.Drawing">
-    <value>378, 264</value>
+    <value>329, 227</value>
   </data>
   <data name="Add.Text" xml:space="preserve">
     <value>اضافة</value>
-  </data>
-  <data name="Column1.HeaderText" xml:space="preserve">
-    <value>أختر</value>
   </data>
   <data name="Column2.HeaderText" xml:space="preserve">
     <value>النص</value>
@@ -145,12 +142,18 @@
   <data name="Column4.HeaderText" xml:space="preserve">
     <value>رقم النص</value>
   </data>
+  <data name="ListOfQuestion.Location" type="System.Drawing.Point, System.Drawing">
+    <value>24, 0</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ListOfQuestion.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
   </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>2, 27</value>
+  </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>689, 302</value>
+    <value>545, 256</value>
   </data>
   <data name="changeToArabicToolStripMenuItem.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>Yes</value>
@@ -164,8 +167,11 @@
   <data name="menuStrip1.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
     <value>No</value>
   </data>
+  <data name="menuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>540, 24</value>
+  </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>712, 335</value>
+    <value>540, 283</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

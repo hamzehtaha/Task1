@@ -56,32 +56,33 @@
             // 
             // Delete
             // 
-            this.Delete.BackColor = System.Drawing.Color.White;
             resources.ApplyResources(this.Delete, "Delete");
+            this.Delete.BackColor = System.Drawing.Color.White;
             this.Delete.Name = "Delete";
             this.Delete.UseVisualStyleBackColor = false;
             this.Delete.Click += new System.EventHandler(this.Delete_Click);
             // 
             // Edit
             // 
+            resources.ApplyResources(this.Edit, "Edit");
             this.Edit.BackColor = System.Drawing.Color.White;
             this.Edit.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            resources.ApplyResources(this.Edit, "Edit");
             this.Edit.Name = "Edit";
             this.Edit.UseVisualStyleBackColor = false;
             this.Edit.Click += new System.EventHandler(this.Edit_Click);
             // 
             // Add
             // 
+            resources.ApplyResources(this.Add, "Add");
             this.Add.BackColor = System.Drawing.Color.White;
             this.Add.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            resources.ApplyResources(this.Add, "Add");
             this.Add.Name = "Add";
             this.Add.UseVisualStyleBackColor = false;
             this.Add.Click += new System.EventHandler(this.Add_Click);
             // 
             // ListOfQuestion
             // 
+            resources.ApplyResources(this.ListOfQuestion, "ListOfQuestion");
             this.ListOfQuestion.AllowUserToAddRows = false;
             this.ListOfQuestion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.ListOfQuestion.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
@@ -91,9 +92,9 @@
             this.Column3,
             this.Column4});
             this.ListOfQuestion.GridColor = System.Drawing.SystemColors.GrayText;
-            resources.ApplyResources(this.ListOfQuestion, "ListOfQuestion");
             this.ListOfQuestion.Name = "ListOfQuestion";
             this.ListOfQuestion.ReadOnly = true;
+            this.ListOfQuestion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ListOfQuestion.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ChooseTheQuestionClick);
             // 
             // Column2
@@ -117,22 +118,23 @@
             // 
             // menuStrip1
             // 
+            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.changeToArabicToolStripMenuItem});
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
             this.menuStrip1.Name = "menuStrip1";
             // 
             // changeToArabicToolStripMenuItem
             // 
+            resources.ApplyResources(this.changeToArabicToolStripMenuItem, "changeToArabicToolStripMenuItem");
             this.changeToArabicToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.changeToArabicToolStripMenuItem.Name = "changeToArabicToolStripMenuItem";
-            resources.ApplyResources(this.changeToArabicToolStripMenuItem, "changeToArabicToolStripMenuItem");
             this.changeToArabicToolStripMenuItem.Click += new System.EventHandler(this.changeToArabicToolStripMenuItem_Click);
             // 
             // Home
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
@@ -140,6 +142,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Home";
+            this.Load += new System.EventHandler(this.Home_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ListOfQuestion)).EndInit();
             this.menuStrip1.ResumeLayout(false);

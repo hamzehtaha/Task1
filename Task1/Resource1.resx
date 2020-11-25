@@ -117,7 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
- 
-  
+  <data name="DataIsEnterd" xml:space="preserve">
+    <value>Your question has been successfully enterd</value>
+  </data>
+  <data name="EndCaptionEmptyMessage" xml:space="preserve">
+    <value>"please enter the end caption"</value>
+  </data>
+  <data name="EndCaptionJustNumberMessage" xml:space="preserve">
+    <value>"The end caption should not contain only numbers"</value>
+  </data>
+  <data name="EndValueGreaterThanOneHundredMessage" xml:space="preserve">
+    <value>"The end value should be less than 100"</value>
+  </data>
+  <data name="EndValueLessThanZeroMessage" xml:space="preserve">
+    <value>"The end value must be greater than 0"</value>
+  </data>
+  <data name="NewOrderLessThanZeroMessage" xml:space="preserve">
+    <value>"The order sholud be grater than 0"</value>
+  </data>
+  <data name="NoSelectItem" xml:space="preserve">
+    <value>"Please select any question!"</value>
+  </data>
+  <data name="NotChooseTheType" xml:space="preserve">
+    <value>"Please choose the type of question"</value>
+  </data>
+  <data name="NumberOfSmileBetweenFiveAndTow" xml:space="preserve">
+    <value>"The number of smile face should be between 2 and 5"</value>
+  </data>
+  <data name="NumberOfStrasBetweenTenAndOne" xml:space="preserve">
+    <value>"The number of stars should be between 1 and 10"</value>
+  </data>
+  <data name="QuestionIsEmptyMessage" xml:space="preserve">
+    <value>"Please enter the text"</value>
+  </data>
+  <data name="QuestionIsJustANumberMessage" xml:space="preserve">
+    <value>"Your text just numbers"</value>
+  </data>
+  <data name="StartCaptionEmptyMessage" xml:space="preserve">
+    <value>"Please enter the start caption"</value>
+  </data>
+  <data name="StartCaptionJustNumberMessage" xml:space="preserve">
+    <value>"The start caption should not contain only numbers"</value>
+  </data>
+  <data name="StartValueGreaterThanOneHundredMessage" xml:space="preserve">
+    <value>"The start value should be less than 100"</value>
+  </data>
+  <data name="StartValueLessThanZeroMessage" xml:space="preserve">
+    <value>"Your start value must be greater than 0"</value>
+  </data>
+  <data name="SureToDeleteMessage" xml:space="preserve">
+    <value>"Are you sure you want to delete this question?"</value>
+  </data>
+  <data name="TheEndValueSholudGreaterThanStartValueMessage" xml:space="preserve">
+    <value>"The end value should be grater than start value"</value>
+  </data>
+  <data name="TheOrderIsEmpty" xml:space="preserve">
+    <value>"The order number is empty"</value>
+  </data>
 </root>

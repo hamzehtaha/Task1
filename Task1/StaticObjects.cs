@@ -11,12 +11,14 @@ namespace Survey
     {
         // List Of All My Question
         public static List<Qustions> ListOfAllQuestion = new List<Qustions>();
-        // This Object For Question using abstract factory 
-        public static AbstractFactory QuestionFactory = new QustionFactory();
         public static AbstractLog Erros = new Logger();
         public static Slider NewSlider = null;
         public static Smiles NewSmile = null;
         public static Stars NewStars = null;
-        public static string[] Attrubite = null;
+        public static string Languge = "English";
+        public static int Id = -1;
+        public static string Type = "";
+        public static string AddOrEdit = "";
+        public static string DoneOrNot = "";
     }
 }

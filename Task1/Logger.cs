@@ -33,7 +33,7 @@ namespace Survey
             this.FilePath = this.CurrentDirectory + "/" + this.FileName;
         }
 
-        public override void Log(string Message)
+        public override void Log(string Message,int LineNumber,string MethodName)
         {
             //This Function OVERRIDE FROM AbstractLog that is write Errors and dates in log file  
 
@@ -43,6 +43,8 @@ namespace Survey
                 writer.Write("\r\nLog Entry : ");
                 writer.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(), DateTime.Now.ToLongDateString());
                 writer.WriteLine("{0}", Message);
+                writer.WriteLine("{0} {1}","Method name is", MethodName);
+                writer.WriteLine("{0} {1}", "The Number of line :", LineNumber); 
                 writer.WriteLine("------------------------------------");
 
             }

@@ -1,4 +1,4 @@
-﻿namespace Task1
+﻿namespace Survey
 {
     partial class QuestionsInformation
     {
@@ -51,10 +51,10 @@
             this.Save = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.NewOrder = new System.Windows.Forms.NumericUpDown();
             this.GroupOfSlider.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewEndValue)).BeginInit();
@@ -63,8 +63,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.NewNumberOfSmiles)).BeginInit();
             this.GroupOfTypes.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewOrder)).BeginInit();
             this.SuspendLayout();
             // 
@@ -159,6 +159,11 @@
             // NewNumberOfStars
             // 
             resources.ApplyResources(this.NewNumberOfStars, "NewNumberOfStars");
+            this.NewNumberOfStars.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             this.NewNumberOfStars.Minimum = new decimal(new int[] {
             1,
             0,
@@ -175,15 +180,15 @@
             // 
             resources.ApplyResources(this.NewNumberOfSmiles, "NewNumberOfSmiles");
             this.NewNumberOfSmiles.Maximum = new decimal(new int[] {
-            1000,
+            5,
             0,
             0,
             0});
             this.NewNumberOfSmiles.Minimum = new decimal(new int[] {
-            1000,
+            2,
             0,
             0,
-            -2147483648});
+            0});
             this.NewNumberOfSmiles.Name = "NewNumberOfSmiles";
             this.NewNumberOfSmiles.Value = new decimal(new int[] {
             2,
@@ -255,11 +260,10 @@
             // 
             // panel3
             // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.Cancel);
-            this.panel3.Controls.Add(this.Save);
-            this.panel3.Controls.Add(this.panel2);
             this.panel3.Controls.Add(this.panel1);
+            this.panel3.Controls.Add(this.panel2);
+            this.panel3.Controls.Add(this.Save);
             this.panel3.Controls.Add(this.NewOrder);
             this.panel3.Controls.Add(this.NewText);
             this.panel3.Controls.Add(this.NewTextName);
@@ -268,19 +272,7 @@
             this.panel3.Controls.Add(this.GroupOfTypes);
             resources.ApplyResources(this.panel3, "panel3");
             this.panel3.Name = "panel3";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.NewNumberOfSmiles);
-            resources.ApplyResources(this.panel2, "panel2");
-            this.panel2.Name = "panel2";
-            // 
-            // label3
-            // 
-            resources.ApplyResources(this.label3, "label3");
-            this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label3.Name = "label3";
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
             // 
             // panel1
             // 
@@ -295,6 +287,19 @@
             this.label1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label1.Name = "label1";
             this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.NewNumberOfSmiles);
+            resources.ApplyResources(this.panel2, "panel2");
+            this.panel2.Name = "panel2";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label3.Name = "label3";
             // 
             // NewOrder
             // 
@@ -322,7 +327,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.panel3);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.HelpButton = true;
             this.MaximizeBox = false;
             this.Name = "QuestionsInformation";
@@ -337,10 +342,10 @@
             this.GroupOfTypes.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NewOrder)).EndInit();
             this.ResumeLayout(false);
 
