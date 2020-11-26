@@ -18,24 +18,10 @@ namespace Survey
 {
     public partial class QuestionsInformation : Form
     {
-        public DataGridView ListOfQuestion;
         private Qustions QuestionWillDeleteOrEdit = null;
         private Slider SliderForEdit = null;
         private Stars StarForEdit = null;
         private Smiles SmileForEdit = null;
-        private void ShowNewData()
-        {
-            ListOfQuestion.Rows.Clear();
-            foreach (Qustions Temp in StaticObjects.ListOfAllQuestion)
-            {
-
-                int Index = ListOfQuestion.Rows.Add();
-                ListOfQuestion.Rows[Index].Cells[0].Value = Temp.NewText;
-                ListOfQuestion.Rows[Index].Cells[2].Value = Temp.Order;
-                ListOfQuestion.Rows[Index].Cells[1].Value = Temp.TypeOfQuestion;
-
-            }
-        }
         private void ShowForSlider()
         {
             try
@@ -44,12 +30,7 @@ namespace Survey
                 GroupOfSlider.Visible = true; 
             }catch (Exception ex)
             {
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void ShowForSmiles()
@@ -61,13 +42,7 @@ namespace Survey
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void ShowForStars()
@@ -79,13 +54,7 @@ namespace Survey
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void ShowDataForEdit()
@@ -126,23 +95,15 @@ namespace Survey
                 }
             }catch(Exception ex)
             {
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
-        public QuestionsInformation(DataGridView ListOfQuestion, Qustions QuestionWillDeleteOrEdit, string AddOrEdit)
+        public QuestionsInformation(Qustions QuestionWillDeleteOrEdit, string AddOrEdit)
         {
             InitializeComponent();
             InitHide(); 
-            this.ListOfQuestion = ListOfQuestion;
-            StaticObjects.NewSlider = null;
-            StaticObjects.NewSmile = null;
             this.QuestionWillDeleteOrEdit = QuestionWillDeleteOrEdit;
-            StaticObjects.NewStars = null;
+
             NewText.Focus();
             try
             {
@@ -168,13 +129,7 @@ namespace Survey
                     }
             }catch (Exception ex)
             {
-
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message,LineNumber,MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void InitHide()
@@ -187,12 +142,7 @@ namespace Survey
                 panel1.Visible = false; 
             }catch (Exception ex)
             {
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
 
         }
@@ -222,13 +172,7 @@ namespace Survey
                 }
             } catch (Exception ex)
             {
-
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void Smily_CheckedChange(object sender, EventArgs e)
@@ -242,12 +186,7 @@ namespace Survey
                 }
             } catch (Exception ex)
             {
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void Stars_CheckedChange(object sender, EventArgs e)
@@ -262,12 +201,7 @@ namespace Survey
                 }
             } catch (Exception ex)
             {
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void DataEnter()
@@ -276,16 +210,10 @@ namespace Survey
             try
             {
                 MessageBox.Show(Survey.Properties.Resource1.DataIsEnterd);
-                ShowNewData();
                 this.Close();
             }catch(Exception ex)
             {
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
 
         }
@@ -377,13 +305,7 @@ namespace Survey
                 }
             }catch (Exception ex)
             {
-
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
 
                 return false; 
             }
@@ -394,6 +316,7 @@ namespace Survey
             
             try
             {
+                
                 if (StaticObjects.AddOrEdit == TypeOfChoice.Add.ToString())
                 {
                     if (SliderRadio.Checked)
@@ -448,13 +371,7 @@ namespace Survey
                 }
             }catch (Exception ex)
             {
-
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = frame.GetFileLineNumber();
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
             try { 
                  if (StaticObjects.AddOrEdit == TypeOfChoice.Edit.ToString())
@@ -470,7 +387,6 @@ namespace Survey
                         if (CheckTheData(SliderForEdit))
                         {
                             DataBaseConnections.EditQuestion(SliderForEdit);
-                            ShowNewData();
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
                             this.Close();
 
@@ -484,7 +400,6 @@ namespace Survey
                         if (CheckTheData(SmileForEdit))
                         {
                             DataBaseConnections.EditQuestion(SmileForEdit);
-                            ShowNewData();
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
                             this.Close();
                         }
@@ -496,7 +411,6 @@ namespace Survey
                         if (CheckTheData(StarForEdit))
                         {
                             DataBaseConnections.EditQuestion(StarForEdit);
-                            ShowNewData();
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
                             this.Close();
                         }
@@ -506,13 +420,7 @@ namespace Survey
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show(Survey.Properties.Resource1.MessageError);
-                StackTrace st = new StackTrace(ex, true);
-                StackFrame frame = st.GetFrame(0);
-                int LineNumber = Convert.ToInt32(ex.StackTrace.Substring(ex.StackTrace.LastIndexOf(' ')));
-                string MethodName = frame.GetMethod().Name;
-                StaticObjects.Erros.Log(ex.Message, LineNumber, MethodName);
+                StaticObjects.Erros.Log(ex);
             }
         }
         private void Cancel_Click(object sender, EventArgs e)

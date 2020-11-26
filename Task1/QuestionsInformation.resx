@@ -280,7 +280,7 @@
     <value>107, 110</value>
   </data>
   <data name="NewEndValueCaption.MaxLength" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>50</value>
   </data>
   <data name="NewEndValueCaption.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -361,7 +361,7 @@
     <value>108, 74</value>
   </data>
   <data name="NewStartValueCaption.MaxLength" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>50</value>
   </data>
   <data name="NewStartValueCaption.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -449,75 +449,6 @@
   </data>
   <data name="GroupOfTypes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
-  </data>
-  <data name="&gt;&gt;StarsRadio.Name" xml:space="preserve">
-    <value>StarsRadio</value>
-  </data>
-  <data name="&gt;&gt;StarsRadio.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;StarsRadio.Parent" xml:space="preserve">
-    <value>GroupOfTypes</value>
-  </data>
-  <data name="&gt;&gt;StarsRadio.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;SmilyRadio.Name" xml:space="preserve">
-    <value>SmilyRadio</value>
-  </data>
-  <data name="&gt;&gt;SmilyRadio.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SmilyRadio.Parent" xml:space="preserve">
-    <value>GroupOfTypes</value>
-  </data>
-  <data name="&gt;&gt;SmilyRadio.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;SliderRadio.Name" xml:space="preserve">
-    <value>SliderRadio</value>
-  </data>
-  <data name="&gt;&gt;SliderRadio.Type" xml:space="preserve">
-    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;SliderRadio.Parent" xml:space="preserve">
-    <value>GroupOfTypes</value>
-  </data>
-  <data name="&gt;&gt;SliderRadio.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
-  </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>GroupOfTypes</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="GroupOfTypes.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 88</value>
-  </data>
-  <data name="GroupOfTypes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 91</value>
-  </data>
-  <data name="GroupOfTypes.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;GroupOfTypes.Name" xml:space="preserve">
-    <value>GroupOfTypes</value>
-  </data>
-  <data name="&gt;&gt;GroupOfTypes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;GroupOfTypes.Parent" xml:space="preserve">
-    <value>panel3</value>
-  </data>
-  <data name="&gt;&gt;GroupOfTypes.ZOrder" xml:space="preserve">
-    <value>9</value>
   </data>
   <data name="StarsRadio.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -629,6 +560,27 @@
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>3</value>
+  </data>
+  <data name="GroupOfTypes.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 88</value>
+  </data>
+  <data name="GroupOfTypes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>174, 91</value>
+  </data>
+  <data name="GroupOfTypes.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;GroupOfTypes.Name" xml:space="preserve">
+    <value>GroupOfTypes</value>
+  </data>
+  <data name="&gt;&gt;GroupOfTypes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;GroupOfTypes.Parent" xml:space="preserve">
+    <value>panel3</value>
+  </data>
+  <data name="&gt;&gt;GroupOfTypes.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="NewOrderName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -762,6 +714,21 @@
   <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 8</value>
+  </data>
+  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>82, 13</value>
+  </data>
+  <data name="label3.TabIndex" type="System.Int32, mscorlib">
+    <value>28</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Number of smile</value>
+  </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
   </data>
@@ -835,33 +802,6 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="label3.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 8</value>
-  </data>
-  <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>82, 13</value>
-  </data>
-  <data name="label3.TabIndex" type="System.Int32, mscorlib">
-    <value>28</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Number of smile</value>
-  </data>
-  <data name="&gt;&gt;label3.Name" xml:space="preserve">
-    <value>label3</value>
-  </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>panel2</value>
-  </data>
-  <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
