@@ -280,7 +280,7 @@
     <value>107, 110</value>
   </data>
   <data name="NewEndValueCaption.MaxLength" type="System.Int32, mscorlib">
-    <value>50</value>
+    <value>3</value>
   </data>
   <data name="NewEndValueCaption.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -361,7 +361,7 @@
     <value>108, 74</value>
   </data>
   <data name="NewStartValueCaption.MaxLength" type="System.Int32, mscorlib">
-    <value>50</value>
+    <value>3</value>
   </data>
   <data name="NewStartValueCaption.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>

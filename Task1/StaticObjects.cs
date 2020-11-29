@@ -9,11 +9,11 @@ namespace Survey
 {
     class StaticObjects
     {
-        // List Of All My Question
-        public static List<Qustions> ListOfAllQuestion = new List<Qustions>();
+        /// <summary>
+        /// This static objects and use it everwhere 
+        /// </summary>
         public static AbstractLog Erros = new Logger();
-        public static string Languge = "English";
         public static string AddOrEdit = "";
-        public static string DoneOrNot = "";
+        public static int SuccOfFail = 0;
     }
 }

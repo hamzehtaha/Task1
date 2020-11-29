@@ -11,7 +11,10 @@ using Task1;
 
 namespace Survey
 {
-    // This Class Attributes for Variable use an many times in my project 
+    /// <summary>
+    ///  This Class Attributes for Variable use many times in my project
+    /// </summary>
+
     public class Constant
     {
         public const string ErrorString = "Error";

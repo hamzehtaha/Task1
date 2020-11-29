@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Survey
 {
-    //This Abstract Class For Logger 
+    /// <summary>
+    /// This Abstract Class For Logger 
+    /// </summary>
     public abstract class  AbstractLog
     {
         public abstract void Log(Exception ex);

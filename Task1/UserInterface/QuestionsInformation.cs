@@ -18,10 +18,55 @@ namespace Survey
 {
     public partial class QuestionsInformation : Form
     {
+        /// <summary>
+        /// privtae objects for add,edit and delete 
+        /// </summary>
         private Qustions QuestionWillDeleteOrEdit = null;
         private Slider SliderForEdit = null;
         private Stars StarForEdit = null;
         private Smiles SmileForEdit = null;
+        public Qustions ReturnNewQuestion { get; set; }
+        /// <summary>
+        /// This constructor for hide and if i choose edit will show the variable for types of question
+        /// </summary>
+        public QuestionsInformation(Qustions QuestionWillDeleteOrEdit, string AddOrEdit)
+        {
+            InitializeComponent();
+            InitHide();
+            this.QuestionWillDeleteOrEdit = QuestionWillDeleteOrEdit;
+            NewText.Focus();
+            try
+            {
+                if (TypeOfChoice.Edit.ToString() == AddOrEdit)
+                {
+                    GroupOfTypes.Visible = false;
+                    StaticObjects.AddOrEdit = TypeOfChoice.Edit.ToString();
+                    ShowDataForEdit();
+                }
+                else if (TypeOfChoice.Add.ToString() == AddOrEdit)
+                {
+                    GroupOfTypes.Visible = true;
+                    StaticObjects.AddOrEdit = TypeOfChoice.Add.ToString();
+                    InitHide();
+                }
+                if (QuestionWillDeleteOrEdit != null)
+                {
+                    if (TypeOfQuestion.Slider.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
+                        ShowForSlider();
+                    else if (TypeOfQuestion.Smily.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
+                        ShowForSmiles();
+                    else if (TypeOfQuestion.Stars.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
+                        ShowForStars();
+                }
+            }
+            catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+            }
+        }
+        /// <summary>
+        /// this when choose the slider the slider attrubites will appear
+        /// </summary>
         private void ShowForSlider()
         {
             try
@@ -33,6 +78,9 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
+        /// <summary>
+        /// this when choose the smile the smile attrubites will appear
+        /// </summary>
         private void ShowForSmiles()
         {
             try
@@ -45,6 +93,9 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
+        /// <summary>
+        /// this when choose the stars the stars attrubites will appear
+        /// </summary>
         private void ShowForStars()
         {
             try
@@ -57,6 +108,9 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
+        /// <summary>
+        /// This old data in object and appear when press edit question 
+        /// </summary>
         private void ShowDataForEdit()
         {
             try
@@ -98,43 +152,12 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
-        public QuestionsInformation(Qustions QuestionWillDeleteOrEdit, string AddOrEdit)
-        {
-            InitializeComponent();
-            InitHide(); 
-            this.QuestionWillDeleteOrEdit = QuestionWillDeleteOrEdit;
-
-            NewText.Focus();
-            try
-            {
-                if (TypeOfChoice.Edit.ToString() == AddOrEdit)
-                {
-                    GroupOfTypes.Visible = false;
-                    StaticObjects.AddOrEdit = TypeOfChoice.Edit.ToString();
-                    ShowDataForEdit();
-                }
-                else if (TypeOfChoice.Add.ToString() == AddOrEdit) {
-                    GroupOfTypes.Visible = true;
-                    StaticObjects.AddOrEdit = TypeOfChoice.Add.ToString();
-                    InitHide();
-                }
-                if (QuestionWillDeleteOrEdit != null)
-                {
-                   if (TypeOfQuestion.Slider.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
-                        ShowForSlider();
-                   else  if (TypeOfQuestion.Smily.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
-                        ShowForSmiles();
-                   else if (TypeOfQuestion.Stars.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
-                        ShowForStars();
-                    }
-            }catch (Exception ex)
-            {
-                StaticObjects.Erros.Log(ex);
-            }
-        }
+        /// <summary>
+        /// This For Hide panel and radio Button
+        /// </summary>
         private void InitHide()
         {
-            // This For Hide panel and radio Button
+            
             try
             {
                 GroupOfSlider.Visible = false ;
@@ -146,24 +169,25 @@ namespace Survey
             }
 
         }
+        /// <summary>
+        /// to check the string is number or not ?
+        /// </summary>
         private bool IsNumber(string Number)
         {
-            // to check the string is number or not ?
             
             return int.TryParse(Number, out int N);
-
-        }
-        private void QuestionsInformation_Load(object sender, EventArgs e)
-        {
 
         }
         private void questionDetalis1_Load(object sender, EventArgs e)
         {
 
         }
+        /// <summary>
+        ///  // for radio Button cahnges 
+        /// </summary>
         private void Slider_CheckedChange(object sender, EventArgs e)
         {
-            // for radio Button cahnges 
+           
             try
             {
                 if (SliderRadio.Checked == true)
@@ -175,9 +199,12 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
+        /// <summary>
+        /// for radio Button cahnges 
+        /// </summary>
         private void Smily_CheckedChange(object sender, EventArgs e)
         {
-            // for radio Button cahnges 
+            
             try
             {
                 if (SmilyRadio.Checked == true)
@@ -189,9 +216,11 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
+        /// <summary>
+        /// for radio Button cahnges
+        /// </summary>
         private void Stars_CheckedChange(object sender, EventArgs e)
         {
-            // for radio Button cahnges
             try
             {
                 if (StarsRadio.Checked == true)
@@ -204,9 +233,11 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
+        /// <summary>
+        /// This Function For User know is data is edited or Added
+        /// </summary>
         private void DataEnter()
         {
-            // This Function For User know is data is edited or Added
             try
             {
                 MessageBox.Show(Survey.Properties.Resource1.DataIsEnterd);
@@ -217,9 +248,11 @@ namespace Survey
             }
 
         }
+        /// <summary>
+        /// This Function to Check validation of data 
+        /// </summary>
         private bool CheckTheData( Qustions TypeQuestion)
         {
-            // This Function to Check validation of data 
             try
             {
                 if (NewText.Text == Constant.Empty)
@@ -311,9 +344,11 @@ namespace Survey
             }
             return true; 
         }
+        /// <summary>
+        /// when i press save button go to this function and from AddOrEdit var will know i edit or add the question 
+        /// </summary>
         private void Save_Click(object sender, EventArgs e)
         {
-            
             try
             {
                 
@@ -331,8 +366,8 @@ namespace Survey
                             NewQuestion.EndValue = Convert.ToInt32(NewEndValue.Text);
                             NewQuestion.StartCaption  = NewStartValueCaption.Text;
                             NewQuestion.EndCaption = NewEndValueCaption.Text;
-                            DataBaseConnections.AddQuestion(NewQuestion);
-                            if (StaticObjects.DoneOrNot.Equals(Constant.Done))
+                            ReturnNewQuestion = (Slider)DataBaseConnections.AddQuestion(NewQuestion);
+                            if (StaticObjects.SuccOfFail == 1)
                                 DataEnter();
                         }
                     }
@@ -346,8 +381,8 @@ namespace Survey
                             NewQuestion.Order = Convert.ToInt32(NewOrder.Value);
                             NewQuestion.TypeOfQuestion = TypeOfQuestion.Smily.ToString();
                             NewQuestion.NumberOfSmiles = Convert.ToInt32(NewNumberOfSmiles.Text);
-                            DataBaseConnections.AddQuestion(NewQuestion);
-                            if (StaticObjects.DoneOrNot.Equals(Constant.Done))
+                            ReturnNewQuestion = (Smiles)DataBaseConnections.AddQuestion(NewQuestion);
+                            if (StaticObjects.SuccOfFail == 1)
                                 DataEnter();
                         }
                     }
@@ -360,8 +395,8 @@ namespace Survey
                             NewQuestion.Order = Convert.ToInt32(NewOrder.Value);
                             NewQuestion.TypeOfQuestion = TypeOfQuestion.Stars.ToString();
                             NewQuestion.NumberOfStars = Convert.ToInt32(NewNumberOfStars.Text);
-                            DataBaseConnections.AddQuestion(NewQuestion);
-                            if (StaticObjects.DoneOrNot.Equals(Constant.Done))
+                            ReturnNewQuestion = (Stars)DataBaseConnections.AddQuestion(NewQuestion);
+                            if (StaticObjects.SuccOfFail ==1)
                                 DataEnter();
                         }
                     }else
@@ -386,8 +421,10 @@ namespace Survey
                         SliderForEdit.EndCaption = NewEndValueCaption.Text;
                         if (CheckTheData(SliderForEdit))
                         {
-                            DataBaseConnections.EditQuestion(SliderForEdit);
+
+                            ReturnNewQuestion=DataBaseConnections.EditQuestion(SliderForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
+                            StaticObjects.SuccOfFail = 1; 
                             this.Close();
 
                         }
@@ -399,8 +436,9 @@ namespace Survey
                         SmileForEdit.NumberOfSmiles = Convert.ToInt32(NewNumberOfSmiles.Value);
                         if (CheckTheData(SmileForEdit))
                         {
-                            DataBaseConnections.EditQuestion(SmileForEdit);
+                            ReturnNewQuestion=DataBaseConnections.EditQuestion(SmileForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
+                            StaticObjects.SuccOfFail = 1;
                             this.Close();
                         }
                     }else if (StarForEdit != null)
@@ -410,8 +448,9 @@ namespace Survey
                         StarForEdit.NumberOfStars = Convert.ToInt32(NewNumberOfStars.Value);
                         if (CheckTheData(StarForEdit))
                         {
-                            DataBaseConnections.EditQuestion(StarForEdit);
+                            ReturnNewQuestion=DataBaseConnections.EditQuestion(StarForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
+                            StaticObjects.SuccOfFail = 1;
                             this.Close();
                         }
                     }
@@ -423,6 +462,9 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
+        /// <summary>
+        /// for close this page
+        /// </summary>
         private void Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -431,17 +473,18 @@ namespace Survey
         {
 
         }
-
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
-
         private void NewNumberOfSmiles_ValueChanged(object sender, EventArgs e)
         {
         }
-
         private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private void QuestionsInformation_Load(object sender, EventArgs e)
         {
 
         }

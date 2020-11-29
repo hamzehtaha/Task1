@@ -62,57 +62,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractLog.cs" />
-    <Compile Include="Constant.cs" />
-    <Compile Include="DataBaseConnections.cs" />
-    <Compile Include="Home.cs">
+    <Compile Include="Interfaces\AbstractLog.cs" />
+    <Compile Include="Globel\Constant.cs" />
+    <Compile Include="RepositoryPattern\DataBaseConnections.cs" />
+    <Compile Include="UserInterface\Home.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Home.Designer.cs">
+    <Compile Include="UserInterface\Home.Designer.cs">
       <DependentUpon>Home.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logger.cs" />
+    <Compile Include="Globel\Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="QuestionsInformation.cs">
+    <Compile Include="UserInterface\QuestionsInformation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuestionsInformation.Designer.cs">
+    <Compile Include="UserInterface\QuestionsInformation.Designer.cs">
       <DependentUpon>QuestionsInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="Qustions.cs" />
+    <Compile Include="Models\Qustions.cs" />
     <Compile Include="Properties\Resource1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
-    <Compile Include="Slider.cs" />
-    <Compile Include="Smiles.cs" />
-    <Compile Include="Stars.cs" />
+    <Compile Include="Models\Slider.cs" />
+    <Compile Include="Models\Smiles.cs" />
+    <Compile Include="Models\Stars.cs" />
     <Compile Include="StaticObjects.cs" />
-    <EmbeddedResource Include="Home.ar.resx">
+    <EmbeddedResource Include="UserInterface\Home.ar.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Home.resx">
+    <EmbeddedResource Include="UserInterface\Home.resx">
       <DependentUpon>Home.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QuestionsInformation.ar.resx">
+    <EmbeddedResource Include="UserInterface\QuestionsInformation.ar.resx">
       <DependentUpon>QuestionsInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuestionsInformation.resx">
+    <EmbeddedResource Include="UserInterface\QuestionsInformation.resx">
       <DependentUpon>QuestionsInformation.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resource1.resx" />
     <EmbeddedResource Include="Properties\Resource1.ar.resx" />
     <EmbeddedResource Include="Properties\Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>

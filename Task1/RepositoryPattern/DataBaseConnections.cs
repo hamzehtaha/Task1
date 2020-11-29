@@ -53,12 +53,12 @@ namespace Survey
         private const string JoinStarsAndQuestion = "select Qustions.ID,Stars.ID ,Qustions.Qustions_text,Qustions.Qustion_order,Stars.Number_Of_Stars from Qustions INNER JOIN Stars ON Stars.Qus_ID = Qustions.ID;";
         private const string ProcdureQuestionSelectForMax = "select max(ID) as ID from Qustions";
         private const string SelectStarFromQuestion = "SELECT * FROM Qustions";
-        private const string DeleteStar = "DELETE FROM Stars Where ID = @ID;";
+        private const string DeleteStarString = "DELETE FROM Stars Where ID = @ID;";
         private const string UpdateSlider = "UPDATE Slider SET Start_Value =@Start_value, End_Value = @End_Value,Start_Value_Cap =@Start_Value_Cap, End_Value_Cap = @End_Value_Cap where Qus_ID = @ID;";
         private const string UpdateSmile = "UPDATE Smily SET Number_of_smily = @Number_of_smily where Qus_ID = @ID;";
         private const string UpdateStar = "UPDATE Stars SET Number_Of_Stars = @Number_Of_Stars where Qus_ID = @ID;";
-        private const string DeleteSlider = "DELETE FROM Slider Where ID = @ID;";
-        private const string DeleteSmily = "DELETE FROM Smily Where ID = @ID;";
+        private const string DeleteSliderString = "DELETE FROM Slider Where ID = @ID;";
+        private const string DeleteSmilyString = "DELETE FROM Smily Where ID = @ID;";
         private const string InsertInSlider = "INSERT INTO Slider(Start_Value,End_Value,Start_Value_Cap,End_Value_Cap,Qus_ID) VALUES(@Start_Value,@End_Value, @Start_Value_Cap,@End_Value_Cap,@Qus_ID);";
         private const string InsertInSmile = "INSERT INTO Smily(Number_of_smily,Qus_ID) VALUES(@Number_of_smily,@Qus_ID);";
         private const string InsertInStar = "INSERT INTO Stars(Number_Of_Stars,Qus_ID) VALUES(@Number_Of_Stars,@Qus_ID);";
@@ -97,7 +97,7 @@ namespace Survey
             catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
-                StaticObjects.DoneOrNot = Constant.Not;
+                StaticObjects.SuccOfFail = 0;
                 return Id;
             }
             return Id;
@@ -141,10 +141,9 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
-        public static void GetQuestionFromDataBase()
+        public static List<Qustions> GetQuestionFromDataBase()
         {
             List<Qustions> TempListOfQustion = new List<Qustions>();
-            
             SqlDataReader DataReader = null;
             Smiles NewSmile = null;
             Slider NewSlider = null;
@@ -156,7 +155,6 @@ namespace Survey
                     SqlCommand CommandForJoinQustion = new SqlCommand(JoinSmileAndQustion, Connection);
                     CommandForJoinQustion.Connection.Open(); 
                     DataReader = CommandForJoinQustion.ExecuteReader();
-                    StaticObjects.ListOfAllQuestion.Clear();
                     while (DataReader.Read())
                     {
                         NewSmile = new Smiles();
@@ -166,7 +164,7 @@ namespace Survey
                         NewSmile.Order = Convert.ToInt32(DataReader.GetValue(3));
                         NewSmile.NumberOfSmiles = Convert.ToInt32(DataReader.GetValue(4));
                         NewSmile.TypeOfQuestion = TypeOfQuestion.Smily.ToString();
-                        StaticObjects.ListOfAllQuestion.Add(NewSmile);
+                        TempListOfQustion.Add(NewSmile);
                     }
                     DataReader.Close();
                     CommandForJoinQustion.CommandText = JoinSliderAndQuestion;
@@ -183,7 +181,7 @@ namespace Survey
                         NewSlider.EndValue = Convert.ToInt32(DataReader.GetValue(5));
                         NewSlider.StartCaption = DataReader.GetValue(6) + Constant.Empty;
                         NewSlider.EndCaption = DataReader.GetValue(7) + Constant.Empty;
-                        StaticObjects.ListOfAllQuestion.Add(NewSlider);
+                        TempListOfQustion.Add(NewSlider);
                     }
                     DataReader.Close();
                     CommandForJoinQustion.CommandText = JoinStarsAndQuestion;
@@ -197,16 +195,18 @@ namespace Survey
                         NewStars.Order = Convert.ToInt32(DataReader.GetValue(3));
                         NewStars.NumberOfStars = Convert.ToInt32(DataReader.GetValue(4));
                         NewStars.TypeOfQuestion = TypeOfQuestion.Stars.ToString();
-                        StaticObjects.ListOfAllQuestion.Add(NewStars);
+                        TempListOfQustion.Add(NewStars);
                     }
                 }
+                return TempListOfQustion;
             }
             catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                return TempListOfQustion;
             }
         }
-        public static void AddQuestion (Qustions Question)
+        public static Qustions AddQuestion (Qustions Question)
         {
             // For Add Question in my data base and will pass my Attrubites from HomePage.cs AND pass the type of Question and add it in database 
             
@@ -229,15 +229,16 @@ namespace Survey
                             SliderQuestion.Id = Id;
                             CommandForInsertSlider.Connection.Open(); 
                             CommandForInsertSlider.ExecuteNonQuery();
-                            StaticObjects.ListOfAllQuestion.Add(SliderQuestion);
-                            StaticObjects.DoneOrNot = Constant.Done;
+                            //StaticObjects.ListOfAllQuestion.Add(SliderQuestion);
+                            StaticObjects.SuccOfFail = 1;
+                            return SliderQuestion; 
                         }
                     }
                     catch (Exception ex)
                     {
                         StaticObjects.Erros.Log(ex);
-                        StaticObjects.DoneOrNot = Constant.Not;
-
+                        StaticObjects.SuccOfFail = 0;
+                        return SliderQuestion;
                     }
                 }
                 else if (TypeOfQuestion.Smily.ToString() == Question.TypeOfQuestion)
@@ -254,14 +255,16 @@ namespace Survey
                             CommandForInsertSmile.ExecuteNonQuery();
                             CommandForInsertSmile.Parameters.Clear();
                             SmileQuestion.Id = Id;
-                            StaticObjects.ListOfAllQuestion.Add(SmileQuestion);
-                            StaticObjects.DoneOrNot = Constant.Done;
+                            //StaticObjects.ListOfAllQuestion.Add(SmileQuestion);
+                            StaticObjects.SuccOfFail = 1;
+                            return SmileQuestion;
                         }
                     }
                     catch (Exception ex)
                     {
                         StaticObjects.Erros.Log(ex);
-                        StaticObjects.DoneOrNot = Constant.Not;
+                        StaticObjects.SuccOfFail = 0;
+                        return SmileQuestion;
 
                     }
                 } else if (TypeOfQuestion.Stars.ToString() == Question.TypeOfQuestion) {
@@ -278,19 +281,253 @@ namespace Survey
                             CommandForInsertStar.ExecuteNonQuery();
                             CommandForInsertStar.Parameters.Clear();
                             StarQuestion.Id = Id;
-                            StaticObjects.ListOfAllQuestion.Add(StarQuestion);
-                            StaticObjects.DoneOrNot = Constant.Done;
+                            //StaticObjects.ListOfAllQuestion.Add(StarQuestion);
+                            StaticObjects.SuccOfFail = 1;
+                            return StarQuestion; 
                         }
                     }
                     catch (Exception ex)
                     {
                         StaticObjects.Erros.Log(ex);
-                        StaticObjects.DoneOrNot = Constant.Not;
+                        StaticObjects.SuccOfFail = 0;
+                        return StarQuestion; 
                     }
-                }                
+                }
+                
+            }
+            return Question; 
+        }
+        public static Qustions AddNewSlider(Qustions Qustion)
+        {
+            Slider SliderQuestion = (Slider)Qustion;
+            int Id = AddQustionInDataBase(SliderQuestion);
+            if (Id != -1)
+            {
+                try
+                {
+                    using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                    {
+                        SqlCommand CommandForInsertSlider = new SqlCommand(InsertInSlider, Connection);
+                        CommandForInsertSlider.Parameters.AddWithValue(NewStartValue, SliderQuestion.StartValue);
+                        CommandForInsertSlider.Parameters.AddWithValue(NewEndValue, SliderQuestion.EndValue);
+                        CommandForInsertSlider.Parameters.AddWithValue(NewStartValueCaption, SliderQuestion.StartCaption);
+                        CommandForInsertSlider.Parameters.AddWithValue(NewEndValueCaption, SliderQuestion.EndCaption);
+                        CommandForInsertSlider.Parameters.AddWithValue(QustionIdDataBase, Id);
+                        SliderQuestion.Id = Id;
+                        CommandForInsertSlider.Connection.Open();
+                        CommandForInsertSlider.ExecuteNonQuery();
+                        StaticObjects.SuccOfFail = 1;
+                        return SliderQuestion;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    StaticObjects.Erros.Log(ex);
+                    StaticObjects.SuccOfFail = 0;
+                    return SliderQuestion;
+                }
+
+            }
+            return SliderQuestion; 
+        }
+        public static Qustions AddNewSmile (Qustions Qustion)
+        {
+            int Id = AddQustionInDataBase(Qustion);
+            Smiles SmileQuestion = (Smiles)Qustion;
+            if (Id != -1)
+            {
+                try
+                {
+                    using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                    {
+                        SqlCommand CommandForInsertSmile = new SqlCommand(InsertInSmile, Connection);
+                        CommandForInsertSmile.Parameters.AddWithValue(NewNumberOfSmily, SmileQuestion.NumberOfSmiles);
+                        CommandForInsertSmile.Parameters.AddWithValue(QustionIdDataBase, Id);
+                        CommandForInsertSmile.Connection.Open();
+                        CommandForInsertSmile.ExecuteNonQuery();
+                        CommandForInsertSmile.Parameters.Clear();
+                        SmileQuestion.Id = Id;
+                        StaticObjects.SuccOfFail = 1;
+                        return SmileQuestion;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    StaticObjects.Erros.Log(ex);
+                    StaticObjects.SuccOfFail = 0;
+                    return SmileQuestion;
+
                 }
             }
-        public static void EditQuestion (Qustions Question)
+            return SmileQuestion;
+
+        }
+        public static Qustions AddNewStar (Qustions Qustion)
+        {
+            Stars StarQuestion = (Stars)Qustion;
+            int Id = AddQustionInDataBase(Qustion);
+            if (Id != -1)
+            {
+                try
+                {
+                    using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                    {
+                        SqlCommand CommandForInsertStar = new SqlCommand(InsertInStar, Connection);
+                        CommandForInsertStar.Parameters.AddWithValue(NewNumberOfStars, StarQuestion.NumberOfStars);
+                        CommandForInsertStar.Parameters.AddWithValue(QustionIdDataBase, Id);
+                        CommandForInsertStar.Connection.Open();
+                        CommandForInsertStar.ExecuteNonQuery();
+                        CommandForInsertStar.Parameters.Clear();
+                        StarQuestion.Id = Id;
+                        //StaticObjects.ListOfAllQuestion.Add(StarQuestion);
+                        StaticObjects.SuccOfFail = 1;
+                        return StarQuestion;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    StaticObjects.Erros.Log(ex);
+                    StaticObjects.SuccOfFail = 0;
+                    return StarQuestion;
+                }
+            }
+            return StarQuestion;
+        }
+        public static Qustions EditSlider (Qustions Qustion)
+        {
+            try
+            {
+                using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                {
+                    Slider SliderForEdit = (Slider)Qustion;
+                    SqlCommand CommandForUpdateSlider = new SqlCommand(UpdateSlider, Connection);
+                    CommandForUpdateSlider.Parameters.AddWithValue(NewStartValue, SliderForEdit.StartValue);
+                    CommandForUpdateSlider.Parameters.AddWithValue(NewEndValue, SliderForEdit.EndValue);
+                    CommandForUpdateSlider.Parameters.AddWithValue(NewStartValueCaption, SliderForEdit.StartCaption);
+                    CommandForUpdateSlider.Parameters.AddWithValue(NewEndValueCaption, SliderForEdit.EndCaption);
+                    CommandForUpdateSlider.Parameters.AddWithValue(IdQuestion, SliderForEdit.Id);
+                    CommandForUpdateSlider.Connection.Open();
+                    CommandForUpdateSlider.ExecuteNonQuery();
+                    CommandForUpdateSlider.Parameters.Clear();
+                    EditAttrubitesForQuestion(SliderForEdit);
+                    return SliderForEdit;
+                }
+            }
+            catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+                return Qustion;
+            }
+        }
+        public static Qustions EditSmile (Qustions Qustion)
+        {
+            try
+            {
+                Smiles SmileForEdit = (Smiles)Qustion;
+                using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                {
+                    SqlCommand CommandForUpdateSmile = new SqlCommand(UpdateSmile, Connection);
+                    CommandForUpdateSmile.Parameters.AddWithValue(NewNumberOfSmily, SmileForEdit.NumberOfSmiles);
+                    CommandForUpdateSmile.Parameters.AddWithValue(IdQuestion, SmileForEdit.Id);
+                    CommandForUpdateSmile.Connection.Open();
+                    CommandForUpdateSmile.ExecuteNonQuery();
+                    CommandForUpdateSmile.Parameters.Clear();
+                    EditAttrubitesForQuestion(SmileForEdit);
+                    return SmileForEdit;
+                }
+            }
+            catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+                return Qustion;
+            }
+        }
+        public static Qustions EditStar (Qustions Qustion)
+        {
+            try
+            {
+                Stars StarForEdit = (Stars)Qustion;
+                using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                {
+                    SqlCommand CommandForUpdateStar = new SqlCommand(UpdateStar, Connection);
+                    CommandForUpdateStar.Parameters.AddWithValue(NewNumberOfStars, StarForEdit.NumberOfStars);
+                    CommandForUpdateStar.Parameters.AddWithValue(IdQuestion, StarForEdit.Id);
+                    CommandForUpdateStar.Connection.Open();
+                    CommandForUpdateStar.ExecuteNonQuery();
+                    CommandForUpdateStar.Parameters.Clear();
+                    EditAttrubitesForQuestion(StarForEdit);
+                    return StarForEdit;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+                return Qustion;
+            }
+        }
+        public static void DeleteSlider (Qustions Question, int idFroType)
+        {
+            try
+            {
+                using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                {
+                    SqlCommand CommandForDeleteQustion = null;
+                    CommandForDeleteQustion = new SqlCommand(DeleteSliderString, Connection);
+                    CommandForDeleteQustion.Parameters.AddWithValue(IdQuestionWithAt, idFroType);
+                    CommandForDeleteQustion.Connection.Open();
+                    CommandForDeleteQustion.ExecuteNonQuery();
+                    CommandForDeleteQustion.Parameters.Clear();
+                    DeleteQustion(Question.Id);
+                }
+            }
+            catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+            }
+        }
+        public static void DeleteSmile(Qustions Question, int idFroType)
+        {
+            try
+            {
+                using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                {
+                    SqlCommand CommandForDeleteQustion = null;
+                    CommandForDeleteQustion = new SqlCommand(DeleteSmilyString, Connection);
+                    CommandForDeleteQustion.Parameters.AddWithValue(IdQuestionWithAt, idFroType);
+                    CommandForDeleteQustion.Connection.Open();
+                    CommandForDeleteQustion.ExecuteNonQuery();
+                    CommandForDeleteQustion.Parameters.Clear();
+                    DeleteQustion(Question.Id);
+                }
+            }catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+            }
+        }
+        public static void DeleteStar (Qustions Question, int idFroType)
+        {
+            try
+            {
+                using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
+                {
+                    SqlCommand CommandForDeleteQustion = null;
+                    CommandForDeleteQustion = new SqlCommand(DeleteStarString, Connection);
+                    CommandForDeleteQustion.Parameters.AddWithValue(IdQuestionWithAt, idFroType);
+                    CommandForDeleteQustion.Connection.Open();
+                    CommandForDeleteQustion.ExecuteNonQuery();
+                    CommandForDeleteQustion.Parameters.Clear();
+                    DeleteQustion(Question.Id);
+
+                }
+
+                }catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+            }
+        }
+        public static Qustions EditQuestion (Qustions Question)
         {
             // For Edit Question and get the data from HomePage.cs Attrubite and show the user old data and will edit and edit it from database
             try
@@ -310,6 +547,7 @@ namespace Survey
                         CommandForUpdateSlider.ExecuteNonQuery();
                         CommandForUpdateSlider.Parameters.Clear();
                         EditAttrubitesForQuestion(SliderForEdit);
+                        return SliderForEdit; 
                     }
                 }
                 else if (Question is Smiles)
@@ -324,6 +562,7 @@ namespace Survey
                         CommandForUpdateSmile.ExecuteNonQuery();
                         CommandForUpdateSmile.Parameters.Clear();
                         EditAttrubitesForQuestion(SmileForEdit);
+                        return SmileForEdit;
                     }
                 }
                 else if (Question is Stars)
@@ -338,12 +577,15 @@ namespace Survey
                         CommandForUpdateStar.ExecuteNonQuery();
                         CommandForUpdateStar.Parameters.Clear();
                         EditAttrubitesForQuestion(StarForEdit);
+                        return StarForEdit; 
                     }
                 }
+                return Question;
             }
             catch(Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                return Question; 
             }
         }
         public static void DeleteQuestion (Qustions Question, int idFroType)
@@ -357,7 +599,7 @@ namespace Survey
                     SqlCommand CommandForDeleteQustion = null;
                     if (Question.TypeOfQuestion == TypeOfQuestion.Slider.ToString())
                     {
-                        CommandForDeleteQustion = new SqlCommand(DeleteSlider, Connection);
+                        CommandForDeleteQustion = new SqlCommand(DeleteSliderString, Connection);
                         CommandForDeleteQustion.Parameters.AddWithValue(IdQuestionWithAt, idFroType);
                         CommandForDeleteQustion.Connection.Open();
                         CommandForDeleteQustion.ExecuteNonQuery();
@@ -367,7 +609,7 @@ namespace Survey
                     else if (Question.TypeOfQuestion == TypeOfQuestion.Smily.ToString())
                     {
 
-                        CommandForDeleteQustion = new SqlCommand(DeleteSmily, Connection);
+                        CommandForDeleteQustion = new SqlCommand(DeleteSmilyString, Connection);
                         CommandForDeleteQustion.Parameters.AddWithValue(IdQuestionWithAt, idFroType);
                         CommandForDeleteQustion.Connection.Open();
                         CommandForDeleteQustion.ExecuteNonQuery();
@@ -377,7 +619,7 @@ namespace Survey
                     else if (Question.TypeOfQuestion == TypeOfQuestion.Stars.ToString())
                     {
 
-                        CommandForDeleteQustion = new SqlCommand(DeleteStar, Connection);
+                        CommandForDeleteQustion = new SqlCommand(DeleteStarString, Connection);
                         CommandForDeleteQustion.Parameters.AddWithValue(IdQuestionWithAt, idFroType);
                         CommandForDeleteQustion.Connection.Open();
                         CommandForDeleteQustion.ExecuteNonQuery();

@@ -10,7 +10,9 @@ using System.Diagnostics;
 
 namespace Survey
 {
-    // This Class using  AbstractLog For Error 
+    /// <summary>
+    /// This Class using  AbstractLog For Error 
+    /// </summary>
     class Logger : AbstractLog
     {
         private string CurrentDirectory {

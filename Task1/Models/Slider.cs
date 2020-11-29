@@ -13,12 +13,11 @@ namespace Task1
 {
     class Slider : Qustions
     {
-        public int IdForType{get; set;}
-        public int StartValue { get; set; }
-        public int EndValue { get; set; }
-        public string StartCaption { get; set; }
-        public string EndCaption { get; set; }
-        public Slider(int Id, int IdForType, string NewText, string TypeOfQuestion, int Order, int StartValue, int EndValue, string StartCaption, string EndCaption) {
+        /// <summary>
+        /// Class Slider inhertaed Qustion and have 3 constructor 
+        /// </summary>
+        public Slider(int Id, int IdForType, string NewText, string TypeOfQuestion, int Order, int StartValue, int EndValue, string StartCaption, string EndCaption)
+        {
             try
             {
                 this.NewText = NewText;
@@ -30,12 +29,13 @@ namespace Task1
                 this.Id = Id;
                 this.TypeOfQuestion = TypeOfQuestion;
                 this.IdForType = IdForType;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
             }
         }
-        public Slider(string NewText, string TypeOfQuestion, int IdForType,int Order, int StartValue, int EndValue, string StartCaption, string EndCaption)
+        public Slider(string NewText, string TypeOfQuestion, int IdForType, int Order, int StartValue, int EndValue, string StartCaption, string EndCaption)
         {
             try
             {
@@ -57,8 +57,10 @@ namespace Task1
         {
 
         }
-
-
-
+        public int IdForType{get; set;}
+        public int StartValue { get; set; }
+        public int EndValue { get; set; }
+        public string StartCaption { get; set; }
+        public string EndCaption { get; set; }
     }
 }
