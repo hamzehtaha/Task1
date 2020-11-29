@@ -66,7 +66,7 @@ namespace Survey
         private const string UpdateQuestion = "update Qustions Set Qustions_text = @Qustions_text, Qustion_order=@Qustion_order where ID = @ID;";
         private const string InsertIntoQustion = "INSERT INTO Qustions(Qustions_text, Type_Of_Qustion,Qustion_order) VALUES(@Qustions_text,@Type_Of_Qustion,@Qustion_order);";
         /// <summary>
-        /// This functionS for add or edit and delete and select from database,
+        /// This functions for add or edit and delete and select from database,
         /// And connections in database 
         /// </summary>
         private static int AddQustionInDataBase(Qustions Question)
