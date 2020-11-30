@@ -17,6 +17,7 @@ using Question;
 using BaseLog;
 using Global;
 using DataBaseConnection;
+using OperationManger; 
 namespace Survey
 {
     public partial class QuestionsInformation : Form

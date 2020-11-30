@@ -16,7 +16,8 @@ using Task1;
 using Question;
 using BaseLog;
 using Global;
-using DataBaseConnection; 
+using DataBaseConnection;
+using OperationManger; 
 namespace Survey
 {
     public partial class Home : Form
@@ -37,7 +38,8 @@ namespace Survey
             InitializeComponent();
             ListOfAllQuestion.Clear();
             ListOfAllQuestion=DataBaseConnections.GetQuestionFromDataBase(); 
-            ShowData(); 
+            ShowData();
+            
         }
         /// <summary>
         /// This function will return object is select in datagridview for edit and delete 
@@ -93,7 +95,7 @@ namespace Survey
         {
             try
             {
-               
+                ListOfQuestion.ClearSelection();
                 QuestionsInformation QuestionsInformationPage = new QuestionsInformation(QuestionWillDeleteOrEdit,Global.TypeOfChoice.Add.ToString());
                 QuestionsInformationPage.ShowDialog();
                 if (StaticObjects.SuccOfFail == 1)
@@ -242,6 +244,11 @@ namespace Survey
         private void Home_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void ListOfQuestion_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
         }
     }
 }

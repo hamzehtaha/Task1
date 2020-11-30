@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BD89CED8-163E-4D03-8939-9D7D512E7245}</ProjectGuid>
+    <ProjectGuid>{4815D443-14B3-464B-BE30-EBC249F8F06C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataBaseConnection</RootNamespace>
-    <AssemblyName>DataBaseConnection</AssemblyName>
+    <RootNamespace>OperationManger</RootNamespace>
+    <AssemblyName>OperationManger</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,18 +32,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BaseLog">
-      <HintPath>..\BaseLog\bin\Debug\BaseLog.dll</HintPath>
+      <HintPath>..\DataBaseConnection\bin\Debug\BaseLog.dll</HintPath>
+    </Reference>
+    <Reference Include="DataBaseConnection">
+      <HintPath>..\DataBaseConnection\bin\Debug\DataBaseConnection.dll</HintPath>
     </Reference>
     <Reference Include="Global">
-      <HintPath>..\Global\bin\Debug\Global.dll</HintPath>
+      <HintPath>..\DataBaseConnection\bin\Debug\Global.dll</HintPath>
     </Reference>
     <Reference Include="Question">
-      <HintPath>..\Question\bin\Debug\Question.dll</HintPath>
+      <HintPath>..\DataBaseConnection\bin\Debug\Question.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,11 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBaseConnectionsClass.cs" />
+    <Compile Include="OperationMangerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

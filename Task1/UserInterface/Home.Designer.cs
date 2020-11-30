@@ -95,6 +95,7 @@
             this.ListOfQuestion.Name = "ListOfQuestion";
             this.ListOfQuestion.ReadOnly = true;
             this.ListOfQuestion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.ListOfQuestion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ListOfQuestion_CellContentClick);
             // 
             // Column2
             // 
