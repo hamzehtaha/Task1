@@ -13,8 +13,10 @@ using Survey;
 using System.Threading;
 using System.Diagnostics;
 using Task1;
-using Survey.RepositoryPattern;
-
+using Question;
+using BaseLog;
+using Global;
+using DataBaseConnection;
 namespace Survey
 {
     public partial class QuestionsInformation : Form
@@ -429,7 +431,7 @@ namespace Survey
                         SliderForEdit.EndValue = Convert.ToInt32(NewEndValue.Value);
                         SliderForEdit.StartCaption = NewStartValueCaption.Text;
                         SliderForEdit.EndCaption = NewEndValueCaption.Text;
-                        if (Operation.CheckTheData(SliderForEdit))
+                        if (CheckTheData(SliderForEdit))
                         {
                             ReturnNewQuestion= (Slider)Operation.EditQustion(SliderForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
@@ -443,7 +445,7 @@ namespace Survey
                         SmileForEdit.NewText = NewText.Text;
                         SmileForEdit.Order = Convert.ToInt32(NewOrder.Value);
                         SmileForEdit.NumberOfSmiles = Convert.ToInt32(NewNumberOfSmiles.Value);
-                        if (Operation.CheckTheData(SmileForEdit))
+                        if (CheckTheData(SmileForEdit))
                         {
                             ReturnNewQuestion= (Smiles)Operation.EditQustion(SmileForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
@@ -455,7 +457,7 @@ namespace Survey
                         StarForEdit.NewText = NewText.Text;
                         StarForEdit.Order = Convert.ToInt32(NewOrder.Value);
                         StarForEdit.NumberOfStars = Convert.ToInt32(NewNumberOfStars.Value);
-                        if (Operation.CheckTheData(StarForEdit))
+                        if (CheckTheData(StarForEdit))
                         {
                             ReturnNewQuestion= (Stars)Operation.EditQustion(StarForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);

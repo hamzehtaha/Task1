@@ -8,8 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Question;
-using Static; 
-using Constants; 
+using Global;
+using BaseLog; 
 namespace DataBaseConnection
 {
     /// <summary>
@@ -415,10 +415,10 @@ namespace DataBaseConnection
                         NewSmile = new Smiles();
                         NewSmile.Id = Convert.ToInt32(DataReader.GetValue(0));
                         NewSmile.IdForType = Convert.ToInt32(DataReader.GetValue(1));
-                        NewSmile.NewText = DataReader.GetValue(2) + Constants.Constant.Empty;
+                        NewSmile.NewText = DataReader.GetValue(2) + Global.Constant.Empty;
                         NewSmile.Order = Convert.ToInt32(DataReader.GetValue(3));
                         NewSmile.NumberOfSmiles = Convert.ToInt32(DataReader.GetValue(4));
-                        NewSmile.TypeOfQuestion = Constants.TypeOfQuestion.Smily.ToString();
+                        NewSmile.TypeOfQuestion = Global.TypeOfQuestion.Smily.ToString();
                         TempListOfQustion.Add(NewSmile);
                     }
                     DataReader.Close();
@@ -429,13 +429,13 @@ namespace DataBaseConnection
                         NewSlider = new Slider();
                         NewSlider.Id = Convert.ToInt32(DataReader.GetValue(0));
                         NewSlider.IdForType = Convert.ToInt32(DataReader.GetValue(1));
-                        NewSlider.NewText = DataReader.GetValue(2) + Constants.Constant.Empty;
+                        NewSlider.NewText = DataReader.GetValue(2) + Global.Constant.Empty;
                         NewSlider.Order = Convert.ToInt32(DataReader.GetValue(3));
-                        NewSlider.TypeOfQuestion = Constants.TypeOfQuestion.Slider.ToString();
+                        NewSlider.TypeOfQuestion = Global.TypeOfQuestion.Slider.ToString();
                         NewSlider.StartValue = Convert.ToInt32(DataReader.GetValue(4));
                         NewSlider.EndValue = Convert.ToInt32(DataReader.GetValue(5));
-                        NewSlider.StartCaption = DataReader.GetValue(6) + Constants.Constant.Empty;
-                        NewSlider.EndCaption = DataReader.GetValue(7) + Constants.Constant.Empty;
+                        NewSlider.StartCaption = DataReader.GetValue(6) + Global.Constant.Empty;
+                        NewSlider.EndCaption = DataReader.GetValue(7) + Global.Constant.Empty;
                         TempListOfQustion.Add(NewSlider);
                     }
                     DataReader.Close();
@@ -446,10 +446,10 @@ namespace DataBaseConnection
                         NewStars = new Stars();
                         NewStars.Id = Convert.ToInt32(DataReader.GetValue(0));
                         NewStars.IdForType = Convert.ToInt32(DataReader.GetValue(1));
-                        NewStars.NewText = DataReader.GetValue(2) + Constants.Constant.Empty;
+                        NewStars.NewText = DataReader.GetValue(2) + Global.Constant.Empty;
                         NewStars.Order = Convert.ToInt32(DataReader.GetValue(3));
                         NewStars.NumberOfStars = Convert.ToInt32(DataReader.GetValue(4));
-                        NewStars.TypeOfQuestion = Constants.TypeOfQuestion.Stars.ToString();
+                        NewStars.TypeOfQuestion = Global.TypeOfQuestion.Stars.ToString();
                         TempListOfQustion.Add(NewStars);
                     }
                 }

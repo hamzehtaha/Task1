@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Question;
-using Log;
-using Static;
 using System.Windows.Forms;
+using Question;
+using BaseLog;
+using Global; 
 namespace DataBaseConnection
 {
-    class Operation
+    public class Operation
     {
         public static Qustions AddQustion(Qustions Question)
         {

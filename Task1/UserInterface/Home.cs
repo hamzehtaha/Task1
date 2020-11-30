@@ -1,4 +1,4 @@
-﻿using Survey.RepositoryPattern;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,10 +13,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Task1;
+using Question;
+using BaseLog;
+using Global;
+using DataBaseConnection; 
 namespace Survey
 {
     public partial class Home : Form
     {
+        
         private Qustions QuestionWillDeleteOrEdit = null;
         private static List<Qustions> ListOfAllQuestion = new List<Qustions>();
         private static string Languge = "English";
@@ -89,7 +94,7 @@ namespace Survey
             try
             {
                
-                QuestionsInformation QuestionsInformationPage = new QuestionsInformation(QuestionWillDeleteOrEdit,TypeOfChoice.Add.ToString());
+                QuestionsInformation QuestionsInformationPage = new QuestionsInformation(QuestionWillDeleteOrEdit,Global.TypeOfChoice.Add.ToString());
                 QuestionsInformationPage.ShowDialog();
                 if (StaticObjects.SuccOfFail == 1)
                 {
@@ -114,12 +119,10 @@ namespace Survey
                 if (QuestionWillDeleteOrEdit != null)
                 {
                     
-                    QuestionsInformation QuestionsInformationPage = new QuestionsInformation(QuestionWillDeleteOrEdit,TypeOfChoice.Edit.ToString());
+                    QuestionsInformation QuestionsInformationPage = new QuestionsInformation(QuestionWillDeleteOrEdit,Global.TypeOfChoice.Edit.ToString());
                     QuestionsInformationPage.ShowDialog();
                     if (StaticObjects.SuccOfFail == 1)
                     {
-                        /* ListOfAllQuestion.Remove(QuestionWillDeleteOrEdit);
-                         ListOfAllQuestion.Add(QuestionsInformationPage.ReturnNewQuestion);*/
                         ListOfAllQuestion = Operation.GetQustion(); 
                         ShowData();
                         StaticObjects.SuccOfFail = 0; 
@@ -127,7 +130,7 @@ namespace Survey
                 }
                 else
                 {
-                    MessageBox.Show(Survey.Properties.Resource1.NoSelectItem, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Survey.Properties.Resource1.NoSelectItem, Global.Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 
 
@@ -149,27 +152,27 @@ namespace Survey
                 int Check = 0; 
                 if (QuestionWillDeleteOrEdit == null)
                 {
-                    MessageBox.Show(Survey.Properties.Resource1.NoSelectItem, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Survey.Properties.Resource1.NoSelectItem, Global.Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     StaticObjects.SuccOfFail = 0;
                 }
                 else
                 {
-                    DialogResult dialogResult = MessageBox.Show(Survey.Properties.Resource1.SureToDeleteMessage, Constant.DELETE, MessageBoxButtons.YesNo);
+                    DialogResult dialogResult = MessageBox.Show(Survey.Properties.Resource1.SureToDeleteMessage, Global.Constant.DELETE, MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes)
                     {
-                        if (QuestionWillDeleteOrEdit.TypeOfQuestion == TypeOfQuestion.Slider.ToString())
+                        if (QuestionWillDeleteOrEdit.TypeOfQuestion == Global.TypeOfQuestion.Slider.ToString())
                         {
                              Slider SliderWillDelete = (Slider)QuestionWillDeleteOrEdit;
                              Check = Operation.DeleteQustion(SliderWillDelete);
                              ListOfAllQuestion.Remove(SliderWillDelete); 
                         }
-                        else if (QuestionWillDeleteOrEdit.TypeOfQuestion == TypeOfQuestion.Smily.ToString())
+                        else if (QuestionWillDeleteOrEdit.TypeOfQuestion == Global.TypeOfQuestion.Smily.ToString())
                         {
                              Smiles SmileWillDelete = (Smiles)QuestionWillDeleteOrEdit;
                              Check = Operation.DeleteQustion(SmileWillDelete);
                              ListOfAllQuestion.Remove(SmileWillDelete);
                         }
-                        else if (QuestionWillDeleteOrEdit.TypeOfQuestion == TypeOfQuestion.Stars.ToString())
+                        else if (QuestionWillDeleteOrEdit.TypeOfQuestion == Global.TypeOfQuestion.Stars.ToString())
                         {
                             Stars StarWillDelete = (Stars)QuestionWillDeleteOrEdit;
                             Check = Operation.DeleteQustion(StarWillDelete);
@@ -211,17 +214,17 @@ namespace Survey
         {
             try
             {
-                if (Languge.Equals(Langugaes.English.ToString()))
+                if (Languge.Equals(Global.Langugaes.English.ToString()))
                 {
-                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Constant.ArabicMark);
-                    Languge = Langugaes.Arabic.ToString();
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Global.Constant.ArabicMark);
+                    Languge = Global.Langugaes.Arabic.ToString();
                     ListOfAllQuestion.Clear();
                 }
                 else
                 {
-                    Languge = Langugaes.English.ToString();
+                    Languge = Global.Langugaes.English.ToString();
                     ListOfAllQuestion.Clear();
-                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Constant.EnglishMark);
+                    Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(Global.Constant.EnglishMark);
                 }
                 this.Controls.Clear();
                 StartFunction();

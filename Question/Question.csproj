@@ -31,11 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Log">
-      <HintPath>..\Static\bin\Debug\Log.dll</HintPath>
+    <Reference Include="BaseLog">
+      <HintPath>..\BaseLog\bin\Debug\BaseLog.dll</HintPath>
     </Reference>
-    <Reference Include="Static">
-      <HintPath>..\Static\bin\Debug\Static.dll</HintPath>
+    <Reference Include="Global">
+      <HintPath>..\Global\bin\Debug\Global.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

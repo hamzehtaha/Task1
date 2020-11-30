@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Static; 
-
+using Global;
+using BaseLog; 
 namespace Question
 {
     public class Smiles : Qustions
