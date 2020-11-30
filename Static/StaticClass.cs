@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Task1;
-
-namespace Survey
+using Log; 
+namespace Static
 {
-    class StaticObjects
+    public class StaticObjects
     {
         /// <summary>
         /// This static objects and use it everwhere 

@@ -180,4 +180,10 @@
   <data name="TheOrderIsEmpty" xml:space="preserve">
     <value>"رقم الترتيب فارغ"</value>
   </data>
+  <data name="TheQuestionDeleted" xml:space="preserve">
+    <value>"تم حذف سؤالك بنجاح"</value>
+  </data>
+  <data name="TheQuestionNotDeleted" xml:space="preserve">
+    <value>"لم يتم حذف سؤالك"</value>
+  </data>
 </root>

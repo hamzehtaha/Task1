@@ -47,6 +47,9 @@
     <Reference Include="Net.Code.ADONet, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Net.Code.ADONet.4.0.73\lib\net472\Net.Code.ADONet.dll</HintPath>
     </Reference>
+    <Reference Include="Question">
+      <HintPath>..\Question\bin\Debug\Question.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -62,9 +65,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\AbstractLog.cs" />
     <Compile Include="Globel\Constant.cs" />
     <Compile Include="RepositoryPattern\DataBaseConnections.cs" />
+    <Compile Include="RepositoryPattern\Operation.cs" />
     <Compile Include="UserInterface\Home.cs">
       <SubType>Form</SubType>
     </Compile>

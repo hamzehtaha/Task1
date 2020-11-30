@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Survey.Properties {
+namespace Static.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Survey.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Survey.Properties.Resource1", typeof(Resource1).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Static.Properties.Resource1", typeof(Resource1).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Your question has been successfully entered&quot;.
+        ///   Looks up a localized string similar to Your question has been successfully entered.
         /// </summary>
         internal static string DataIsEnterd {
             get {
@@ -70,7 +70,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Please enter the end caption.&quot;.
+        ///   Looks up a localized string similar to Please enter the end caption..
         /// </summary>
         internal static string EndCaptionEmptyMessage {
             get {
@@ -79,7 +79,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The end caption should not contain numbers only.&quot;.
+        ///   Looks up a localized string similar to The end caption should not contain numbers only..
         /// </summary>
         internal static string EndCaptionJustNumberMessage {
             get {
@@ -88,7 +88,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The end value must be less than 100.&quot;.
+        ///   Looks up a localized string similar to The end value must be less than 100..
         /// </summary>
         internal static string EndValueGreaterThanOneHundredMessage {
             get {
@@ -97,7 +97,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The end value must be greater than 0.&quot;.
+        ///   Looks up a localized string similar to The end value must be greater than 0..
         /// </summary>
         internal static string EndValueLessThanZeroMessage {
             get {
@@ -106,7 +106,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Smomething went wrong!&quot;.
+        ///   Looks up a localized string similar to Smomething went wrong!.
         /// </summary>
         internal static string MessageError {
             get {
@@ -115,7 +115,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The order must be more than 0&quot;.
+        ///   Looks up a localized string similar to The order must be more than 0.
         /// </summary>
         internal static string NewOrderLessThanZeroMessage {
             get {
@@ -124,7 +124,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Please select any question!&quot;.
+        ///   Looks up a localized string similar to Please select any question!.
         /// </summary>
         internal static string NoSelectItem {
             get {
@@ -133,7 +133,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Please select the question type!&quot;.
+        ///   Looks up a localized string similar to Please select the question type!.
         /// </summary>
         internal static string NotChooseTheType {
             get {
@@ -142,7 +142,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The number of smile faces must be between 2 and 5&quot;.
+        ///   Looks up a localized string similar to The number of smile faces must be between 2 and 5.
         /// </summary>
         internal static string NumberOfSmileBetweenFiveAndTow {
             get {
@@ -151,7 +151,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The number of stars must be between 1 and 10&quot;.
+        ///   Looks up a localized string similar to The number of stars must be between 1 and 10.
         /// </summary>
         internal static string NumberOfStrasBetweenTenAndOne {
             get {
@@ -160,7 +160,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Please enter text&quot;.
+        ///   Looks up a localized string similar to Please enter text.
         /// </summary>
         internal static string QuestionIsEmptyMessage {
             get {
@@ -169,7 +169,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The text is just numbers&quot;.
+        ///   Looks up a localized string similar to The text is just numbers.
         /// </summary>
         internal static string QuestionIsJustANumberMessage {
             get {
@@ -178,7 +178,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Please enter the start caption&quot;.
+        ///   Looks up a localized string similar to Please enter the start caption.
         /// </summary>
         internal static string StartCaptionEmptyMessage {
             get {
@@ -187,7 +187,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The start caption should not contain numbers only&quot;.
+        ///   Looks up a localized string similar to The start caption should not contain numbers only.
         /// </summary>
         internal static string StartCaptionJustNumberMessage {
             get {
@@ -196,7 +196,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The start value must be less than 100&quot;.
+        ///   Looks up a localized string similar to The start value must be less than 100.
         /// </summary>
         internal static string StartValueGreaterThanOneHundredMessage {
             get {
@@ -205,7 +205,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The start value must be greater than 0&quot;.
+        ///   Looks up a localized string similar to The start value must be greater than 0.
         /// </summary>
         internal static string StartValueLessThanZeroMessage {
             get {
@@ -214,7 +214,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Are you sure you want to delete this question?&quot;.
+        ///   Looks up a localized string similar to Are you sure you want to delete this question?.
         /// </summary>
         internal static string SureToDeleteMessage {
             get {
@@ -223,7 +223,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Your question has been edit successfully&quot;.
+        ///   Looks up a localized string similar to Your question has been edit successfully.
         /// </summary>
         internal static string TheEditMessage {
             get {
@@ -232,7 +232,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The end value must be greater than the start value&quot;.
+        ///   Looks up a localized string similar to The end value must be greater than the start value.
         /// </summary>
         internal static string TheEndValueSholudGreaterThanStartValueMessage {
             get {
@@ -241,7 +241,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;The order number is empty&quot;.
+        ///   Looks up a localized string similar to The order number is empty.
         /// </summary>
         internal static string TheOrderIsEmpty {
             get {
@@ -250,7 +250,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Your question has been delete successfully&quot;.
+        ///   Looks up a localized string similar to Your question has been delete successfully.
         /// </summary>
         internal static string TheQuestionDeleted {
             get {
@@ -259,7 +259,7 @@ namespace Survey.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &quot;Your question has not been deleted.&quot;.
+        ///   Looks up a localized string similar to Your question has not been deleted..
         /// </summary>
         internal static string TheQuestionNotDeleted {
             get {

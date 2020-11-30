@@ -13,6 +13,7 @@ using Survey;
 using System.Threading;
 using System.Diagnostics;
 using Task1;
+using Survey.RepositoryPattern;
 
 namespace Survey
 {
@@ -42,6 +43,15 @@ namespace Survey
                     GroupOfTypes.Visible = false;
                     StaticObjects.AddOrEdit = TypeOfChoice.Edit.ToString();
                     ShowDataForEdit();
+                    if (QuestionWillDeleteOrEdit != null)
+                    {
+                        if (TypeOfQuestion.Slider.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
+                            ShowForSlider();
+                        else if (TypeOfQuestion.Smily.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
+                            ShowForSmiles();
+                        else if (TypeOfQuestion.Stars.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
+                            ShowForStars();
+                    }
                 }
                 else if (TypeOfChoice.Add.ToString() == AddOrEdit)
                 {
@@ -49,19 +59,12 @@ namespace Survey
                     StaticObjects.AddOrEdit = TypeOfChoice.Add.ToString();
                     InitHide();
                 }
-                if (QuestionWillDeleteOrEdit != null)
-                {
-                    if (TypeOfQuestion.Slider.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
-                        ShowForSlider();
-                    else if (TypeOfQuestion.Smily.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
-                        ShowForSmiles();
-                    else if (TypeOfQuestion.Stars.ToString() == QuestionWillDeleteOrEdit.TypeOfQuestion)
-                        ShowForStars();
-                }
+                
             }
             catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -76,6 +79,7 @@ namespace Survey
             }catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -91,6 +95,7 @@ namespace Survey
             catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -106,6 +111,7 @@ namespace Survey
             catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -150,7 +156,116 @@ namespace Survey
             }catch(Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
+        }
+        /// <summary>
+        /// to check the string is number or not ?
+        /// </summary>
+        private bool IsNumber(string Number)
+        {
+            return int.TryParse(Number, out int N);
+        }
+        /// <summary>
+        /// This Function to Check validation of data 
+        /// </summary>
+        private bool CheckTheData(Qustions TypeQuestion)
+        {
+            try
+            {
+                if (TypeQuestion.NewText == Constant.Empty)
+                {
+                    MessageBox.Show(Survey.Properties.Resource1.QuestionIsEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
+                    return false;
+                }
+                else if (IsNumber(TypeQuestion.NewText))
+                {
+                    MessageBox.Show(Survey.Properties.Resource1.QuestionIsJustANumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                else if (TypeQuestion.Order <= 0)
+                {
+                    MessageBox.Show(Survey.Properties.Resource1.NewOrderLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                if (TypeQuestion is Slider)
+                {
+                    Slider SliderCheck = (Slider)TypeQuestion;
+                    if (SliderCheck.StartValue <= 0)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.StartValueLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (SliderCheck.EndValue <= 0)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.EndValueLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (SliderCheck.StartValue > 100)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.StartValueGreaterThanOneHundredMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (SliderCheck.EndValue > 100)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.EndValueGreaterThanOneHundredMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (SliderCheck.StartValue >= SliderCheck.EndValue)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.TheEndValueSholudGreaterThanStartValueMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (SliderCheck.StartCaption == Constant.Empty)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.StartCaptionEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (IsNumber(SliderCheck.StartCaption))
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.StartCaptionJustNumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (SliderCheck.EndCaption == Constant.Empty)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.EndCaptionEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                    else if (IsNumber(SliderCheck.EndCaption))
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.EndCaptionJustNumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                else if (TypeQuestion is Smiles)
+                {
+                    Smiles SmilesCheck = (Smiles)TypeQuestion;
+                    if (SmilesCheck.NumberOfSmiles <= 1 || SmilesCheck.NumberOfSmiles > 5)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.NumberOfSmileBetweenFiveAndTow, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                else if (TypeQuestion is Stars)
+                {
+                    Stars StarCheck = (Stars)TypeQuestion;
+                    if (StarCheck.NumberOfStars <= 0 || StarCheck.NumberOfStars > 10)
+                    {
+                        MessageBox.Show(Survey.Properties.Resource1.NumberOfStrasBetweenTenAndOne, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
+
+                return false;
+            }
+            return true;
         }
         /// <summary>
         /// This For Hide panel and radio Button
@@ -166,20 +281,8 @@ namespace Survey
             }catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
-
-        }
-        /// <summary>
-        /// to check the string is number or not ?
-        /// </summary>
-        private bool IsNumber(string Number)
-        {
-            
-            return int.TryParse(Number, out int N);
-
-        }
-        private void questionDetalis1_Load(object sender, EventArgs e)
-        {
 
         }
         /// <summary>
@@ -197,6 +300,7 @@ namespace Survey
             } catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -214,6 +318,7 @@ namespace Survey
             } catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -231,6 +336,7 @@ namespace Survey
             } catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -245,104 +351,9 @@ namespace Survey
             }catch(Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
 
-        }
-        /// <summary>
-        /// This Function to Check validation of data 
-        /// </summary>
-        private bool CheckTheData( Qustions TypeQuestion)
-        {
-            try
-            {
-                if (NewText.Text == Constant.Empty)
-                {
-                    MessageBox.Show(Survey.Properties.Resource1.QuestionIsEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error); ;
-                    return false;
-                }
-                else if (IsNumber(NewText.Text))
-                {
-                    MessageBox.Show(Survey.Properties.Resource1.QuestionIsJustANumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-                
-                else if (NewOrder.Value <= 0)
-                {
-                    MessageBox.Show(Survey.Properties.Resource1.NewOrderLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return false;
-                }
-               
-                if (TypeQuestion is Slider)
-                {
-                    if (NewStartValue.Value <= 0)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.StartValueLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (NewEndValue.Value <= 0)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.EndValueLessThanZeroMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (NewStartValue.Value > 100)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.StartValueGreaterThanOneHundredMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (NewEndValue.Value > 100)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.EndValueGreaterThanOneHundredMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (NewStartValue.Value >= NewEndValue.Value)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.TheEndValueSholudGreaterThanStartValueMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (NewStartValueCaption.Text == Constant.Empty)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.StartCaptionEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (IsNumber(NewStartValueCaption.Text))
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.StartCaptionJustNumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (NewEndValueCaption.Text == Constant.Empty)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.EndCaptionEmptyMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                    else if (IsNumber(NewEndValueCaption.Text))
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.EndCaptionJustNumberMessage, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-                else if (TypeQuestion is Smiles)
-                {
-                    if (NewNumberOfSmiles.Value <= 1 || NewNumberOfSmiles.Value > 5)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.NumberOfSmileBetweenFiveAndTow, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-                else if (TypeQuestion is Stars)
-                {
-                    if (NewNumberOfStars.Value <= 0 || NewNumberOfStars.Value > 10)
-                    {
-                        MessageBox.Show(Survey.Properties.Resource1.NumberOfStrasBetweenTenAndOne, Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-            }catch (Exception ex)
-            {
-                StaticObjects.Erros.Log(ex);
-
-                return false; 
-            }
-            return true; 
         }
         /// <summary>
         /// when i press save button go to this function and from AddOrEdit var will know i edit or add the question 
@@ -351,37 +362,35 @@ namespace Survey
         {
             try
             {
-                
                 if (StaticObjects.AddOrEdit == TypeOfChoice.Add.ToString())
                 {
                     if (SliderRadio.Checked)
                     {
-                        Slider NewQuestion = new Slider(); 
+                        Slider NewQuestion = new Slider();
+                        NewQuestion.NewText = NewText.Text;
+                        NewQuestion.Order = Convert.ToInt32(NewOrder.Value);
+                        NewQuestion.TypeOfQuestion = TypeOfQuestion.Slider.ToString();
+                        NewQuestion.StartValue = Convert.ToInt32(NewStartValue.Text);
+                        NewQuestion.EndValue = Convert.ToInt32(NewEndValue.Text);
+                        NewQuestion.StartCaption = NewStartValueCaption.Text;
+                        NewQuestion.EndCaption = NewEndValueCaption.Text;
                         if (CheckTheData(NewQuestion))
                         {
-                            NewQuestion.NewText = NewText.Text;
-                            NewQuestion.Order = Convert.ToInt32(NewOrder.Value);
-                            NewQuestion.TypeOfQuestion = TypeOfQuestion.Slider.ToString();
-                            NewQuestion.StartValue = Convert.ToInt32(NewStartValue.Text);
-                            NewQuestion.EndValue = Convert.ToInt32(NewEndValue.Text);
-                            NewQuestion.StartCaption  = NewStartValueCaption.Text;
-                            NewQuestion.EndCaption = NewEndValueCaption.Text;
-                            ReturnNewQuestion = (Slider)DataBaseConnections.AddQuestion(NewQuestion);
+                            ReturnNewQuestion = (Slider)Operation.AddQustion(NewQuestion);
                             if (StaticObjects.SuccOfFail == 1)
                                 DataEnter();
                         }
                     }
                     else if (SmilyRadio.Checked)
                     {
-
                         Smiles NewQuestion = new Smiles(); 
-                        if (CheckTheData(NewQuestion))
-                        {
                             NewQuestion.NewText = NewText.Text;
                             NewQuestion.Order = Convert.ToInt32(NewOrder.Value);
                             NewQuestion.TypeOfQuestion = TypeOfQuestion.Smily.ToString();
                             NewQuestion.NumberOfSmiles = Convert.ToInt32(NewNumberOfSmiles.Text);
-                            ReturnNewQuestion = (Smiles)DataBaseConnections.AddQuestion(NewQuestion);
+                        if (CheckTheData(NewQuestion))
+                        {
+                            ReturnNewQuestion = (Smiles)Operation.AddQustion(NewQuestion);
                             if (StaticObjects.SuccOfFail == 1)
                                 DataEnter();
                         }
@@ -389,14 +398,14 @@ namespace Survey
                     else if (StarsRadio.Checked)
                     {
                         Stars NewQuestion = new Stars(); 
-                        if (CheckTheData(NewQuestion))
-                        {
                             NewQuestion.NewText = NewText.Text;
                             NewQuestion.Order = Convert.ToInt32(NewOrder.Value);
                             NewQuestion.TypeOfQuestion = TypeOfQuestion.Stars.ToString();
                             NewQuestion.NumberOfStars = Convert.ToInt32(NewNumberOfStars.Text);
-                            ReturnNewQuestion = (Stars)DataBaseConnections.AddQuestion(NewQuestion);
-                            if (StaticObjects.SuccOfFail ==1)
+                        if (CheckTheData(NewQuestion))
+                        {
+                            ReturnNewQuestion = (Stars)Operation.AddQustion(NewQuestion);
+                            if (StaticObjects.SuccOfFail == 1)
                                 DataEnter();
                         }
                     }else
@@ -407,6 +416,7 @@ namespace Survey
             }catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
             try { 
                  if (StaticObjects.AddOrEdit == TypeOfChoice.Edit.ToString())
@@ -419,10 +429,9 @@ namespace Survey
                         SliderForEdit.EndValue = Convert.ToInt32(NewEndValue.Value);
                         SliderForEdit.StartCaption = NewStartValueCaption.Text;
                         SliderForEdit.EndCaption = NewEndValueCaption.Text;
-                        if (CheckTheData(SliderForEdit))
+                        if (Operation.CheckTheData(SliderForEdit))
                         {
-
-                            ReturnNewQuestion=DataBaseConnections.EditQuestion(SliderForEdit);
+                            ReturnNewQuestion= (Slider)Operation.EditQustion(SliderForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
                             StaticObjects.SuccOfFail = 1; 
                             this.Close();
@@ -434,9 +443,9 @@ namespace Survey
                         SmileForEdit.NewText = NewText.Text;
                         SmileForEdit.Order = Convert.ToInt32(NewOrder.Value);
                         SmileForEdit.NumberOfSmiles = Convert.ToInt32(NewNumberOfSmiles.Value);
-                        if (CheckTheData(SmileForEdit))
+                        if (Operation.CheckTheData(SmileForEdit))
                         {
-                            ReturnNewQuestion=DataBaseConnections.EditQuestion(SmileForEdit);
+                            ReturnNewQuestion= (Smiles)Operation.EditQustion(SmileForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
                             StaticObjects.SuccOfFail = 1;
                             this.Close();
@@ -446,20 +455,21 @@ namespace Survey
                         StarForEdit.NewText = NewText.Text;
                         StarForEdit.Order = Convert.ToInt32(NewOrder.Value);
                         StarForEdit.NumberOfStars = Convert.ToInt32(NewNumberOfStars.Value);
-                        if (CheckTheData(StarForEdit))
+                        if (Operation.CheckTheData(StarForEdit))
                         {
-                            ReturnNewQuestion=DataBaseConnections.EditQuestion(StarForEdit);
+                            ReturnNewQuestion= (Stars)Operation.EditQustion(StarForEdit);
                             MessageBox.Show(Properties.Resource1.TheEditMessage);
                             StaticObjects.SuccOfFail = 1;
                             this.Close();
                         }
                     }
                      
-                }
+                 } 
             }
             catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
         /// <summary>
@@ -485,6 +495,10 @@ namespace Survey
 
         }
         private void QuestionsInformation_Load(object sender, EventArgs e)
+        {
+
+        }
+        private void questionDetalis1_Load(object sender, EventArgs e)
         {
 
         }

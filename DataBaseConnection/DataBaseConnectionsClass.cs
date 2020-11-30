@@ -5,17 +5,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;  
+using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using Task1;
-namespace Survey
+using Question;
+using Static; 
+using Constants; 
+namespace DataBaseConnection
 {
     /// <summary>
     /// This Class For Data Base and get Connection with data base  and actions 
     /// with database using only this class
     /// </summary>
-    public  class DataBaseConnections
+    public class DataBaseConnections
     {
         /// <summary>
         /// This strings attrubites for connection string 
@@ -37,9 +38,9 @@ namespace Survey
         private const string NewEndValue = "@End_Value";
         private const string NewStartValueCaption = "@Start_Value_Cap";
         private const string NewEndValueCaption = "@End_Value_Cap";
-        private const string NewNumberOfSmily = "@Number_of_smily"; 
+        private const string NewNumberOfSmily = "@Number_of_smily";
         private const string QustionIdDataBase = "@Qus_ID";
-        private const string NewNumberOfStars = "@Number_Of_Stars"; 
+        private const string NewNumberOfStars = "@Number_Of_Stars";
         private const string IdQuestion = "ID";
         private const string IdQuestionWithAt = "@ID";
         private const string QustionsTetForShow = "Qustions_text";
@@ -72,6 +73,7 @@ namespace Survey
         /// <summary>
         /// For Add Qustion return new OBJECT OF QUESTION
         /// </summary>
+        /// 
         private static int AddQustionInDataBase(Qustions Question)
         {
             int Id = -1;
@@ -137,9 +139,9 @@ namespace Survey
                 }
 
             }
-            return SliderQuestion; 
+            return SliderQuestion;
         }
-        public static Qustions AddNewSmile (Qustions Qustion)
+        public static Qustions AddNewSmile(Qustions Qustion)
         {
             int Id = AddQustionInDataBase(Qustion);
             Smiles SmileQuestion = (Smiles)Qustion;
@@ -171,7 +173,7 @@ namespace Survey
             return SmileQuestion;
 
         }
-        public static Qustions AddNewStar (Qustions Qustion)
+        public static Qustions AddNewStar(Qustions Qustion)
         {
             Stars StarQuestion = (Stars)Qustion;
             int Id = AddQustionInDataBase(Qustion);
@@ -226,7 +228,7 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
-        public static Qustions EditSlider (Qustions Qustion)
+        public static Qustions EditSlider(Qustions Qustion)
         {
             try
             {
@@ -252,7 +254,7 @@ namespace Survey
                 return Qustion;
             }
         }
-        public static Qustions EditSmile (Qustions Qustion)
+        public static Qustions EditSmile(Qustions Qustion)
         {
             try
             {
@@ -275,7 +277,7 @@ namespace Survey
                 return Qustion;
             }
         }
-        public static Qustions EditStar (Qustions Qustion)
+        public static Qustions EditStar(Qustions Qustion)
         {
             try
             {
@@ -310,7 +312,7 @@ namespace Survey
                 {
                     SqlCommand CommandFroDeleteQustion = new SqlCommand(DeleteQustionAttrubites, Connection);
                     CommandFroDeleteQustion.Parameters.AddWithValue(IdQuestion, Id);
-                    CommandFroDeleteQustion.Connection.Open(); 
+                    CommandFroDeleteQustion.Connection.Open();
                     CommandFroDeleteQustion.ExecuteNonQuery();
                     CommandFroDeleteQustion.Parameters.Clear();
                 }
@@ -320,13 +322,13 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
             }
         }
-        public static int DeleteSlider (Qustions Question)
+        public static int DeleteSlider(Qustions Question)
         {
             try
             {
                 using (SqlConnection Connection = new SqlConnection(DataBaseConnections.connectionString))
                 {
-                    Slider QustionWillDeleteSlider = (Slider)Question; 
+                    Slider QustionWillDeleteSlider = (Slider)Question;
                     SqlCommand CommandForDeleteQustion = null;
                     CommandForDeleteQustion = new SqlCommand(DeleteSliderString, Connection);
                     CommandForDeleteQustion.Parameters.AddWithValue(IdQuestionWithAt, QustionWillDeleteSlider.IdForType);
@@ -334,7 +336,7 @@ namespace Survey
                     CommandForDeleteQustion.ExecuteNonQuery();
                     CommandForDeleteQustion.Parameters.Clear();
                     DeleteQustion(Question.Id);
-                    return 1; 
+                    return 1;
                 }
             }
             catch (Exception ex)
@@ -357,15 +359,16 @@ namespace Survey
                     CommandForDeleteQustion.ExecuteNonQuery();
                     CommandForDeleteQustion.Parameters.Clear();
                     DeleteQustion(Question.Id);
-                    return 1; 
+                    return 1;
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
-                return 0; 
+                return 0;
             }
         }
-        public static int DeleteStar (Qustions Question)
+        public static int DeleteStar(Qustions Question)
         {
             try
             {
@@ -379,14 +382,15 @@ namespace Survey
                     CommandForDeleteQustion.ExecuteNonQuery();
                     CommandForDeleteQustion.Parameters.Clear();
                     DeleteQustion(Question.Id);
-                    return 1; 
+                    return 1;
 
                 }
 
-                }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
-                return 0; 
+                return 0;
             }
         }
         /// <summary>
@@ -411,10 +415,10 @@ namespace Survey
                         NewSmile = new Smiles();
                         NewSmile.Id = Convert.ToInt32(DataReader.GetValue(0));
                         NewSmile.IdForType = Convert.ToInt32(DataReader.GetValue(1));
-                        NewSmile.NewText = DataReader.GetValue(2) + Constant.Empty;
+                        NewSmile.NewText = DataReader.GetValue(2) + Constants.Constant.Empty;
                         NewSmile.Order = Convert.ToInt32(DataReader.GetValue(3));
                         NewSmile.NumberOfSmiles = Convert.ToInt32(DataReader.GetValue(4));
-                        NewSmile.TypeOfQuestion = TypeOfQuestion.Smily.ToString();
+                        NewSmile.TypeOfQuestion = Constants.TypeOfQuestion.Smily.ToString();
                         TempListOfQustion.Add(NewSmile);
                     }
                     DataReader.Close();
@@ -425,13 +429,13 @@ namespace Survey
                         NewSlider = new Slider();
                         NewSlider.Id = Convert.ToInt32(DataReader.GetValue(0));
                         NewSlider.IdForType = Convert.ToInt32(DataReader.GetValue(1));
-                        NewSlider.NewText = DataReader.GetValue(2) + Constant.Empty;
+                        NewSlider.NewText = DataReader.GetValue(2) + Constants.Constant.Empty;
                         NewSlider.Order = Convert.ToInt32(DataReader.GetValue(3));
-                        NewSlider.TypeOfQuestion = TypeOfQuestion.Slider.ToString();
+                        NewSlider.TypeOfQuestion = Constants.TypeOfQuestion.Slider.ToString();
                         NewSlider.StartValue = Convert.ToInt32(DataReader.GetValue(4));
                         NewSlider.EndValue = Convert.ToInt32(DataReader.GetValue(5));
-                        NewSlider.StartCaption = DataReader.GetValue(6) + Constant.Empty;
-                        NewSlider.EndCaption = DataReader.GetValue(7) + Constant.Empty;
+                        NewSlider.StartCaption = DataReader.GetValue(6) + Constants.Constant.Empty;
+                        NewSlider.EndCaption = DataReader.GetValue(7) + Constants.Constant.Empty;
                         TempListOfQustion.Add(NewSlider);
                     }
                     DataReader.Close();
@@ -442,10 +446,10 @@ namespace Survey
                         NewStars = new Stars();
                         NewStars.Id = Convert.ToInt32(DataReader.GetValue(0));
                         NewStars.IdForType = Convert.ToInt32(DataReader.GetValue(1));
-                        NewStars.NewText = DataReader.GetValue(2) + Constant.Empty;
+                        NewStars.NewText = DataReader.GetValue(2) + Constants.Constant.Empty;
                         NewStars.Order = Convert.ToInt32(DataReader.GetValue(3));
                         NewStars.NumberOfStars = Convert.ToInt32(DataReader.GetValue(4));
-                        NewStars.TypeOfQuestion = TypeOfQuestion.Stars.ToString();
+                        NewStars.TypeOfQuestion = Constants.TypeOfQuestion.Stars.ToString();
                         TempListOfQustion.Add(NewStars);
                     }
                 }

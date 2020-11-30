@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Diagnostics;
-
 namespace Survey
 {
     /// <summary>
     /// This Class using  AbstractLog For Error 
     /// </summary>
-    class Logger : AbstractLog
+    public class Logger 
     {
         private string CurrentDirectory {
             get;
@@ -42,7 +41,7 @@ namespace Survey
             }
         }
 
-        public override void Log(Exception ex)
+        public  void Log(Exception ex)
         {
             //This Function OVERRIDE FROM AbstractLog that is write Errors and dates in log file  
 
