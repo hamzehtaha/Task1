@@ -12,7 +12,6 @@ namespace Global
         /// This static objects and use it everwhere 
         /// </summary>
         public static Logger Erros = new Logger();
-        public static string AddOrEdit = "";
         public static int SuccOfFail = 0;
     }
 }

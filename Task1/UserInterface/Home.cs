@@ -28,7 +28,9 @@ namespace Survey
         private static string Languge = "English";
         public Home()
         {
-            StartFunction(); 
+            StartFunction();
+            
+
         }
         /// <summary>
         /// The start function for open a home page and get data is already saved in database and show it in datagridview
@@ -48,13 +50,17 @@ namespace Survey
         {
             try
             {
-                foreach (Qustions Temp in ListOfAllQuestion)
+                if (ListOfQuestion.SelectedRows.Count != 0)
                 {
-                    if (Temp.NewText.Equals(ListOfQuestion.SelectedCells[0].Value) && Temp.TypeOfQuestion.Equals(ListOfQuestion.SelectedCells[1].Value) && Temp.Order == Convert.ToInt32(ListOfQuestion.SelectedCells[2].Value))
+                    foreach (Qustions Temp in ListOfAllQuestion)
                     {
-                        return Temp;
-                    }
+                        if (Temp.NewText.Equals(ListOfQuestion.SelectedCells[0].Value) && Temp.TypeOfQuestion.Equals(ListOfQuestion.SelectedCells[1].Value) && Temp.Order == Convert.ToInt32(ListOfQuestion.SelectedCells[2].Value))
+                        {
+                            return Temp;
+                        }
 
+                    }
+                    
                 }
                 return null;
             }
@@ -87,6 +93,7 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
                 MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
+            ListOfQuestion.ClearSelection();
         }
         /// <summary>
         /// This Listener for Add button when press add button 
@@ -117,7 +124,9 @@ namespace Survey
         {
             try
             {
-                QuestionWillDeleteOrEdit =  GetObjectSelect(); 
+                
+                QuestionWillDeleteOrEdit =  GetObjectSelect();
+                ListOfQuestion.ClearSelection();
                 if (QuestionWillDeleteOrEdit != null)
                 {
                     
@@ -142,6 +151,35 @@ namespace Survey
                 StaticObjects.Erros.Log(ex);
                 MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
+        }
+        private void ListOfQuestion_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                QuestionWillDeleteOrEdit = GetObjectSelect();
+                if (QuestionWillDeleteOrEdit != null)
+                {
+                    QuestionsInformation QuestionsInformationPage = new QuestionsInformation(QuestionWillDeleteOrEdit, Global.TypeOfChoice.Edit.ToString());
+                    QuestionsInformationPage.ShowDialog();
+                    if (StaticObjects.SuccOfFail == 1)
+                    {
+                        ListOfAllQuestion = Operation.GetQustion();
+                        ShowData();
+                        StaticObjects.SuccOfFail = 0;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(Survey.Properties.Resource1.NoSelectItem, Global.Constant.ErrorString, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                StaticObjects.Erros.Log(ex);
+                MessageBox.Show(Survey.Properties.Resource1.MessageError);
+            }
+
         }
         /// <summary>
         /// This Listener for delete button when press add button
@@ -237,18 +275,23 @@ namespace Survey
                 MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
 
-        }
         private void Home_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void ListOfQuestion_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ListOfQuestion_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
+
             
+        }
+
+        private void ListOfQuestion_Click(object sender, EventArgs e)
+        {
+
+            
+
         }
     }
 }

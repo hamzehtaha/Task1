@@ -266,5 +266,23 @@ namespace Survey.Properties {
                 return ResourceManager.GetString("TheQuestionNotDeleted", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Question.
+        /// </summary>
+        internal static string TitleOfQuestionAdd {
+            get {
+                return ResourceManager.GetString("TitleOfQuestionAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit Question.
+        /// </summary>
+        internal static string TitleOfQuestionEdit {
+            get {
+                return ResourceManager.GetString("TitleOfQuestionEdit", resourceCulture);
+            }
+        }
     }
 }

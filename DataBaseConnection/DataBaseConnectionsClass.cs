@@ -245,7 +245,9 @@ namespace DataBaseConnection
                     CommandForUpdateSlider.ExecuteNonQuery();
                     CommandForUpdateSlider.Parameters.Clear();
                     EditQuestion(SliderForEdit);
+                    Console.WriteLine("deedde"); 
                     return SliderForEdit;
+                    
                 }
             }
             catch (Exception ex)

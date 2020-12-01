@@ -186,4 +186,10 @@
   <data name="TheQuestionNotDeleted" xml:space="preserve">
     <value>"لم يتم حذف سؤالك"</value>
   </data>
+  <data name="TitleOfQuestionAdd" xml:space="preserve">
+    <value>اضافة السؤال</value>
+  </data>
+  <data name="TitleOfQuestionEdit" xml:space="preserve">
+    <value>تعديل السؤال</value>
+  </data>
 </root>

@@ -52,7 +52,6 @@
             this.panel1.Controls.Add(this.Add);
             this.panel1.Controls.Add(this.ListOfQuestion);
             this.panel1.Name = "panel1";
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // Delete
             // 
@@ -95,7 +94,9 @@
             this.ListOfQuestion.Name = "ListOfQuestion";
             this.ListOfQuestion.ReadOnly = true;
             this.ListOfQuestion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ListOfQuestion.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ListOfQuestion_CellContentClick);
+            this.ListOfQuestion.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ListOfQuestion_CellDoubleClick);
+            this.ListOfQuestion.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.ListOfQuestion_DataBindingComplete);
+            this.ListOfQuestion.Click += new System.EventHandler(this.ListOfQuestion_Click);
             // 
             // Column2
             // 

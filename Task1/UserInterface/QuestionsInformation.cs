@@ -29,6 +29,7 @@ namespace Survey
         private Slider SliderForEdit = null;
         private Stars StarForEdit = null;
         private Smiles SmileForEdit = null;
+        private string AddOrEdirChoice = ""; 
         public Qustions ReturnNewQuestion { get; set; }
         /// <summary>
         /// This constructor for hide and if i choose edit will show the variable for types of question
@@ -39,12 +40,13 @@ namespace Survey
             InitHide();
             this.QuestionWillDeleteOrEdit = QuestionWillDeleteOrEdit;
             NewText.Focus();
+            AddOrEdirChoice = AddOrEdit;
             try
             {
                 if (TypeOfChoice.Edit.ToString() == AddOrEdit)
                 {
+                    this.Text = Survey.Properties.Resource1.TitleOfQuestionEdit;
                     GroupOfTypes.Visible = false;
-                    StaticObjects.AddOrEdit = TypeOfChoice.Edit.ToString();
                     ShowDataForEdit();
                     if (QuestionWillDeleteOrEdit != null)
                     {
@@ -58,8 +60,8 @@ namespace Survey
                 }
                 else if (TypeOfChoice.Add.ToString() == AddOrEdit)
                 {
+                    this.Text = Survey.Properties.Resource1.TitleOfQuestionAdd; 
                     GroupOfTypes.Visible = true;
-                    StaticObjects.AddOrEdit = TypeOfChoice.Add.ToString();
                     InitHide();
                 }
                 
@@ -365,7 +367,7 @@ namespace Survey
         {
             try
             {
-                if (StaticObjects.AddOrEdit == TypeOfChoice.Add.ToString())
+                if (AddOrEdirChoice == TypeOfChoice.Add.ToString())
                 {
                     if (SliderRadio.Checked)
                     {
@@ -422,7 +424,7 @@ namespace Survey
                 MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
             try { 
-                 if (StaticObjects.AddOrEdit == TypeOfChoice.Edit.ToString())
+                 if (AddOrEdirChoice == TypeOfChoice.Edit.ToString())
                  {
                    if (SliderForEdit != null)
                    {
@@ -472,6 +474,7 @@ namespace Survey
             catch (Exception ex)
             {
                 StaticObjects.Erros.Log(ex);
+
                 MessageBox.Show(Survey.Properties.Resource1.MessageError);
             }
         }

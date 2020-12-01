@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalClass.cs" />
+    <Compile Include="ConstantClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StaticObjects.cs" />
   </ItemGroup>
